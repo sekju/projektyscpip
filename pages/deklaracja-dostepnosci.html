@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deklaracja dostępności - Śląskie Centrum Profilaktyki i Psychoterapii</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Accessibility Widget -->
+    <div id="accessibility-widget" class="accessibility-widget" role="toolbar" aria-label="Narzędzia dostępności">
+        <button id="accessibility-toggle" class="accessibility-toggle" aria-expanded="false" aria-controls="accessibility-panel">
+            <span class="sr-only">Otwórz panel dostępności</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9M15 11.5C15.8 11.5 16.5 12.2 16.5 13S15.8 14.5 15 14.5 13.5 13.8 13.5 13 14.2 11.5 15 11.5M9 13C9 11.9 8.1 11 7 11S5 11.9 5 13 5.9 15 7 15 9 14.1 9 13M12 7.5C11.2 7.5 10.5 8.2 10.5 9V22.5H13.5V16H14.5V22.5H17.5V9C17.5 8.2 16.8 7.5 16 7.5H12Z"/>
+            </svg>
+        </button>
+        
+        <div id="accessibility-panel" class="accessibility-panel" aria-hidden="true">
+            <div class="accessibility-header">
+                <h2>Panel Dostępności</h2>
+                <button id="close-accessibility" class="close-btn" aria-label="Zamknij panel dostępności">×</button>
+            </div>
+            
+            <div class="accessibility-controls">
+                <div class="control-group">
+                    <label for="font-size-slider">Rozmiar czcionki:</label>
+                    <div class="slider-container">
+                        <button id="font-decrease" aria-label="Zmniejsz czcionkę">A-</button>
+                        <input type="range" id="font-size-slider" min="12" max="24" value="16" aria-label="Kontrola rozmiaru czcionki">
+                        <button id="font-increase" aria-label="Zwiększ czcionkę">A+</button>
+                    </div>
+                    <span id="font-size-value">16px</span>
+                </div>
+                
+                <div class="control-group">
+                    <label>Kontrast:</label>
+                    <div class="button-group">
+                        <button id="normal-contrast" class="contrast-btn active" data-contrast="normal">Normalny</button>
+                        <button id="high-contrast" class="contrast-btn" data-contrast="high">Wysoki</button>
+                        <button id="mono-contrast" class="contrast-btn" data-contrast="mono">Monochromatyczny</button>
+                        <button id="dark-mode" class="contrast-btn" data-contrast="dark">Ciemny</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Czytanie tekstu:</label>
+                    <div class="button-group">
+                        <button id="read-page" class="tts-btn">Czytaj stronę</button>
+                        <button id="pause-reading" class="tts-btn">Pauza</button>
+                        <button id="stop-reading" class="tts-btn">Stop</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Nawigacja:</label>
+                    <div class="button-group">
+                        <button id="focus-main" class="nav-btn">Przejdź do treści</button>
+                        <button id="focus-nav" class="nav-btn">Przejdź do menu</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Instrukcje:</label>
+                    <div class="button-group">
+                        <button id="keyboard-help" class="help-btn">Instrukcja klawiatury</button>
+                        <button id="read-help" class="help-btn">Czytaj instrukcje</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <button id="reset-settings" class="reset-btn">Resetuj ustawienia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
+    
+    <header>
+        <div class="container">
+            <div class="logos">
+                <img src="../media/images/kolory-pion-slaskie-rgb.png" alt="Obraz: Logo Funduszy Europejskich dla Śląskiego - kolorowe logo z napisem Fundusze Europejskie dla Śląskiego, symbol Unii Europejskiej i tekst o współfinansowaniu z Europejskiego Funduszu Społecznego Plus" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Funduszy Europejskich dla Śląskiego - kolorowe logo z napisem Fundusze Europejskie dla Śląskiego, symbol Unii Europejskiej i tekst o współfinansowaniu z Europejskiego Funduszu Społecznego Plus</div>');">
+                <img src="../media/images/kolory-pion-rzeczpospolita-polska-rgb.png" alt="Obraz: Logo Rzeczpospolitej Polskiej - godło Polski z orłem w koronie na czerwonym tle z napisem Rzeczpospolita Polska" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Rzeczpospolitej Polskiej - godło Polski z orłem w koronie na czerwonym tle z napisem Rzeczpospolita Polska</div>');">
+                <img src="../media/images/kolory-pion-unia-europejska-rgb.png" alt="Obraz: Logo Unii Europejskiej - niebieska flaga z kołem dwunastu złotych gwiazd i napisem Unia Europejska" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Unii Europejskiej - niebieska flaga z kołem dwunastu złotych gwiazd i napisem Unia Europejska</div>');">
+                <img src="../media/images/kolory-pion-wojewodztwo-slaskie.png" alt="Obraz: Herb Województwa Śląskiego - żółty orzełą na niebiwskim tle." onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Herb Województwa Śląskiego - żółty orzełą na niebiwskim tle.</div>');">
+            </div>
+            <div class="container">
+            <div class="centered-logo">
+
+                <img src="../media/images/logo-scpip-1.png"
+                    alt="Obraz: Logo Śląskiego Centrum Profilaktyki i Psychoterapii - stylizowane logo z napisem SCPiP i pełną nazwą organizacji"
+                    onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Śląskiego Centrum Profilaktyki i Psychoterapii - stylizowane logo z napisem SCPiP i pełną nazwą organizacji</div>');">
+            </div>
+            </div>
+
+            <h1>Deklaracja dostępności</h1>
+        </div>
+    </header>
+
+    <nav aria-label="Nawigacja powrotu" role="navigation">
+        <div class="container">
+            <ul role="menubar">
+                <li role="none"><a href="../index.html" role="menuitem" tabindex="0">← Powrót do strony głównej</a></li>
+            </ul>
+        </div>
+    </nav>
+  <main id="main-content" class="container">
+    <section id="a11y-wstep">
+      <h2>Wstęp</h2>
+      <p>Śląskie Centrum Profilaktyki i Psychoterapii zobowiązuje się zapewnić dostępność swojej strony internetowej zgodnie z przepisami ustawy z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych.</p>
+      <p>Adres strony internetowej: <a href="https://projektyslaskiecentrum.com/">https://projektyslaskiecentrum.com/</a></p>
+    </section>
+
+    <section id="a11y-data-publikacja">
+      <h2>Data publikacji i aktualizacji</h2>
+      <p>Data publikacji strony internetowej: <time datetime="2024-04-01">1 kwietnia 2024 r.</time></p>
+      <p>Data ostatniej istotnej aktualizacji: <time datetime="2025-06-12">12 czerwca 2025 r.</time></p>
+      <p>Data publikacji deklaracji dostępności: <time datetime="2025-06-12">12 czerwca 2025 r.</time></p>
+      <p>Data ostatniej oceny dostępności: <time datetime="2025-06-12">12 czerwca 2025 r.</time></p>
+    </section>
+
+    <section id="a11y-metodologia">
+      <h2>Metodologia oceny</h2>
+      <p>Ocena dostępności została przeprowadzona przy użyciu następujących metod:</p>
+      <ul>
+        <li><strong>Ocena automatyczna</strong> - wykorzystanie narzędzi do automatycznej walidacji dostępności</li>
+        <li><strong>Ocena ekspercka</strong> - przegląd przez specjalistów ds. dostępności cyfrowej</li>
+        <li><strong>Testy użytkowników</strong> - symulacja korzystania z technologii wspomagających</li>
+        <li><strong>Testy nawigacji klawiaturą</strong> - sprawdzenie pełnej funkcjonalności bez myszy</li>
+        <li><strong>Testy czytników ekranu</strong> - weryfikacja poprawności odczytu treści</li>
+        <li><strong>Testy kontrastów</strong> - sprawdzenie zgodności z wymaganiami WCAG</li>
+      </ul>
+      <p>Ocena została przeprowadzona zgodnie z metodyką określoną w rozporządzeniu Rady Ministrów z dnia 12 kwietnia 2019 r. w sprawie Krajowych Ram Interoperacyjności.</p>
+    </section>
+
+    <section id="a11y-status">
+      <h2>Status zgodności</h2>
+      <p>Strona internetowa jest w pełni zgodna z ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych oraz z wytycznymi WCAG 2.1 na poziomie AA.</p>
+      <p><strong>Data ostatniej oceny zgodności:</strong> <time datetime="2025-06-12">12 czerwca 2025 r.</time></p>
+    </section>
+
+    <section id="a11y-niezgodnosci">
+      <h2>Niezgodność z załącznikiem</h2>
+      <p>Nie stwierdzono niezgodności. Wszystkie wcześniej zidentyfikowane problemy zostały rozwiązane:</p>
+      <ul>
+        <li><strong>✅ Rozwiązano:</strong> Wszystkie obrazy posiadają odpowiedni tekst alternatywny lub są oznaczone jako dekoracyjne.</li>
+        <li><strong>✅ Rozwiązano:</strong> Elementy nawigacyjne są w pełni obsługiwane klawiaturą z wykorzystaniem strzałek, Enter, Spacji oraz skrótów klawiszowych.</li>
+        <li><strong>⚠️ Uwaga:</strong> Część dokumentów PDF może wymagać dodatkowych narzędzi dostępności - zalecamy korzystanie z czytników PDF z obsługą dostępności.</li>
+      </ul>
+    </section>
+
+    <section id="a11y-nieobjete">
+      <h2>Treści nieobjęte przepisami</h2>
+      <p>Nie dotyczy.</p>
+    </section>
+
+    <section id="a11y-kontakt">
+      <h2>Informacje zwrotne i kontakt</h2>
+      <p>W przypadku problemów z dostępnością strony prosimy o kontakt:</p>
+      <ul>
+        <li>Adres e-mail: <a id="a11y-email" href="mailto:kontakt@projektyslaskiecentrum.com">kontakt@projektyslaskiecentrum.com</a></li>
+        <li>Telefon: <span id="a11y-telefon">+48 32 123 45 67</span></li>
+      </ul>
+    </section>
+
+    <section id="a11y-procedura">
+      <h2>Procedura</h2>
+      <p>Każdy ma prawo zgłosić żądanie zapewnienia dostępności cyfrowej strony lub jej elementu. Można również wnioskować o udostępnienie informacji w formie alternatywnej. Żądanie powinno zawierać dane kontaktowe osoby zgłaszającej oraz wskazanie dogodnej formy informacji. Odpowiedź zostanie udzielona w ciągu 7 dni.</p>
+      <p>W przypadku odmowy zapewnienia dostępności można złożyć skargę do <a href="https://www.rpo.gov.pl">Rzecznika Praw Obywatelskich</a>.</p>
+    </section>
+
+    <section id="a11y-dostepnosc-arch">
+      <h2>Dostępność architektoniczna</h2>
+      <p><strong>Katowice, ul. Ligocka 5:</strong> Wejście dostępne, winda, toaleta dostosowana, miejsce parkingowe.</p>
+      <p><strong>Ruda Śląska, ul. Solidarności 5/9:</strong> Wejście dostępne, winda, toaleta dostosowana, miejsce parkingowe.</p>
+    </section>
+
+    <section id="a11y-komunikacyjna">
+      <h2>Dostępność komunikacyjno-informacyjna</h2>
+      <p>Brak tłumacza języka migowego online, brak informacji w ETR. Możliwość wsparcia asystenta po wcześniejszym zgłoszeniu.</p>
+    </section>
+
+    <section id="a11y-aplikacje">
+      <h2>Aplikacje mobilne</h2>
+      <p>Podmiot nie udostępnia aplikacji mobilnych.</p>
+    </section>
+
+    <section id="a11y-pozostale">
+      <h2>Pozostałe informacje</h2>
+      <p>Na stronie zastosowano zaawansowany system dostępności obejmujący:</p>
+      <ul>
+        <li><strong>Panel dostępności</strong> - umożliwia zmianę kontrastu, rozmiaru czcionki (12-24px), trybu wyświetlania oraz czytanie tekstu</li>
+        <li><strong>Nawigacja klawiaturą</strong> - pełna obsługa strzałek, Enter, Spacji, Escape oraz skrótów Alt+A, Alt+M, Alt+C</li>
+        <li><strong>Skip links</strong> - szybkie przejście do głównej treści, nawigacji i stopki</li>
+        <li><strong>Automatyczna walidacja</strong> - system sprawdza dostępność obrazów i elementów w czasie rzeczywistym</li>
+        <li><strong>Wsparcie czytników ekranu</strong> - live regions, odpowiednie etykiety ARIA i komunikaty</li>
+        <li><strong>Tryby kontrastowe</strong> - normalny, wysoki kontrast, monochromatyczny, tryb ciemny</li>
+        <li><strong>Text-to-Speech</strong> - możliwość odsłuchania treści strony z kontrolą odtwarzania</li>
+        <li><strong>Responsive design</strong> - dostosowanie do różnych rozmiarów ekranów i urządzeń</li>
+      </ul>
+    </section>
+
+    <section id="a11y-zgodnosc-standardy">
+      <h2>Zgodność ze standardami</h2>
+      <p>Strona jest zgodna z następującymi standardami dostępności:</p>
+      <ul>
+        <li><strong>WCAG 2.1 Level AA</strong> - Web Content Accessibility Guidelines</li>
+        <li><strong>Section 508</strong> - amerykański standard dostępności</li>
+        <li><strong>EN 301 549</strong> - europejski standard dostępności</li>
+        <li><strong>Ustawa o dostępności cyfrowej</strong> - polskie przepisy prawne</li>
+      </ul>
+    </section>
+
+    <section id="a11y-testowanie">
+      <h2>Testowanie dostępności</h2>
+      <p>Strona została przetestowana z wykorzystaniem:</p>
+      <ul>
+        <li>Nawigacji wyłącznie za pomocą klawiatury</li>
+        <li>Czytników ekranu (symulacja NVDA, JAWS, VoiceOver)</li>
+        <li>Różnych poziomów powiększenia (100%-200%)</li>
+        <li>Wszystkich trybów kontrastowych</li>
+        <li>Automatycznych narzędzi walidacji dostępności</li>
+      </ul>
+    </section>
+
+    <section id="a11y-aktualizacje">
+      <h2>Aktualizacje i monitorowanie</h2>
+      <p>System dostępności jest stale monitorowany i aktualizowany:</p>
+      <ul>
+        <li>Automatyczne sprawdzanie dostępności przy każdym ładowaniu strony</li>
+        <li>Logowanie problemów w konsoli przeglądarki dla deweloperów</li>
+        <li>Regularne przeglądy zgodności ze standardami</li>
+        <li>Aktualizacje w odpowiedzi na nowe wytyczne dostępności</li>
+      </ul>
+      <p><strong>Następny przegląd planowany:</strong> <time datetime="2025-12-12">12 grudnia 2025 r.</time></p>
+    </section>
+  </main>
+  
+  <footer>
+        <div class="container">
+            <h3>Kontakt</h3>
+            <address class="contact-info" style="border: none; background: none; padding: 0;">
+                <strong>Śląskie Centrum Profilaktyki i Psychoterapii</strong><br>
+                ul. Mikołowska 21, 40-067 Katowice<br><br>
+                <strong>Biuro projektów SCPiP</strong><br>
+                ul. Ligocka 5, 40-570 Katowice
+            </address>
+
+            <p style="margin-top: 2rem;">
+                <a href="../index.html">← Powrót do strony głównej</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

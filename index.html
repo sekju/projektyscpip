@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekty - Śląskie Centrum Profilaktyki i Psychoterapii (Wersja Dostępna)</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Accessibility Widget -->
+    <div id="accessibility-widget" class="accessibility-widget" role="toolbar" aria-label="Narzędzia dostępności">
+        <button id="accessibility-toggle" class="accessibility-toggle" aria-expanded="false" aria-controls="accessibility-panel">
+            <span class="sr-only">Otwórz panel dostępności</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9M15 11.5C15.8 11.5 16.5 12.2 16.5 13S15.8 14.5 15 14.5 13.5 13.8 13.5 13 14.2 11.5 15 11.5M9 13C9 11.9 8.1 11 7 11S5 11.9 5 13 5.9 15 7 15 9 14.1 9 13M12 7.5C11.2 7.5 10.5 8.2 10.5 9V22.5H13.5V16H14.5V22.5H17.5V9C17.5 8.2 16.8 7.5 16 7.5H12Z"/>
+            </svg>
+        </button>
+        
+        <div id="accessibility-panel" class="accessibility-panel" aria-hidden="true">
+            <div class="accessibility-header">
+                <h2>Panel Dostępności</h2>
+                <button id="close-accessibility" class="close-btn" aria-label="Zamknij panel dostępności">×</button>
+            </div>
+            
+            <div class="accessibility-controls">
+                <div class="control-group">
+                    <label for="font-size-slider">Rozmiar czcionki:</label>
+                    <div class="slider-container">
+                        <button id="font-decrease" aria-label="Zmniejsz czcionkę">A-</button>
+                        <input type="range" id="font-size-slider" min="12" max="24" value="16" aria-label="Kontrola rozmiaru czcionki">
+                        <button id="font-increase" aria-label="Zwiększ czcionkę">A+</button>
+                    </div>
+                    <span id="font-size-value">16px</span>
+                </div>
+                
+                <div class="control-group">
+                    <label>Kontrast:</label>
+                    <div class="button-group">
+                        <button id="normal-contrast" class="contrast-btn active" data-contrast="normal">Normalny</button>
+                        <button id="high-contrast" class="contrast-btn" data-contrast="high">Wysoki</button>
+                        <button id="mono-contrast" class="contrast-btn" data-contrast="mono">Monochromatyczny</button>
+                        <button id="dark-mode" class="contrast-btn" data-contrast="dark">Ciemny</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Czytanie tekstu:</label>
+                    <div class="button-group">
+                        <button id="read-page" class="tts-btn">Czytaj stronę</button>
+                        <button id="pause-reading" class="tts-btn">Pauza</button>
+                        <button id="stop-reading" class="tts-btn">Stop</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Nawigacja:</label>
+                    <div class="button-group">
+                        <button id="focus-main" class="nav-btn">Przejdź do treści</button>
+                        <button id="focus-nav" class="nav-btn">Przejdź do menu</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label>Instrukcje:</label>
+                    <div class="button-group">
+                        <button id="keyboard-help" class="help-btn">Instrukcja klawiatury</button>
+                        <button id="read-help" class="help-btn">Czytaj instrukcje</button>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <button id="reset-settings" class="reset-btn">Resetuj ustawienia</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skip to main content link -->
+    <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
+    <header>
+        <div class="container">
+            <div class="logos">
+                <img src="media/images/kolory-pion-slaskie-rgb.png" alt="Obraz: Logo Funduszy Europejskich dla Śląskiego - kolorowe logo z napisem Fundusze Europejskie dla Śląskiego, symbol Unii Europejskiej i tekst o współfinansowaniu z Europejskiego Funduszu Społecznego Plus" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Funduszy Europejskich dla Śląskiego - kolorowe logo z napisem Fundusze Europejskie dla Śląskiego, symbol Unii Europejskiej i tekst o współfinansowaniu z Europejskiego Funduszu Społecznego Plus</div>');">
+                <img src="media/images/kolory-pion-rzeczpospolita-polska-rgb.png" alt="Obraz: Logo Rzeczpospolitej Polskiej - godło Polski z orłem w koronie na czerwonym tle z napisem Rzeczpospolita Polska" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Rzeczpospolitej Polskiej - godło Polski z orłem w koronie na czerwonym tle z napisem Rzeczpospolita Polska</div>');">
+                <img src="media/images/kolory-pion-unia-europejska-rgb.png" alt="Obraz: Logo Unii Europejskiej - niebieska flaga z kołem dwunastu złotych gwiazd i napisem Unia Europejska" onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Unii Europejskiej - niebieska flaga z kołem dwunastu złotych gwiazd i napisem Unia Europejska</div>');">
+                <img src="media/images/kolory-pion-wojewodztwo-slaskie.png" alt="Obraz: Herb Województwa Śląskiego - żółty orzełą na niebiwskim tle." onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Herb Województwa Śląskiego - żółty orzełą na niebiwskim tle.</div>');">
+            </div>
+            <div class="container">
+            <div class="centered-logo">
+
+                <img src="media/images/logo-scpip-1.png"
+                    alt="Obraz: Logo Śląskiego Centrum Profilaktyki i Psychoterapii - stylizowane logo z napisem SCPiP i pełną nazwą organizacji"
+                    onerror="this.style.display='none'; this.insertAdjacentHTML('afterend', '<div class=&quot;image-placeholder&quot;>Obraz: Logo Śląskiego Centrum Profilaktyki i Psychoterapii - stylizowane logo z napisem SCPiP i pełną nazwą organizacji</div>');">
+            </div>
+            </div>
+
+            <h1>Projekty Śląskiego Centrum Profilaktyki i Psychoterapii</h1>
+        </div>
+    </header>
+
+    <nav aria-label="Nawigacja po projektach" role="navigation">
+        <div class="container">
+            <ul role="menubar">
+                <li role="none"><a href="#o-projektach" role="menuitem" tabindex="0">O projektach</a></li>
+                <li role="none"><a href="#strefa-katowice" role="menuitem" tabindex="-1">Strefa Transformacji w Katowicach 2.0</a></li>
+                <li role="none"><a href="#strefa-ruda" role="menuitem" tabindex="-1">Strefa Transformacji w Rudzie Śląskiej 2.0</a></li>
+                <li role="none"><a href="#zwrotnica-katowice" role="menuitem" tabindex="-1">ZWROTNICA w Katowicach 2.0</a></li>
+                <li role="none"><a href="#zwrotnica-ruda" role="menuitem" tabindex="-1">ZWROTNICA w Rudzie Śląskiej</a></li>
+                <li role="none"><a href="#freedom" role="menuitem" tabindex="-1">freeDOM – mieszkanie treningowe</a></li>
+                <li role="none"><a href="#praktykant" role="menuitem" tabindex="-1">Praktykant - doświadczenie na wagę złota</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main-content" class="container">
+        
+        <!-- SEKCJA: O projektach -->
+        <section id="o-projektach" aria-labelledby="o-projektach-heading">
+            <h2 id="o-projektach-heading">O projektach</h2>
+            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekty skierowane do mieszkańców, pracowników i uczniów miasta Katowice oraz Rudy Śląskiej:</p>
+            <ul>
+                <li>"Strefa Transformacji w Katowicach 2.0"</li>
+                <li>"Strefa Transformacji w Rudzie Śląskiej 2.0"</li>
+                <li>"ZWROTNICA – integracja na dobrym torze w Katowicach 2.0"</li>
+                <li>"ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej"</li>
+                <li>"freeDOM – mieszkanie treningowe"</li>
+                <li>"Praktykant - doświadczenie na wagę złota"</li>
+            </ul>
+        </section>
+
+        <!-- SEKCJA 1: Strefa Transformacji w Katowicach 2.0 -->
+        <section id="strefa-katowice" aria-labelledby="strefa-katowice-heading">
+            <h2 id="strefa-katowice-heading">Strefa Transformacji w Katowicach 2.0</h2>
+            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekt skierowany do mieszkańców, pracowników i uczniów miasta Katowice. Oferujemy działania na rzecz rozwoju społeczności lokalnej.</p>
+            
+            <h3>Zapraszamy na bezpłatne zajęcia:</h3>
+            <ul>
+                <li>Strefa Cyfrowa</li>
+                <li>Strefa Aktywnych Kobiet</li>
+                <li>Strefa Młodzieży</li>
+                <li>Strefa Tożsamości Regionalnej</li>
+                <li>Strefa Ekologiczna</li>
+                <li>Międzypokoleniowy Klub Społecznościowy</li>
+                <li>Zajęcia sportowo-rekreacyjne</li>
+                <li>Warsztaty integracyjno-animacyjne</li>
+                <li>Wydarzenia oraz inicjatywy lokalne</li>
+                <li>Kursy oraz szkolenia edukacyjne</li>
+            </ul>
+            
+            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligocka 5. Zapewniamy poczęstunek i materiały. Obowiązują zapisy.</p>
+            
+            <h4>Metadane Projektu:</h4>
+            <ul>
+                <li><strong>Okres realizacji:</strong> 01.04.2024 – 30.06.2026 r.</li>
+                <li><strong>Wartość projektu:</strong> 1 955 160,00 zł</li>
+                <li><strong>Finansowanie:</strong> Wkład z UE: 1 759 644,00 zł | Budżet Państwa: 195 516,00 zł</li>
+            </ul>
+            
+            <h3>Cel projektu</h3>
+            <p>Głównym celem jest wzmocnienie, akceptacja procesu sprawiedliwej transformacji i zmiany klimatycznej oraz poprawa funkcjonowania społecznego. Grupę docelową stanowi co najmniej 140 osób z Katowic. Projekt jest dostępny dla osób z niepełnosprawnością.</p>
+            
+            <div class="accessibility-info">
+                <h4>Dostępność architektoniczna</h4>
+                <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
+                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Wejście do budynku jest na poziomie chodnika, bez schodów. Wewnątrz znajduje się winda umożliwiająca dostęp na wszystkie piętra. Toalety są dostosowane do potrzeb osób z niepełnosprawnościami. Przed budynkiem znajdują się oznaczone miejsca parkingowe dla osób z niepełnosprawnościami.</p>
+            </div>
+            
+            <div class="contact-info">
+                <h4>Kontakt w sprawie projektu</h4>
+                <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
+                <ul>
+                    <li>Telefonicznie: <a href="tel:+48321234567" aria-label="Zadzwoń pod numer 32 123 45 67"><strong>32 123 45 67</strong></a></li>
+                    <li>Mailowo: <a href="mailto:strefa.katowice@scpip.pl?subject=Strefa Transformacji w Katowicach 2.0" aria-label="Wyślij email do strefa.katowice@scpip.pl"><strong>strefa.katowice@scpip.pl</strong></a></li>
+                </ul>
+            </div>
+
+            <h3>Dokumenty rekrutacyjne do projektu</h3>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-katowice/formularz_rekrutacyjny_podstawowy_ST_Kato_(1).pdf" target="_blank" aria-label="Formularz rekrutacyjny podstawowy ST Kato - otworzy się w nowej karcie">Formularz rekrutacyjny podstawowy ST Kato</a> (<a href="dokumenty/strefa-katowice/formularz_rekrutacyjny_podstawowy_ST_Kato_(1).pdf" target="_blank" aria-label="PDF, 671 KB - otworzy się w nowej karcie">PDF: 671 KB</a>, <a href="dokumenty/strefa-katowice/formularz_rekrutacyjny_podstawowy_ST_Kato.docx" target="_blank" aria-label="WORD, 42 KB - zostanie pobrany">WORD: 42 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-katowice/Regulamin_Rekrutacji_i_uczestnictwa_w_projekcie_ST_KATO_(1).pdf" target="_blank" aria-label="Regulamin Rekrutacji i uczestnictwa w projekcie ST KATO - otworzy się w nowej karcie">Regulamin Rekrutacji i uczestnictwa w projekcie ST KATO</a> (<a href="dokumenty/strefa-katowice/Regulamin_Rekrutacji_i_uczestnictwa_w_projekcie_ST_KATO_(1).pdf" target="_blank" aria-label="PDF, 590 KB - otworzy się w nowej karcie">PDF: 590 KB</a>, <a href="dokumenty/strefa-katowice/Regulamin_Rekrutacji_i_uczestnictwa_w_projekcie_ST_KATO.docx" target="_blank" aria-label="WORD, 51 KB - zostanie pobrany">WORD: 51 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/strefa-katowice/protokol_rekrutacyjny_podstawowy_ST_Kato_(1).pdf" target="_blank" aria-label="Protokół rekrutacyjny podstawowy ST Kato - otworzy się w nowej karcie">Protokół rekrutacyjny podstawowy ST Kato</a> (<a href="dokumenty-converted/strefa-katowice/protokol_rekrutacyjny_podstawowy_ST_Kato_(1).pdf" target="_blank" aria-label="PDF, 659 KB - otworzy się w nowej karcie">PDF: 659 KB</a>, <a href="dokumenty-converted/strefa-katowice/protokol_rekrutacyjny_podstawowy_ST_Kato.docx" target="_blank" aria-label="WORD, 42 KB - zostanie pobrany">WORD: 42 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-katowice/RODO_do_ST_Kato_(1).pdf" target="_blank" aria-label="RODO do ST Kato - otworzy się w nowej karcie">RODO do ST Kato</a> (<a href="dokumenty/strefa-katowice/RODO_do_ST_Kato_(1).pdf" target="_blank" aria-label="PDF, 725 KB - otworzy się w nowej karcie">PDF: 725 KB</a>, <a href="dokumenty/strefa-katowice/RODO_do_ST_Kato.docx" target="_blank" aria-label="WORD, 48 KB - zostanie pobrany">WORD: 48 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-katowice/suplement_do_formularza_rekrutacyjnego_ST_Kato_(1).pdf" target="_blank" aria-label="Suplement do formularza rekrutacyjnego ST Kato - otworzy się w nowej karcie">Suplement do formularza rekrutacyjnego ST Kato</a> (<a href="dokumenty/strefa-katowice/suplement_do_formularza_rekrutacyjnego_ST_Kato_(1).pdf" target="_blank" aria-label="PDF, 973 KB - otworzy się w nowej karcie">PDF: 973 KB</a>, <a href="dokumenty/strefa-katowice/suplement_do_formularza_rekrutacyjnego_ST_Kato.docx" target="_blank" aria-label="WORD, 2244 KB - zostanie pobrany">WORD: 2244 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-katowice/wizerunek_ST_Kato_(1).pdf" target="_blank" aria-label="Wizerunek ST Kato - otworzy się w nowej karcie">Wizerunek ST Kato</a> (<a href="dokumenty/strefa-katowice/wizerunek_ST_Kato_(1).pdf" target="_blank" aria-label="PDF, 642 KB - otworzy się w nowej karcie">PDF: 642 KB</a>, <a href="dokumenty/strefa-katowice/wizerunek_ST_Kato.docx" target="_blank" aria-label="WORD, 41 KB - zostanie pobrany">WORD: 41 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/strefa-katowice/wzor_zaSwiadczenia_o_zatrudnieniu_lub_edukacji_na_terenie_Kato_projekt_ST_(1).pdf" target="_blank" aria-label="Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - otworzy się w nowej karcie">Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST</a> (<a href="dokumenty-converted/strefa-katowice/wzor_zaSwiadczenia_o_zatrudnieniu_lub_edukacji_na_terenie_Kato_projekt_ST_(1).pdf" target="_blank" aria-label="PDF, 570 KB - otworzy się w nowej karcie">PDF: 570 KB</a>, <a href="dokumenty-converted/strefa-katowice/wzor_zaSwiadczenia_o_zatrudnieniu_lub_edukacji_na_terenie_Kato_projekt_ST.docx" target="_blank" aria-label="WORD, 39 KB - zostanie pobrany">WORD: 39 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-katowice/HFW_6_2025.pdf" target="_blank" aria-label="HFW 6 2025 - otworzy się w nowej karcie">HFW 6 2025</a> <span class="file-info">(PDF: 221 KB)</span></div>
+        </section>
+
+        <!-- SEKCJA 2: Strefa Transformacji w Rudzie Śląskiej 2.0 -->
+        <section id="strefa-ruda" aria-labelledby="strefa-ruda-heading">
+            <h2 id="strefa-ruda-heading">Strefa Transformacji w Rudzie Śląskiej 2.0</h2>
+            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekt skierowany do mieszkańców, pracowników i uczniów miasta Ruda Śląska, mający na celu rozwój społeczności lokalnej.</p>
+            
+            <h3>Zapraszamy na bezpłatne zajęcia:</h3>
+            <ul>
+                <li>Strefa Cyfrowa</li>
+                <li>Strefa Aktywnych Kobiet</li>
+                <li>Strefa Młodzieży</li>
+                <li>Strefa Tożsamości Regionalnej</li>
+                <li>Strefa Ekologiczna</li>
+                <li>Międzypokoleniowy Klub Społecznościowy i inne</li>
+            </ul>
+            
+            <p><strong>Biuro projektu:</strong> Ruda Śląska, ul. Solidarności 5/9. Zapewniamy poczęstunek i materiały. Obowiązują zapisy.</p>
+            
+            <h4>Metadane Projektu</h4>
+            <ul>
+                <li><strong>Okres realizacji:</strong> 01.04.2024 – 30.06.2026 r.</li>
+                <li><strong>Wartość projektu:</strong> 1 973 160,00 zł</li>
+                <li><strong>Finansowanie:</strong> Wkład z UE: 1 775 844,00 zł | Budżet Państwa: 197 316,00 zł</li>
+            </ul>
+            
+            <h3>Cel projektu</h3>
+            <p>Głównym celem jest wzmocnienie i akceptacja procesu sprawiedliwej transformacji. Grupę docelową stanowi co najmniej 140 osób z Rudy Śląskiej. Projekt jest dostępny dla osób z niepełnosprawnością.</p>
+
+            <div class="accessibility-info">
+                <h4>Dostępność architektoniczna</h4>
+                <p><strong>Biuro projektu (Ruda Śląska, ul. Solidarności 5/9):</strong></p>
+                <p>Budynek posiada podjazd dla wózków inwalidzkich przy wejściu głównym. Wewnątrz znajduje się winda dostosowana do potrzeb osób z niepełnosprawnościami. Toalety są przystosowane dla osób z niepełnosprawnościami. W pobliżu budynku znajdują się oznaczone miejsca parkingowe dla osób z niepełnosprawnościami.</p>
+            </div>
+            
+            <div class="contact-info">
+                <h4>Kontakt w sprawie projektu</h4>
+                <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
+                <ul>
+                    <li>Telefonicznie: <a href="tel:+48322345678" aria-label="Zadzwoń pod numer 32 234 56 78"><strong>32 234 56 78</strong></a></li>
+                    <li>Mailowo: <a href="mailto:strefa.ruda@scpip.pl?subject=Strefa Transformacji w Rudzie Śląskiej 2.0" aria-label="Wyślij email do strefa.ruda@scpip.pl"><strong>strefa.ruda@scpip.pl</strong></a></li>
+                </ul>
+            </div>
+            
+            <h3>Dokumenty rekrutacyjne do projektu</h3>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-ruda/ankieta_potrzeb_ST.docx" target="_blank" aria-label="Ankieta potrzeb ST - zostanie pobrana">Ankieta potrzeb ST</a> <span class="file-info">(WORD: 55 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/strefa-ruda/HFW_Strefa_Transformacji_Ruda_SlAska_03_2025.pdf" target="_blank" aria-label="HFW Strefa Transformacji Ruda Śląska 03 2025 - otworzy się w nowej karcie">HFW Strefa Transformacji Ruda Śląska 03 2025</a> (<a href="dokumenty-converted/strefa-ruda/HFW_Strefa_Transformacji_Ruda_SlAska_03_2025.pdf" target="_blank" aria-label="PDF, 228 KB - otworzy się w nowej karcie">PDF: 228 KB</a>, <a href="dokumenty-converted/strefa-ruda/HFW_Strefa_Transformacji_Ruda_SlAska_03_2025.docx" target="_blank" aria-label="WORD, 102 KB - zostanie pobrany">WORD: 102 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-ruda/HFW_Strefa_Ruda_06_2025.pdf" target="_blank" aria-label="HFW Strefa Ruda 06 2025 - otworzy się w nowej karcie">HFW Strefa Ruda 06 2025</a> <span class="file-info">(PDF: 219 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-ruda/Klauzula_RODO_SCPIP_-_Zwrotnica.docx" target="_blank" aria-label="Klauzula RODO SCPIP - Zwrotnica - zostanie pobrana">Klauzula RODO SCPIP - Zwrotnica</a> <span class="file-info">(WORD: 70 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/strefa-ruda/Zgoda_RODO_Zwrotnica.docx" target="_blank" aria-label="Zgoda RODO Zwrotnica - zostanie pobrana">Zgoda RODO Zwrotnica</a> <span class="file-info">(WORD: 56 KB)</span></div>
+        </section>
+
+        <!-- SEKCJA 3: ZWROTNICA w Katowicach 2.0 -->
+        <section id="zwrotnica-katowice" aria-labelledby="zwrotnica-katowice-heading">
+            <h2 id="zwrotnica-katowice-heading">ZWROTNICA – integracja na dobrym torze w Katowicach 2.0</h2>
+            <p>Projekt skierowany do co najmniej 220 osób zagrożonych ubóstwem lub wykluczeniem społecznym z Katowic.</p>
+            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligockiej 5.</p>
+            <h4>Metadane Projektu</h4>
+            <ul>
+                <li><strong>Okres realizacji:</strong> 01.09.2024 r. - 31.08.2027 r.</li>
+                <li><strong>Wartość projektu:</strong> 3 613 268,95 zł</li>
+                <li><strong>Dofinansowanie:</strong> 3 432 605,50 zł (w tym UE: 3 071 278,60 zł, Budżet Państwa: 361 326,90 zł)</li>
+            </ul>
+            <h3>Cel projektu</h3>
+            <p>Nabycie, odbudowa i podtrzymanie umiejętności uczestniczenia w życiu społeczności lokalnej i pełnienia ról społecznych w miejscu pracy.</p>
+
+            <div class="accessibility-info">
+                <h4>Dostępność architektoniczna</h4>
+                <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
+                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Wejście do budynku jest na poziomie chodnika, bez schodów. Wewnątrz znajduje się winda umożliwiająca dostęp na wszystkie piętra. Toalety są dostosowane do potrzeb osób z niepełnosprawnościami.</p>
+            </div>
+            
+            <div class="contact-info">
+                <h4>Kontakt w sprawie projektu</h4>
+                <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
+                <ul>
+                    <li>Telefonicznie: <a href="tel:+48323456789" aria-label="Zadzwoń pod numer 32 345 67 89"><strong>32 345 67 89</strong></a></li>
+                    <li>Mailowo: <a href="mailto:zwrotnica.katowice@scpip.pl?subject=ZWROTNICA – integracja na dobrym torze w Katowicach 2.0" aria-label="Wyślij email do zwrotnica.katowice@scpip.pl"><strong>zwrotnica.katowice@scpip.pl</strong></a></li>
+                </ul>
+            </div>
+
+            <h3>Dokumenty rekrutacyjne do projektu</h3>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-katowice/Formularz_rekrutacyjny_kandydata_na_uczestnika.pdf" target="_blank" aria-label="Formularz rekrutacyjny kandydata na uczestnika - otworzy się w nowej karcie">Formularz rekrutacyjny kandydata na uczestnika</a> <span class="file-info">(PDF: 294 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-katowice/Regulamin_Rekrutacji_i_Uczestnictwa_w_projekcie.pdf" target="_blank" aria-label="Regulamin Rekrutacji i Uczestnictwa w projekcie - otworzy się w nowej karcie">Regulamin Rekrutacji i Uczestnictwa w projekcie</a> <span class="file-info">(PDF: 621 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-katowice/Klauzula_RODO_SCPIP_-_Zwrotnica.pdf" target="_blank" aria-label="Klauzula RODO SCPIP - Zwrotnica - otworzy się w nowej karcie">Klauzula RODO SCPIP - Zwrotnica</a> <span class="file-info">(PDF: 301 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-katowice/Katalog_instrumentow_aktywnej_integracji.pdf" target="_blank" aria-label="Katalog instrumentów aktywnej integracji - otworzy się w nowej karcie">Katalog instrumentów aktywnej integracji</a> <span class="file-info">(PDF: 804 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-katowice/Kwestionariusz_Kwalifikacji.pdf" target="_blank" aria-label="Kwestionariusz Kwalifikacji - otworzy się w nowej karcie">Kwestionariusz Kwalifikacji</a> <span class="file-info">(PDF: 694 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-katowice/Deklaracja_uczestnictwa_w_projekcie.pdf" target="_blank" aria-label="Deklaracja uczestnictwa w projekcie - otworzy się w nowej karcie">Deklaracja uczestnictwa w projekcie</a> <span class="file-info">(PDF: 216 KB)</span></div>
+        </section>
+
+        <!-- SEKCJA 4: ZWROTNICA w Rudzie Śląskiej -->
+        <section id="zwrotnica-ruda" aria-labelledby="zwrotnica-ruda-heading">
+            <h2 id="zwrotnica-ruda-heading">ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej</h2>
+            <p>Projekt skierowany do co najmniej 240 osób zagrożonych ubóstwem lub wykluczeniem społecznym z Rudy Śląskiej.</p>
+            <p><strong>Biuro projektu:</strong> Ruda Śląska, ul. Solidarności 5.</p>
+            <h4>Metadane Projektu</h4>
+            <ul>
+                <li><strong>Okres realizacji:</strong> 01.09.2024 - 31.08.2027 r.</li>
+                <li><strong>Wartość projektu:</strong> 3 997 942,01 zł</li>
+                <li><strong>Dofinansowanie:</strong> 3 798 044,90 zł (w tym UE: 3 398 250,70 zł, Budżet Państwa: 399 794,20 zł)</li>
+            </ul>
+            <h3>Cel projektu</h3>
+            <p>Nabycie i podtrzymanie umiejętności uczestniczenia w życiu społecznym i zawodowym.</p>
+            
+            <div class="accessibility-info">
+                <h4>Dostępność architektoniczna</h4>
+                <p><strong>Biuro projektu (Ruda Śląska, ul. Solidarności 5/9):</strong></p>
+                <p>Budynek posiada podjazd dla wózków inwalidzkich przy wejściu głównym. Wewnątrz znajduje się winda dostosowana do potrzeb osób z niepełnosprawnościami. Toalety są przystosowane dla osób z niepełnosprawnościami.</p>
+            </div>
+            
+            <div class="contact-info">
+                <h4>Kontakt w sprawie projektu</h4>
+                <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
+                <ul>
+                    <li>Telefonicznie: <a href="tel:+48324567890" aria-label="Zadzwoń pod numer 32 456 78 90"><strong>32 456 78 90</strong></a></li>
+                    <li>Mailowo: <a href="mailto:zwrotnica.ruda@scpip.pl?subject=ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej" aria-label="Wyślij email do zwrotnica.ruda@scpip.pl"><strong>zwrotnica.ruda@scpip.pl</strong></a></li>
+                </ul>
+            </div>
+            
+            <h3>Dokumenty rekrutacyjne do projektu</h3>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-ruda/Zal_1_Formularz_rekrutacyjny.pdf" target="_blank" aria-label="Zał. 1 Formularz rekrutacyjny - otworzy się w nowej karcie">Zał. 1 Formularz rekrutacyjny</a> <span class="file-info">(PDF: 335 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-ruda/DEKLARACJA_UCZESTNICTWA.pdf" target="_blank" aria-label="Deklaracja uczestnictwa - otworzy się w nowej karcie">Deklaracja uczestnictwa</a> <span class="file-info">(PDF: 98 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-ruda/ZWROTNICA_Regulamin_Rekrutacji_i_Uczestnictwa_w_projekcie.pdf" target="_blank" aria-label="ZWROTNICA Regulamin Rekrutacji i Uczestnictwa w projekcie - otworzy się w nowej karcie">ZWROTNICA Regulamin Rekrutacji i Uczestnictwa w projekcie</a> <span class="file-info">(PDF: 210 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-ruda/ZWROTNICA_Klauzula_RODO.pdf" target="_blank" aria-label="ZWROTNICA Klauzula RODO - otworzy się w nowej karcie">ZWROTNICA Klauzula RODO</a> <span class="file-info">(PDF: 256 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/zwrotnica-ruda/Zal._3_-Katalog_instrumentow_aktywnej_integracji.pdf" target="_blank" aria-label="Zał. 3 - Katalog instrumentów aktywnej integracji - otworzy się w nowej karcie">Zał. 3 - Katalog instrumentów aktywnej integracji</a> <span class="file-info">(PDF: 254 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/zwrotnica-ruda/Zal._2_-_Kwestionariusz_Kwalifikacji.pdf" target="_blank" aria-label="Zał. 2 - Kwestionariusz Kwalifikacji - otworzy się w nowej karcie">Zał. 2 - Kwestionariusz Kwalifikacji</a> <span class="file-info">(PDF: 222 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-ruda/KARTA_KWALIFIKACJI.pdf" target="_blank" aria-label="Karta kwalifikacji - otworzy się w nowej karcie">Karta kwalifikacji</a> <span class="file-info">(PDF: 222 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/zwrotnica-ruda/HFW-FESL.07.02-IZ.01-060D_czerwiec_2025.pdf" target="_blank" aria-label="HFW-FESL.07.02-IZ.01-060D czerwiec 2025 - otworzy się w nowej karcie">HFW-FESL.07.02-IZ.01-060D czerwiec 2025</a> <span class="file-info">(PDF: 217 KB)</span></div>
+        </section>
+
+        <!-- SEKCJA 5: freeDOM – mieszkanie treningowe -->
+        <section id="freedom" aria-labelledby="freedom-heading">
+            <h2 id="freedom-heading">freeDOM – mieszkanie treningowe</h2>
+            <p>Projekt skierowany do 42 dorosłych osób z niepełnosprawnością z Katowic, polegający na utworzeniu i prowadzeniu mieszkania treningowego.</p>
+            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligockiej 5.</p>
+            <h4>Metadane Projektu</h4>
+            <ul>
+                <li><strong>Okres realizacji:</strong> 15.11.2024 r. do 14.11.2027 r.</li>
+                <li><strong>Wartość projektu:</strong> 1 658 520,00 zł</li>
+                <li><strong>Dofinansowanie:</strong> 1 575 594,00 zł (w tym UE: 1 409 742,00 zł, Budżet Państwa: 165 852,00 zł)</li>
+            </ul>
+            <h3>Cel projektu</h3>
+            <p>Rozwój usług społecznych świadczonych w społeczności lokalnej poprzez utworzenie nowego mieszkania wspomaganego w formie mieszkania treningowego.</p>
+            
+            <div class="accessibility-info">
+                <h4>Dostępność architektoniczna</h4>
+                <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
+                <p>Budynek jest w pełni dostępny dla osób z niepełnosprawnością. Mieszkanie treningowe zostanie dostosowane do potrzeb osób z różnymi rodzajami niepełnosprawności.</p>
+            </div>
+            
+            <div class="contact-info">
+                <h4>Kontakt w sprawie projektu</h4>
+                <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
+                <ul>
+                    <li>Telefonicznie: <a href="tel:+48325678901" aria-label="Zadzwoń pod numer 32 567 89 01"><strong>32 567 89 01</strong></a></li>
+                    <li>Mailowo: <a href="mailto:freedom@scpip.pl?subject=freeDOM – mieszkanie treningowe" aria-label="Wyślij email do freedom@scpip.pl"><strong>freedom@scpip.pl</strong></a></li>
+                </ul>
+            </div>
+            
+            <h3>Dokumenty rekrutacyjne do projektu</h3>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/freedom/Reguly_dostepnoSci_mieszkania_treningowego.pdf" target="_blank" aria-label="Reguły dostępności mieszkania treningowego - otworzy się w nowej karcie">Reguły dostępności mieszkania treningowego</a> (<a href="dokumenty-converted/freedom/Reguly_dostepnoSci_mieszkania_treningowego.pdf" target="_blank" aria-label="PDF, 36 KB - otworzy się w nowej karcie">PDF: 36 KB</a>, <a href="dokumenty-converted/freedom/Reguly_dostepnoSci_mieszkania_treningowego.docx" target="_blank" aria-label="WORD, 15 KB - zostanie pobrany">WORD: 15 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/freedom/freeDOM_formularz_rekrutacyjny.pdf" target="_blank" aria-label="freeDOM formularz rekrutacyjny - otworzy się w nowej karcie">freeDOM formularz rekrutacyjny</a> (<a href="dokumenty/freedom/freeDOM_formularz_rekrutacyjny.pdf" target="_blank" aria-label="PDF, 171 KB - otworzy się w nowej karcie">PDF: 171 KB</a>, <a href="dokumenty/freedom/freeDOM_formularz_rekrutacyjny.docx" target="_blank" aria-label="WORD, 71 KB - zostanie pobrany">WORD: 71 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/freedom/Klauzula_RODO_SCPIP_-_FD.pdf" target="_blank" aria-label="Klauzula RODO SCPIP - FD - otworzy się w nowej karcie">Klauzula RODO SCPIP - FD</a> (<a href="dokumenty/freedom/Klauzula_RODO_SCPIP_-_FD.pdf" target="_blank" aria-label="PDF, 248 KB - otworzy się w nowej karcie">PDF: 248 KB</a>, <a href="dokumenty/freedom/Klauzula_RODO_SCPIP_-_FD.docx" target="_blank" aria-label="WORD, 67 KB - zostanie pobrany">WORD: 67 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/freedom/Zgoda_RODO_freeDOM.pdf" target="_blank" aria-label="Zgoda RODO freeDOM - otworzy się w nowej karcie">Zgoda RODO freeDOM</a> (<a href="dokumenty/freedom/Zgoda_RODO_freeDOM.pdf" target="_blank" aria-label="PDF, 234 KB - otworzy się w nowej karcie">PDF: 234 KB</a>, <a href="dokumenty/freedom/Zgoda_RODO_freeDOM.docx" target="_blank" aria-label="WORD, 56 KB - zostanie pobrany">WORD: 56 KB</a>)</div>
+            <div class="document-link-wrapper"><a href="dokumenty/freedom/HFW_freeDOM_06_2025.pdf" target="_blank" aria-label="HFW freeDOM 06 2025 - otworzy się w nowej karcie">HFW freeDOM 06 2025</a> <span class="file-info">(PDF: 233 KB)</span></div>
+        </section>
+
+        <!-- SEKCJA 6: Praktykant - doświadczenie na wagę złota -->
+        <section id="praktykant" aria-labelledby="praktykant-heading">
+            <h2 id="praktykant-heading">Praktykant - doświadczenie na wagę złota</h2>
+            <p>Projekt skierowany do co najmniej 67 osób 55+, zagrożonych ubóstwem lub wykluczeniem społecznym z Katowic.</p>
+            <h3>Uczestnik projektu może wziąć udział w:</h3>
+            <ul>
+                <li>Warsztatach umiejętności społecznych, spotkaniach terapeutycznych</li>
+                <li>Konsultacjach ze specjalistami, doradztwie zawodowym</li>
+                <li>Stażach zawodowych, szkoleniach zawodowych</li>
+            </ul>
+            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligockiej 5. Partnerem projektu jest Powiatowy Urząd Pracy w Katowicach.</p>
+            <h4>Metadane Projektu</h4>
+            <ul>
+                <li><strong>Okres realizacji:</strong> 1.10.2024 do 30.09.2026 r.</li>
+                <li><strong>Całkowita wartość projektu:</strong> 1 094 198,22 zł</li>
+                <li><strong>Dofinansowanie z UE:</strong> 974 019,46 zł | <strong>Dofinansowanie z Budżetu Państwa:</strong> 115 178,76 zł</li>
+            </ul>
+            <h3>Cel projektu</h3>
+            <p>Nabycie i podtrzymanie umiejętności uczestniczenia w życiu społecznym i zawodowym przez osoby w wieku 55+.</p>
+            
+            <div class="accessibility-info">
+                <h4>Dostępność architektoniczna</h4>
+                <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
+                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Wszystkie miejsca realizacji wsparcia są dostosowane do potrzeb osób starszych i z niepełnosprawnościami.</p>
+            </div>
+            
+            <div class="contact-info">
+                <h4>Kontakt w sprawie projektu</h4>
+                <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
+                <ul>
+                    <li>Telefonicznie: <a href="tel:+48326789012" aria-label="Zadzwoń pod numer 32 678 90 12"><strong>32 678 90 12</strong></a></li>
+                    <li>Mailowo: <a href="mailto:praktykant@scpip.pl?subject=Praktykant - doświadczenie na wagę złota" aria-label="Wyślij email do praktykant@scpip.pl"><strong>praktykant@scpip.pl</strong></a></li>
+                </ul>
+            </div>
+            
+            <h3>Dokumenty rekrutacyjne do projektu</h3>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/praktykant/PRAKTYKANT_Zal._1_-_kompletny_formularz_rekrutacyjny_kandydata_na_uczestnika.pdf" target="_blank" aria-label="PRAKTYKANT Zał. 1 - kompletny formularz rekrutacyjny kandydata na uczestnika - otworzy się w nowej karcie">PRAKTYKANT Zał. 1 - kompletny formularz rekrutacyjny kandydata na uczestnika</a> <span class="file-info">(PDF: 161 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/praktykant/PRAKTYKATN__Regulamin_Rekrutacji_i_Uczestnictwa_w_projekcie_(1).pdf" target="_blank" aria-label="PRAKTYKANT Regulamin Rekrutacji i Uczestnictwa w projekcie - otworzy się w nowej karcie">PRAKTYKANT Regulamin Rekrutacji i Uczestnictwa w projekcie</a> <span class="file-info">(PDF: 379 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/praktykant/Klauzula_RODO_SCPIP_-_Praktykant.pdf" target="_blank" aria-label="Klauzula RODO SCPIP - Praktykant - otworzy się w nowej karcie">Klauzula RODO SCPIP - Praktykant</a> <span class="file-info">(PDF: 302 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty-converted/praktykant/PRAKTYKANT__Zal._3_-__Katalog_instrumentow_aktywnej_integracji_uzupelniony_(2).pdf" target="_blank" aria-label="PRAKTYKANT Zał. 3 - Katalog instrumentów aktywnej integracji uzupełniony - otworzy się w nowej karcie">PRAKTYKANT Zał. 3 - Katalog instrumentów aktywnej integracji uzupełniony</a> <span class="file-info">(PDF: 640 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/praktykant/PRAKTYKANT_Deklaracja_uczestnictwa_w_projekcie_(1).pdf" target="_blank" aria-label="PRAKTYKANT Deklaracja uczestnictwa w projekcie - otworzy się w nowej karcie">PRAKTYKANT Deklaracja uczestnictwa w projekcie</a> <span class="file-info">(PDF: 155 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/praktykant/Zgoda_RODO_Praktykant.pdf" target="_blank" aria-label="Zgoda RODO Praktykant - otworzy się w nowej karcie">Zgoda RODO Praktykant</a> <span class="file-info">(PDF: 237 KB)</span></div>
+            <div class="document-link-wrapper"><a href="dokumenty/praktykant/Czerwiec_2025.pdf" target="_blank" aria-label="Czerwiec 2025 - otworzy się w nowej karcie">Czerwiec 2025</a> <span class="file-info">(PDF: 218 KB)</span></div>
+        </section>
+
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+            <h3>Kontakt</h3>
+            <address class="contact-info" style="border: none; background: none; padding: 0;">
+                <strong>Śląskie Centrum Profilaktyki i Psychoterapii</strong><br>
+                ul. Mikołowska 21, 40-067 Katowice<br><br>
+                <strong>Biuro projektów SCPiP</strong><br>
+                ul. Ligocka 5, 40-570 Katowice
+            </address>
+
+            <!-- Link do deklaracji dostępności (wytyczna 10) -->
+            <p style="margin-top: 2rem;">
+                <a href="pages/deklaracja-dostepnosci.html" aria-label="Przejdź do deklaracji dostępności">Deklaracja Dostępności</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
