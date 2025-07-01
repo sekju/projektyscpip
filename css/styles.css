@@ -813,3 +813,18 @@ input:focus, textarea:focus, select:focus {
     color: #000000 !important;
     background-color: #ffffff !important;
 }
+
+/* ========================================================================
+   FIX DLA LIST - POCZĄTEK
+   Ta reguła wymusza poprawne wyświetlanie list wewnątrz sekcji, 
+   nadpisując inne potencjalnie konfliktowe style.
+   ======================================================================== */
+
+section ul {
+    list-style: disc !important;
+    padding-left: 40px !important;
+}
+
+/* ========================================================================
+   FIX DLA LIST - KONIEC
+   ======================================================================== */
