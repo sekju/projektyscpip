@@ -5,7 +5,8 @@
     --text-color: #333;
     --background-color: #fff;
     --primary-color: #0056b3;
-    --focus-color: #ffbf47;
+    --focus-color: #0056b3;
+    --focus-bg-color: #e6f2ff;
     --header-bg: #f8f9fa;
     --section-bg-odd: #f8f9fa;
     --section-bg-even: #fff;
@@ -27,6 +28,10 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+[hidden] {
+    display: none !important;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -34,55 +39,14 @@ body {
 }
 
 /* ==========================================================================
-   Motywy kolorystyczne (Kontrast, Monochromatyczny, Ciemny)
+   Style dostępności (Fokus, Skip Link, Widżet, Modal)
    ========================================================================== */
-
-/* Wysoki kontrast */
-body.high-contrast {
-    --text-color: #000;
-    --background-color: #fff;
-    --primary-color: #0000ff;
-    --focus-color: #ff00ff;
-    --header-bg: #fff;
-    --section-bg-odd: #ffff00;
-    --section-bg-even: #ffff00;
-    --border-color: #000;
+*:focus-visible {
+    outline: 3px solid var(--focus-color) !important;
+    outline-offset: 2px;
+    background-color: var(--focus-bg-color);
+    box-shadow: 0 0 0 5px rgba(0, 86, 179, 0.3);
 }
-.high-contrast nav { background-color: #000 !important; }
-.high-contrast nav a { color: #fff !important; }
-
-/* Tryb monochromatyczny (POPRAWIONY) */
-body.monochrome {
-    --text-color: #000;
-    --background-color: #fff;
-    --primary-color: #000;
-    --focus-color: #000;
-    --header-bg: #fff;
-    --section-bg-odd: #eee;
-    --section-bg-even: #fff;
-    --border-color: #000;
-}
-.monochrome img, .monochrome svg { filter: grayscale(100%); }
-.monochrome nav { background-color: #000 !important; }
-.monochrome nav a { color: #fff !important; }
-
-/* Ciemny motyw */
-body.dark-mode {
-    --text-color: #eee;
-    --background-color: #121212;
-    --primary-color: #bb86fc;
-    --focus-color: #03dac6;
-    --header-bg: #1e1e1e;
-    --section-bg-odd: #1e1e1e;
-    --section-bg-even: #2c2c2c;
-    --border-color: #555;
-}
-.dark-mode nav { background-color: #1e1e1e !important; }
-.dark-mode nav a { color: #eee !important; }
-
-/* ==========================================================================
-   Elementy Dostępności (Skip Link, Widżet, Modal)
-   ========================================================================== */
 
 .skip-link {
     position: absolute;
@@ -99,13 +63,13 @@ body.dark-mode {
     top: 10px;
 }
 
-#open-widget-btn {
+.widget-toggle-btn {
     position: fixed;
-    top: 20px;
+    bottom: 20px;
     right: 20px;
     z-index: 999;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background-color: var(--primary-color);
     color: white;
@@ -122,122 +86,50 @@ body.dark-mode {
     top: 20px;
     right: 20px;
     z-index: 1000;
-    width: 300px;
+    width: 320px;
     background: var(--background-color);
     border: 2px solid var(--border-color);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
 }
 
-#accessibility-widget h3 { padding: 1rem; margin: 0; border-bottom: 1px solid var(--border-color); }
-#accessibility-widget ul { list-style: none; padding: 1rem; margin: 0; }
+.widget-header { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; border-bottom: 1px solid var(--border-color); }
+.widget-section { padding: 0.5rem 1rem; border-bottom: 1px solid var(--border-color); }
+.widget-section:last-child { border-bottom: none; }
+.widget-section h4 { margin: 0.5rem 0; color: var(--primary-color); }
+#accessibility-widget ul { list-style: none; padding: 0; margin: 0.5rem 0; }
 #accessibility-widget li { margin-bottom: 0.5rem; }
-#accessibility-widget button { width: 100%; text-align: left; padding: 0.75rem; background-color: var(--section-bg-odd); border: 1px solid var(--border-color); cursor: pointer; border-radius: 4px; }
-.close-widget { font-size: 1.5rem; position: absolute; top: 0.5rem; right: 1rem; background: transparent !important; border: none !important; }
+#accessibility-widget button, #widget-section-nav a { width: 100%; text-align: left; padding: 0.75rem; background-color: var(--section-bg-odd); border: 1px solid var(--border-color); cursor: pointer; border-radius: 4px; display: block; text-decoration: none; color: var(--text-color); }
+.close-widget { font-size: 1.5rem; background: transparent !important; border: none !important; padding: 0.5rem; }
 
-.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; justify-content: center; align-items: center; }
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; display: flex; justify-content: center; align-items: center; }
 .modal-content { background: var(--background-color); padding: 2rem; border-radius: var(--border-radius); max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: var(--shadow); }
 .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; }
 .modal-title { margin: 0; font-size: 1.5rem; }
 .modal-close-btn { font-size: 2rem; background: none; border: none; cursor: pointer; }
-.modal-body { line-height: 1.7; }
-.modal-body code { background: var(--section-bg-odd); padding: 2px 5px; border-radius: 3px; }
 .modal-body strong { color: var(--primary-color); }
 
 /* ==========================================================================
-   Struktura strony (Header, Nav, Main, Section, Footer)
+   Struktura i Typografia
    ========================================================================== */
-
-header { background-color: var(--header-bg); padding: 1rem 0; border-bottom: 1px solid var(--border-color); }
-.logos { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
-.logos img { max-height: 80px; width: auto; }
-header h1 { text-align: center; margin: 1.5rem 0 0; }
-
+header { background-color: var(--header-bg); padding: 1rem 0; border-bottom: 1px solid var(--border-color); text-align: center; }
+.logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 1rem; }
+.logos img, .centered-logo img { max-height: 80px; width: auto; }
 nav { background-color: var(--primary-color); padding: 0.5rem 0; }
 nav ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; }
 nav a { display: block; padding: 0.75rem 1.25rem; color: white; text-decoration: none; font-weight: bold; }
-
 main { padding: 2rem 0; }
 section { margin-bottom: 2rem; padding: 2rem; border-radius: var(--border-radius); }
 section:nth-of-type(odd) { background-color: var(--section-bg-odd); }
-section:nth-of-type(even) { background-color: var(--section-bg-even); }
 h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; margin-top: 0; }
-
 footer { background-color: var(--header-bg); padding: 2rem 0; border-top: 1px solid var(--border-color); text-align: center; }
-
-/* ==========================================================================
-   Style typograficzne i inne
-   ========================================================================== */
-
 a { color: var(--primary-color); }
-*:focus-visible { outline: 3px solid var(--focus-color); outline-offset: 2px; }
-
-.document-link-wrapper {
-    margin-bottom: 1rem;
-    padding: 0.75rem;
-    border-left: 4px solid var(--primary-color);
-    background-color: var(--section-bg-odd);
-}
-
-.file-info { font-size: 0.9em; opacity: 0.8; }
-
-/* Dodatkowe style dla widżetu dostępności */
-.widget-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.widget-section {
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid var(--border-color);
-}
-.widget-section:last-child {
-    border-bottom: none;
-}
-
-.widget-section h4 {
-    margin: 0.5rem 0;
-    color: var(--primary-color);
-}
-
-#accessibility-widget ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#accessibility-widget li {
-    margin-bottom: 0.5rem;
-}
-
-#accessibility-widget button, 
-#widget-section-nav a {
-    width: 100%;
-    text-align: left;
-    padding: 0.75rem;
-    background-color: var(--section-bg-odd);
-    border: 1px solid var(--border-color);
-    cursor: pointer;
-    border-radius: 4px;
-    display: block;
-    text-decoration: none;
-    color: var(--text-color);
-}
 
 /* ==========================================================================
-   KLUCZOWY STYL WSKAŹNIKA FOKUSU (WCAG 2.4.7)
+   Motywy kolorystyczne
    ========================================================================== */
-
-/* Ten styl zapewnia wyraźne, widoczne obramowanie dla każdego elementu,
-   który otrzyma fokus za pomocą klawiatury. Dotyczy to zarówno linków,
-   przycisków, jak i teraz - dzięki skryptowi JS - nagłówków i paragrafów. */
-
-*:focus-visible {
-    outline: 3px solid #0056b3 !important; /* Wyraźny niebieski kolor */
-    outline-offset: 2px;
-    background-color: #e6f2ff; /* Delikatne tło dla lepszej widoczności */
-    box-shadow: 0 0 0 5px rgba(0, 86, 179, 0.3);
-}
+body.high-contrast { --text-color: #000; --background-color: #fff; --primary-color: #0000ff; --focus-color: #ff00ff; --focus-bg-color: #f0f8ff; --header-bg: #fff; --section-bg-odd: #ffff00; --section-bg-even: #ffff00; --border-color: #000; }
+body.monochrome { --text-color: #000; --background-color: #fff; --primary-color: #000; --focus-color: #000; --focus-bg-color: #eee; --header-bg: #fff; --section-bg-odd: #eee; --section-bg-even: #fff; --border-color: #000; }
+body.monochrome img { filter: grayscale(100%); }
