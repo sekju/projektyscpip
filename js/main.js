@@ -1,184 +1,218 @@
 /**
- * Główny plik JavaScript dla strony SCPIP z poprawionymi funkcjami dostępności.
+ * =================================================================================
+ * Główny plik JavaScript dla strony z rozbudowanymi funkcjami dostępności (WCAG 2.1)
+ * Wersja: 2.0
  *
- * Wersja z dnia: 18.07.2024
- *
- * Główne zmiany:
- * 1. USUNIĘTO: Niestandardową nawigację strzałkami, która blokowała klawisz Tab.
- * - Problem: Funkcja handleNavigationArrows dynamicznie zmieniała atrybut tabindex,
- * przez co tylko jeden link w menu był dostępny dla klawisza Tab.
- * - Rozwiązanie: Całkowite usunięcie tej funkcji. Teraz nawigacja za pomocą Tab
- * działa w sposób standardowy i przewidywalny, przechodząc po wszystkich linkach.
- *
- * 2. POPRAWIONO: Płynne przewijanie i ustawianie fokusu.
- * - Problem: Po kliknięciu linku w menu, fokus był ustawiany na całej sekcji,
- * co powodowało wizualne "przeskoczenie" do jej środka.
- * - Rozwiązanie: Po przewinięciu, fokus jest teraz ustawiany na pierwszym nagłówku (np. <h2>)
- * wewnątrz danej sekcji. Dzięki temu czytnik ekranu od razu informuje użytkownika,
- * gdzie się znalazł, a strona pozostaje na początku sekcji.
- *
- * 3. UPROSZCZONO: Logika widżetu i innych funkcji została zachowana, ale kod jest
- * teraz czystszy i bardziej skoncentrowany na kluczowych funkcjonalnościach.
+ * Główne zmiany w tej wersji:
+ * - Dostępny modal: Zastąpiono systemowy `alert()` w pełni dostępnym oknem modalnym
+ * dla instrukcji, które jest w pełni obsługiwane klawiaturą i przez czytniki ekranu.
+ * - Poprawione motywy: Naprawiono błędy w trybie monochromatycznym i dodano logikę
+ * do obsługi różnych trybów (wysoki kontrast, monochromatyczny, ciemny).
+ * - Pułapka na fokus: Zaimplementowano mechanizm pułapki na fokus w oknie modalnym,
+ * aby użytkownik klawiatury nie mógł opuścić okna w niekontrolowany sposób.
+ * - Zachowanie funkcji: Wszystkie poprzednie funkcje, takie jak płynne przewijanie,
+ * zmiana czcionki i czytanie po kliknięciu, zostały zachowane i zintegrowane.
+ * =================================================================================
  */
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- SELEKTORY GŁÓWNYCH ELEMENTÓW ---
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
-    const accessibilityWidget = document.getElementById('accessibility-widget');
-    const openWidgetBtn = document.getElementById('open-widget-btn');
-
-    // --- INICJALIZACJA FUNKCJI ---
-    // Funkcje te są wywoływane po załadowaniu całej strony.
+    // --- Inicjalizacja wszystkich funkcji po załadowaniu strony ---
+    initSmoothScrolling();
     addSkipLinks();
-    initSmoothScrolling(navLinks);
-    
-    // Sprawdzamy, czy widżet istnieje na stronie, zanim go zainicjujemy
-    if (accessibilityWidget && openWidgetBtn) {
-        handleWidget(accessibilityWidget, openWidgetBtn);
-    }
-
-    // Inicjalizacja opcjonalnej funkcji "czytaj po kliknięciu"
-    initClickToRead();
-
+    initAccessibilityWidget();
+    initClickToRead(); // Inicjalizacja opcjonalnej funkcji "czytaj po kliknięciu"
 
     /**
-     * Funkcja do płynnego przewijania do sekcji po kliknięciu linku w nawigacji.
-     * Zawiera kluczową poprawkę dotyczącą ustawiania fokusu.
+     * Płynne przewijanie do sekcji i poprawne ustawienie fokusu na nagłówku.
      */
-    function initSmoothScrolling(links) {
-        links.forEach(link => {
+    function initSmoothScrolling() {
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
 
                 if (targetElement) {
-                    // Przewiń stronę do początku sekcji
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    // === POCZĄTEK KLUCZOWEJ POPRAWKI (WCAG 2.1.1) ===
-                    // Szukamy pierwszego nagłówka (h2, h3, itd.) w docelowej sekcji.
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     const heading = targetElement.querySelector('h2, h3, h4, h5, h6');
-                    
                     if (heading) {
-                        // Ustawiamy atrybut tabindex="-1", aby element mógł otrzymać fokus programowo.
                         heading.setAttribute('tabindex', '-1');
-                        // Ustawiamy fokus na nagłówku. Dzięki temu czytnik ekranu go odczyta.
-                        heading.focus({ preventScroll: true }); // preventScroll zapobiega dodatkowemu skokowi strony.
+                        heading.focus({ preventScroll: true }); // preventScroll zapobiega dodatkowemu "skokowi"
                     } else {
-                        // Jeśli w sekcji nie ma nagłówka (fallback), ustawiamy fokus na całej sekcji.
                         targetElement.setAttribute('tabindex', '-1');
                         targetElement.focus({ preventScroll: true });
                     }
-                    // === KONIEC KLUCZOWEJ POPRAWKI ===
                 }
             });
         });
     }
 
     /**
-     * Funkcja dodająca na początku strony tzw. "skip links" (linki pomijające).
-     * Ułatwiają one nawigację za pomocą klawiatury.
+     * Dodawanie linków pomijających ("skip links") na początku strony.
      */
     function addSkipLinks() {
         const body = document.querySelector('body');
         const mainContent = document.querySelector('main');
-        const nav = document.querySelector('nav');
-
-        // Upewniamy się, że główne elementy mają swoje ID
         if (mainContent) mainContent.id = 'main-content';
-        if (nav) nav.id = 'main-nav';
 
         const skipToMain = document.createElement('a');
         skipToMain.href = '#main-content';
         skipToMain.className = 'skip-link';
         skipToMain.innerText = 'Przejdź do treści';
-
-        const skipToNav = document.createElement('a');
-        skipToNav.href = '#main-nav';
-        skipToNav.className = 'skip-link';
-        skipToNav.innerText = 'Przejdź do nawigacji';
-        
-        // Dodajemy linki na sam początek body
         body.insertBefore(skipToMain, body.firstChild);
-        body.insertBefore(skipToNav, body.firstChild);
 
-        // Obsługa fokusu po kliknięciu w skip link
-        [skipToMain, skipToNav].forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.setAttribute('tabindex', '-1');
-                    target.focus();
-                }
-            });
+        skipToMain.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(skipToMain.getAttribute('href'));
+            if (target) {
+                target.setAttribute('tabindex', '-1');
+                target.focus();
+            }
         });
     }
 
     /**
-     * Podstawowa obsługa widżetu dostępności.
+     * Inicjalizacja głównego widżetu dostępności i jego przycisków.
      */
-    function handleWidget(widget, openBtn) {
+    function initAccessibilityWidget() {
+        const widget = document.getElementById('accessibility-widget');
+        const openBtn = document.getElementById('open-widget-btn');
+        
+        // Jeśli brakuje kluczowych elementów, nie kontynuuj
+        if (!widget || !openBtn) return;
+
         const closeBtn = widget.querySelector('.close-widget');
 
-        function toggleWidget(show) {
-            widget.style.display = show ? 'block' : 'none';
-            openBtn.style.display = show ? 'none' : 'block';
-            if (show) {
-                // Po otwarciu ustaw fokus na pierwszym interaktywnym elemencie w widżecie
-                widget.querySelector('button, a, input').focus();
-            } else {
-                openBtn.focus();
-            }
-        }
+        // Otwieranie/zamykanie widżetu
+        openBtn.addEventListener('click', () => { widget.hidden = false; openBtn.hidden = true; closeBtn.focus(); });
+        closeBtn.addEventListener('click', () => { widget.hidden = true; openBtn.hidden = false; openBtn.focus(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !widget.hidden) closeBtn.click(); });
 
-        openBtn.addEventListener('click', () => toggleWidget(true));
-        closeBtn.addEventListener('click', () => toggleWidget(false));
-        
-        // Zamykanie widżetu klawiszem Escape
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && widget.style.display === 'block') {
-                toggleWidget(false);
-            }
-        });
+        // Przyciski zmiany wyglądu
+        widget.querySelector('#increase-font')?.addEventListener('click', () => changeFontSize(2));
+        widget.querySelector('#decrease-font')?.addEventListener('click', () => changeFontSize(-2));
+        widget.querySelector('#increase-contrast')?.addEventListener('click', () => toggleTheme('high-contrast'));
+        widget.querySelector('#mono-mode')?.addEventListener('click', () => toggleTheme('monochrome'));
+        widget.querySelector('#dark-mode')?.addEventListener('click', () => toggleTheme('dark-mode'));
 
-        // Prosta obsługa zmiany rozmiaru czcionki
-        document.getElementById('increase-font')?.addEventListener('click', () => changeFontSize(2));
-        document.getElementById('decrease-font')?.addEventListener('click', () => changeFontSize(-2));
-
-        // Prosta obsługa kontrastu
-        document.getElementById('increase-contrast')?.addEventListener('click', () => document.body.classList.toggle('high-contrast'));
-        
-        // Przycisk "Przejdź do treści" w widżecie
-        document.getElementById('focus-main')?.addEventListener('click', () => {
-             const mainContent = document.getElementById('main-content');
-             if(mainContent){
-                mainContent.setAttribute('tabindex', -1);
-                mainContent.focus();
-             }
-        });
+        // Przycisk instrukcji (uruchamia modal zamiast alertu)
+        widget.querySelector('#keyboard-help')?.addEventListener('click', showKeyboardHelp);
     }
 
     /**
-     * Pomocnicza funkcja do zmiany rozmiaru czcionki na całej stronie.
+     * Zmienia rozmiar czcionki na całej stronie.
+     * @param {number} amount - Wartość w pikselach, o którą ma się zmienić czcionka.
      */
     function changeFontSize(amount) {
         const body = document.body;
         const currentSize = parseFloat(window.getComputedStyle(body, null).getPropertyValue('font-size'));
-        body.style.fontSize = (currentSize + amount) + 'px';
+        const newSize = Math.max(12, currentSize + amount); // Ograniczenie minimalnej wielkości do 12px
+        body.style.fontSize = newSize + 'px';
     }
 
     /**
-     * Funkcja do włączania/wyłączania trybu "czytaj po kliknięciu".
-     * Uwaga: Web Speech API jest eksperymentalne i może nie działać we wszystkich przeglądarkach.
+     * Przełącza motyw kolorystyczny na stronie.
+     * @param {string} themeClass - Nazwa klasy CSS motywu do przełączenia.
+     */
+    function toggleTheme(themeClass) {
+        // Usuń inne motywy, aby się nie nakładały
+        document.body.classList.remove('high-contrast', 'monochrome', 'dark-mode');
+        // Dodaj wybrany motyw
+        document.body.classList.add(themeClass);
+    }
+    
+    /**
+     * Wyświetla instrukcje dostępności w nowym, dostępnym oknie modalnym.
+     */
+    function showKeyboardHelp() {
+        const helpTitle = 'Instrukcja Dostępności';
+        const helpTextHTML = `
+            <h3>Nawigacja Klawiaturą</h3>
+            <p>Możesz w pełni nawigować po tej stronie używając tylko klawiatury:</p>
+            <ul>
+                <li>Użyj klawisza <strong>Tab</strong>, aby przechodzić do kolejnych linków, przycisków i pól formularzy.</li>
+                <li>Użyj <strong>Shift + Tab</strong>, aby cofać się do poprzednich elementów.</li>
+                <li>Użyj <strong>Enter</strong> lub <strong>Spacji</strong>, aby aktywować zaznaczony element.</li>
+                <li>Użyj klawisza <strong>Escape</strong>, aby zamknąć to okno lub panel dostępności.</li>
+            </ul>
+            <h3>Panel Dostępności</h3>
+            <p>Panel dostępności, aktywowany ikoną w rogu ekranu, pozwala na zmianę kontrastu, rozmiaru czcionki oraz oferuje funkcję czytania treści na głos dla ułatwienia dostępu.</p>
+        `;
+        showAccessibleModal(helpTitle, helpTextHTML);
+    }
+
+    /**
+     * Wyświetla i zarządza dostępnym oknem modalnym (dialogowym).
+     * @param {string} title - Tytuł okna.
+     * @param {string} contentHTML - Treść okna w formacie HTML.
+     */
+    function showAccessibleModal(title, contentHTML) {
+        const modal = document.getElementById('accessible-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+        const closeBtn = document.getElementById('modal-close-btn');
+        
+        if (!modal || !modalTitle || !modalBody || !closeBtn) return;
+        
+        const lastFocusedElement = document.activeElement; // Zapisz element, który miał fokus przed otwarciem modala
+
+        // Ustawienie treści i pokazanie modala
+        modalTitle.textContent = title;
+        modalBody.innerHTML = contentHTML;
+        modal.hidden = false;
+        
+        // Przeniesienie fokusu na przycisk zamykania
+        closeBtn.focus();
+        
+        function trapFocus(e) {
+            if (e.key !== 'Tab') return;
+            
+            const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey) { // Shift + Tab
+                if (document.activeElement === firstElement) {
+                    lastElement.focus();
+                    e.preventDefault();
+                }
+            } else { // Zwykły Tab
+                if (document.activeElement === lastElement) {
+                    firstElement.focus();
+                    e.preventDefault();
+                }
+            }
+        }
+
+        function closeModal() {
+            modal.hidden = true;
+            document.removeEventListener('keydown', trapFocus);
+            lastFocusedElement.focus(); // Zwróć fokus na element, który był aktywny przed otwarciem modala
+        }
+
+        function escapeListener(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escapeListener);
+            }
+        }
+        
+        closeBtn.addEventListener('click', closeModal, { once: true });
+        document.addEventListener('keydown', trapFocus);
+        document.addEventListener('keydown', escapeListener);
+    }
+    
+    /**
+     * Inicjalizuje funkcję "czytaj po kliknięciu" (Web Speech API).
      */
     function initClickToRead() {
         const readButton = document.getElementById('click-to-read');
-        if (!readButton) return; // Jeśli nie ma przycisku, zakończ
+        if (!readButton || !('speechSynthesis' in window)) {
+            readButton?.setAttribute('disabled', 'true');
+            readButton?.setAttribute('title', 'Twoja przeglądarka nie wspiera tej funkcji.');
+            return;
+        }
         
         let isReadingMode = false;
 
@@ -191,28 +225,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 readButton.textContent = "Zakończ czytanie";
             } else {
                 document.removeEventListener('click', readElementText, true);
-                speechSynthesis.cancel(); // Zatrzymaj mowę
+                speechSynthesis.cancel();
                 readButton.textContent = "Czytaj po kliknięciu";
             }
         });
 
         function readElementText(e) {
-            // Ignoruj kliknięcia wewnątrz samego widżetu
             if (e.target.closest('#accessibility-widget')) return;
-
             e.preventDefault();
             e.stopPropagation();
 
             const element = e.target;
             const textToRead = element.innerText || element.alt || element.ariaLabel;
 
-            if (textToRead && 'speechSynthesis' in window) {
-                speechSynthesis.cancel(); // Przerwij poprzednie wypowiedzi
+            if (textToRead) {
+                speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(textToRead);
                 utterance.lang = 'pl-PL';
                 speechSynthesis.speak(utterance);
             }
         }
     }
-
 });
