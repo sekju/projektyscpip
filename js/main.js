@@ -1,233 +1,202 @@
 /**
  * =================================================================================
- * OSTATECZNY I KOMPLETNY SKRYPT DOSTĘPNOŚCI (WCAG 2.1) - Wersja 5.0 (Finalna)
- *
- * Cel: Zapewnienie pełnej funkcjonalności widżetu dostępności oraz
- * prawidłowej, linearnej nawigacji klawiszem TAB po wszystkich kluczowych
- * elementach treści strony.
- *
- * Data: 18.07.2024
+ * Wersja finalna, naprawiona i kompletna: main.js
+ * - Naprawiono błąd z modalem blokującym stronę przy starcie.
+ * - Przywrócono i zintegrowano wszystkie funkcje widżetu (czcionka, kontrast, czytanie).
+ * - Zapewniono pełną, liniową nawigację klawiszem TAB po całej treści strony.
  * =================================================================================
  */
 document.addEventListener('DOMContentLoaded', function() {
 
-    // --- GŁÓWNE WYWOŁANIE SKRYPTÓW ---
+    // --- GŁÓWNE WYWOŁANIE FUNKCJI ---
     enableFullContentNavigation();
     initAccessibilityWidget();
-    restoreSettings();
 
     /**
      * Kluczowa funkcja zapewniająca nawigację TAB po całej treści.
-     * Nadaje `tabindex="0"` wszystkim elementom, które powinny być
-     * osiągalne za pomocą klawiatury.
      */
     function enableFullContentNavigation() {
-        const contentElements = document.querySelectorAll(
-            'h1, h2, h3, h4, p, ul, li'
-        );
+        const contentElements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li');
         contentElements.forEach(element => {
             element.setAttribute('tabindex', '0');
         });
-
-        const navLinks = document.querySelectorAll('nav[role="navigation"] a[role="menuitem"]');
+        const navLinks = document.querySelectorAll('nav a');
         navLinks.forEach(link => {
             link.setAttribute('tabindex', '0');
         });
     }
 
     /**
-     * Inicjalizuje cały widżet dostępności i wszystkie jego kontrolki.
+     * Inicjalizuje główny widżet dostępności i jego przyciski.
      */
     function initAccessibilityWidget() {
-        const panel = document.getElementById('accessibility-panel');
-        if (!panel) return;
+        const widget = document.getElementById('accessibility-widget');
+        const openBtn = document.getElementById('open-widget-btn');
+        if (!widget || !openBtn) return;
+        
+        const closeBtn = widget.querySelector('.close-widget');
+        
+        // Logika otwierania/zamykania
+        openBtn.addEventListener('click', () => { widget.hidden = false; openBtn.hidden = true; widget.querySelector('h3').focus(); });
+        closeBtn.addEventListener('click', () => { widget.hidden = true; openBtn.hidden = false; openBtn.focus(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !widget.hidden) closeBtn.click(); });
+        
+        // Inicjalizacja kontrolek
+        initWidgetControls(widget);
+        populateSectionNav(widget);
+    }
 
-        // Logika otwierania/zamykania panelu
-        const toggleButton = document.getElementById('accessibility-toggle');
-        const closeButton = document.getElementById('close-accessibility');
-        toggleButton.addEventListener('click', () => togglePanel(panel, toggleButton, true));
-        closeButton.addEventListener('click', () => togglePanel(panel, toggleButton, false));
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && panel.getAttribute('aria-hidden') === 'false') {
-                togglePanel(panel, toggleButton, false);
+    /**
+     * Podpina logikę do wszystkich przycisków w widżecie.
+     */
+    function initWidgetControls(widget) {
+        widget.querySelector('#increase-font')?.addEventListener('click', () => changeFontSize(2));
+        widget.querySelector('#decrease-font')?.addEventListener('click', () => changeFontSize(-2));
+        widget.querySelector('#high-contrast-mode')?.addEventListener('click', () => toggleTheme('high-contrast'));
+        widget.querySelector('#mono-mode')?.addEventListener('click', () => toggleTheme('monochrome'));
+        widget.querySelector('#keyboard-help')?.addEventListener('click', showKeyboardHelp);
+        initClickToRead(widget.querySelector('#click-to-read'));
+    }
+
+    /**
+     * Wypełnia listę szybkiej nawigacji w widżecie.
+     */
+    function populateSectionNav(widget) {
+        const navList = widget.querySelector('#widget-section-nav');
+        if (!navList) return;
+        
+        navList.innerHTML = '';
+        const sections = document.querySelectorAll('main > section');
+        sections.forEach(section => {
+            const heading = section.querySelector('h2');
+            if (heading && section.id) {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${section.id}`;
+                a.textContent = heading.textContent;
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    heading.focus();
+                    widget.hidden = true;
+                    document.getElementById('open-widget-btn').hidden = false;
+                });
+                li.appendChild(a);
+                navList.appendChild(li);
             }
         });
-
-        // Inicjalizacja poszczególnych modułów widżetu
-        initFontControls(panel);
-        initContrastControls(panel);
-        initTextToSpeechControls(panel);
-        initNavigationControls(panel);
-        initHelpControls(panel);
-        initResetButton(panel);
     }
-    
-    function togglePanel(panel, toggleButton, show) {
-        if (show) {
-            toggleButton.setAttribute('aria-expanded', 'true');
-            panel.setAttribute('aria-hidden', 'false');
-            panel.querySelector('button, input').focus();
-        } else {
-            toggleButton.setAttribute('aria-expanded', 'false');
-            panel.setAttribute('aria-hidden', 'true');
-            toggleButton.focus();
-        }
+
+    function changeFontSize(amount) {
+        const body = document.body;
+        const currentSize = parseFloat(window.getComputedStyle(body, null).getPropertyValue('font-size'));
+        const newSize = Math.max(12, currentSize + amount);
+        body.style.fontSize = newSize + 'px';
+    }
+
+    function toggleTheme(themeClass) {
+        document.body.classList.toggle(themeClass);
     }
 
     /**
-     * Inicjalizuje kontrolki do zmiany rozmiaru czcionki.
+     * Inicjalizuje funkcję "czytaj po kliknięciu".
      */
-    function initFontControls(panel) {
-        const slider = panel.querySelector('#font-size-slider');
-        const valueDisplay = panel.querySelector('#font-size-value');
-        const decreaseBtn = panel.querySelector('#font-decrease');
-        const increaseBtn = panel.querySelector('#font-increase');
-        const root = document.documentElement;
-
-        function updateFontSize(size) {
-            root.style.fontSize = size + 'px';
-            valueDisplay.textContent = size + 'px';
-            localStorage.setItem('fontSize', size);
-        }
-
-        slider.addEventListener('input', () => updateFontSize(slider.value));
-        decreaseBtn.addEventListener('click', () => { slider.stepDown(); slider.dispatchEvent(new Event('input')); });
-        increaseBtn.addEventListener('click', () => { slider.stepUp(); slider.dispatchEvent(new Event('input')); });
-    }
-
-    /**
-     * Inicjalizuje przyciski do zmiany motywu/kontrastu.
-     */
-    function initContrastControls(panel) {
-        const contrastButtons = panel.querySelectorAll('.contrast-btn');
-        contrastButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const theme = button.getAttribute('data-contrast');
-                document.body.className = ''; // Reset klas
-                if (theme !== 'normal') {
-                    document.body.classList.add(theme);
-                }
-                localStorage.setItem('theme', theme);
-
-                contrastButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-            });
-        });
-    }
-
-    /**
-     * Inicjalizuje kontrolki do czytania tekstu na głos (Text-to-Speech).
-     */
-    function initTextToSpeechControls(panel) {
-        const readBtn = panel.querySelector('#read-page');
-        const pauseBtn = panel.querySelector('#pause-reading');
-        const stopBtn = panel.querySelector('#stop-reading');
-        let isReading = false;
-
-        readBtn.addEventListener('click', () => {
-            if (!isReading) {
-                const content = document.querySelector('main').innerText;
-                const utterance = new SpeechSynthesisUtterance(content);
-                utterance.lang = 'pl-PL';
-                utterance.onstart = () => isReading = true;
-                utterance.onend = () => isReading = false;
-                speechSynthesis.speak(utterance);
-            }
-        });
-
-        pauseBtn.addEventListener('click', () => {
-            if (speechSynthesis.speaking) {
-                speechSynthesis.paused ? speechSynthesis.resume() : speechSynthesis.pause();
-            }
-        });
-
-        stopBtn.addEventListener('click', () => {
-            speechSynthesis.cancel();
-            isReading = false;
-        });
-    }
-
-    /**
-     * Inicjalizuje przyciski nawigacyjne "Przejdź do...".
-     */
-    function initNavigationControls(panel) {
-        panel.querySelector('#focus-main').addEventListener('click', () => {
-            document.getElementById('main-content').focus();
-        });
-        panel.querySelector('#focus-nav').addEventListener('click', () => {
-            document.querySelector('nav a').focus();
-        });
-    }
-    
-    /**
-     * Inicjalizuje przyciski pomocy.
-     */
-    function initHelpControls(panel) {
-        // Ta funkcja może zostać rozbudowana o modal z instrukcjami,
-        // jeśli będzie taka potrzeba w przyszłości.
-        panel.querySelector('#keyboard-help').addEventListener('click', () => {
-            alert("Użyj klawiszy TAB i SHIFT+TAB do nawigacji, a ENTER do aktywacji elementów.");
-        });
-         panel.querySelector('#read-help').addEventListener('click', () => {
-            const helpText = "Panel dostępności pozwala na zmianę rozmiaru czcionki, kontrastu oraz włączenie czytania strony na głos.";
-            const utterance = new SpeechSynthesisUtterance(helpText);
-            utterance.lang = 'pl-PL';
-            speechSynthesis.speak(utterance);
-        });
-    }
-
-    /**
-     * Inicjalizuje przycisk resetowania ustawień.
-     */
-    function initResetButton(panel) {
-        panel.querySelector('#reset-settings').addEventListener('click', () => {
-            // Resetuj localStorage
-            localStorage.removeItem('fontSize');
-            localStorage.removeItem('theme');
-            
-            // Resetuj style
-            document.documentElement.style.fontSize = '';
-            document.body.className = '';
-            
-            // Resetuj kontrolki w panelu
-            const slider = panel.querySelector('#font-size-slider');
-            const valueDisplay = panel.querySelector('#font-size-value');
-            slider.value = 16;
-            valueDisplay.textContent = '16px';
-            
-            panel.querySelectorAll('.contrast-btn').forEach(btn => btn.classList.remove('active'));
-            panel.querySelector('[data-contrast="normal"]').classList.add('active');
-            
-            // Zatrzymaj czytanie
-            speechSynthesis.cancel();
-        });
-    }
-    
-    /**
-     * Przywraca zapisane ustawienia z localStorage przy załadowaniu strony.
-     */
-    function restoreSettings() {
-        const savedFontSize = localStorage.getItem('fontSize');
-        if (savedFontSize) {
-            document.documentElement.style.fontSize = savedFontSize + 'px';
-            const slider = document.getElementById('font-size-slider');
-            const valueDisplay = document.getElementById('font-size-value');
-            if(slider) slider.value = savedFontSize;
-            if(valueDisplay) valueDisplay.textContent = savedFontSize + 'px';
-        }
-
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme && savedTheme !== 'normal') {
-            document.body.classList.add(savedTheme);
+    function initClickToRead(readButton) {
+        if (!readButton || !('speechSynthesis' in window)) {
+            readButton?.setAttribute('disabled', 'true');
+            return;
         }
         
-        const contrastButtons = document.querySelectorAll('.contrast-btn');
-        contrastButtons.forEach(btn => {
-            btn.classList.remove('active');
-            if (btn.getAttribute('data-contrast') === (savedTheme || 'normal')) {
-                btn.classList.add('active');
+        let isReadingMode = false;
+        readButton.addEventListener('click', () => {
+            isReadingMode = !isReadingMode;
+            document.body.classList.toggle('click-to-read-mode', isReadingMode);
+            if (isReadingMode) {
+                document.addEventListener('click', readElementText, true);
+                readButton.textContent = "Zakończ czytanie";
+            } else {
+                document.removeEventListener('click', readElementText, true);
+                speechSynthesis.cancel();
+                readButton.textContent = "Czytaj po kliknięciu";
             }
         });
+
+        function readElementText(e) {
+            if (e.target.closest('#accessibility-widget')) return;
+            e.preventDefault();
+            e.stopPropagation();
+            const textToRead = e.target.innerText || e.target.alt;
+            if (textToRead) {
+                speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(textToRead);
+                utterance.lang = 'pl-PL';
+                speechSynthesis.speak(utterance);
+            }
+        }
     }
 
+    /**
+     * Wyświetla instrukcje w oknie modalnym.
+     */
+    function showKeyboardHelp() {
+        const helpTitle = 'Instrukcja Dostępności';
+        const helpTextHTML = `
+            <h3>Nawigacja Klawiaturą</h3>
+            <p>Możesz w pełni nawigować po tej stronie używając tylko klawiatury:</p>
+            <ul>
+                <li>Użyj klawisza <strong>Tab</strong>, aby przechodzić do kolejnych elementów (nagłówków, paragrafów, linków).</li>
+                <li>Użyj <strong>Shift + Tab</strong>, aby cofać się do poprzednich elementów.</li>
+                <li>Użyj <strong>Enter</strong> lub <strong>Spacji</strong>, aby aktywować zaznaczony link lub przycisk.</li>
+            </ul>
+        `;
+        showAccessibleModal(helpTitle, helpTextHTML);
+    }
+
+    /**
+     * Wyświetla i zarządza dostępnym oknem modalnym z pułapką na fokus.
+     */
+    function showAccessibleModal(title, contentHTML) {
+        const modal = document.getElementById('accessible-modal');
+        if (!modal) return;
+
+        const modalTitle = modal.querySelector('#modal-title');
+        const modalBody = modal.querySelector('#modal-body');
+        const closeBtn = modal.querySelector('#modal-close-btn');
+        const lastFocusedElement = document.activeElement;
+
+        modalTitle.textContent = title;
+        modalBody.innerHTML = contentHTML;
+        modal.hidden = false;
+        closeBtn.focus();
+
+        const focusableElements = Array.from(modal.querySelectorAll('button, [href]'));
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        function trapFocus(e) {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey && document.activeElement === firstElement) {
+                lastElement.focus();
+                e.preventDefault();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                firstElement.focus();
+                e.preventDefault();
+            }
+        }
+
+        const closeModal = () => {
+            modal.hidden = true;
+            document.removeEventListener('keydown', trapFocus);
+            document.removeEventListener('keydown', escapeListener);
+            lastFocusedElement?.focus();
+        };
+
+        const escapeListener = (e) => {
+            if (e.key === 'Escape') closeModal();
+        };
+        
+        closeBtn.addEventListener('click', closeModal, { once: true });
+        document.addEventListener('keydown', trapFocus);
+        document.addEventListener('keydown', escapeListener, { once: true });
+    }
 });
