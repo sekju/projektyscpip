@@ -7,73 +7,36 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Accessibility Widget -->
-    <div id="accessibility-widget" class="accessibility-widget" role="toolbar" aria-label="Narzędzia dostępności">
-        <button id="accessibility-toggle" class="accessibility-toggle" aria-expanded="false" aria-controls="accessibility-panel">
-            <span class="sr-only">Otwórz panel dostępności</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 7.5V9M15 11.5C15.8 11.5 16.5 12.2 16.5 13S15.8 14.5 15 14.5 13.5 13.8 13.5 13 14.2 11.5 15 11.5M9 13C9 11.9 8.1 11 7 11S5 11.9 5 13 5.9 15 7 15 9 14.1 9 13M12 7.5C11.2 7.5 10.5 8.2 10.5 9V22.5H13.5V16H14.5V22.5H17.5V9C17.5 8.2 16.8 7.5 16 7.5H12Z"/>
-            </svg>
-        </button>
-        
-        <div id="accessibility-panel" class="accessibility-panel" aria-hidden="true">
-            <div class="accessibility-header">
-                <h2>Panel Dostępności</h2>
-                <button id="close-accessibility" class="close-btn" aria-label="Zamknij panel dostępności">×</button>
-            </div>
-            
-            <div class="accessibility-controls">
-                <div class="control-group">
-                    <label for="font-size-slider">Rozmiar czcionki:</label>
-                    <div class="slider-container">
-                        <button id="font-decrease" aria-label="Zmniejsz czcionkę">A-</button>
-                        <input type="range" id="font-size-slider" min="12" max="24" value="16" aria-label="Kontrola rozmiaru czcionki">
-                        <button id="font-increase" aria-label="Zwiększ czcionkę">A+</button>
-                    </div>
-                    <span id="font-size-value">16px</span>
-                </div>
-                
-                <div class="control-group">
-                    <label>Kontrast:</label>
-                    <div class="button-group">
-                        <button id="normal-contrast" class="contrast-btn active" data-contrast="normal">Normalny</button>
-                        <button id="high-contrast" class="contrast-btn" data-contrast="high">Wysoki</button>
-                        <button id="mono-contrast" class="contrast-btn" data-contrast="mono">Monochromatyczny</button>
-                        <button id="dark-mode" class="contrast-btn" data-contrast="dark">Ciemny</button>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <label>Czytanie tekstu:</label>
-                    <div class="button-group">
-                        <button id="read-page" class="tts-btn">Czytaj stronę</button>
-                        <button id="pause-reading" class="tts-btn">Pauza</button>
-                        <button id="stop-reading" class="tts-btn">Stop</button>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <label>Nawigacja:</label>
-                    <div class="button-group">
-                        <button id="focus-main" class="nav-btn">Przejdź do treści</button>
-                        <button id="focus-nav" class="nav-btn">Przejdź do menu</button>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <label>Instrukcje:</label>
-                    <div class="button-group">
-                        <button id="keyboard-help" class="help-btn">Instrukcja klawiatury</button>
-                        <button id="read-help" class="help-btn">Czytaj instrukcje</button>
-                    </div>
-                </div>
-                
-                <div class="control-group">
-                    <button id="reset-settings" class="reset-btn">Resetuj ustawienia</button>
-                </div>
-            </div>
-        </div>
+<div id="accessibility-widget" role="dialog" aria-labelledby="widget-title" hidden>
+    <div class="widget-header">
+        <h3 id="widget-title">Ustawienia Dostępności</h3>
+        <button class="close-widget" aria-label="Zamknij ustawienia dostępności">&times;</button>
     </div>
+    
+    <div class="widget-section">
+        <h4>Wygląd</h4>
+        <ul>
+            <li><button id="increase-font">Zwiększ czcionkę</button></li>
+            <li><button id="decrease-font">Zmniejsz czcionkę</button></li>
+            <li><button id="increase-contrast">Wysoki kontrast</button></li>
+            <li><button id="mono-mode">Tryb monochromatyczny</button></li>
+        </ul>
+    </div>
+
+    <div class="widget-section">
+        <h4>Nawigacja</h4>
+        <ul id="widget-section-nav">
+            </ul>
+    </div>
+
+     <div class="widget-section">
+        <h4>Inne</h4>
+        <ul>
+            <li><button id="click-to-read">Czytaj po kliknięciu</button></li>
+            <li><button id="keyboard-help">Instrukcja klawiatury</button></li>
+        </ul>
+    </div>
+</div>
 
     <!-- Skip to main content link -->
     <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
