@@ -3,11 +3,12 @@
     --background-color: #fff;
     --primary-color: #0056b3;
     --header-bg: #f8f9fa;
-    --section-bg: #f1f1f1;
+    --section-bg-odd: #ffffff;
+    --section-bg-even: #f1f1f1;
     --border-color: #ddd;
     --focus-outline: #0056b3;
-    --focus-bg: rgba(0, 86, 179, 0.1);
-    --focus-text: #000;
+    --focus-bg: #0056b3;
+    --focus-text: #ffffff;
 }
 
 body[data-theme="high-contrast"] {
@@ -15,43 +16,46 @@ body[data-theme="high-contrast"] {
     --background-color: #fff;
     --primary-color: #000;
     --header-bg: #fff;
-    --section-bg: #fff;
+    --section-bg-odd: #fff;
+    --section-bg-even: #fff;
     --border-color: #000;
     --focus-outline: #0000ff;
-    --focus-bg: #ffff00;
-    --focus-text: #000;
+    --focus-bg: #0000ff;
+    --focus-text: #ffff00;
 }
 body[data-theme="monochrome"] {
     --text-color: #000;
     --background-color: #fff;
     --primary-color: #000;
     --header-bg: #f0f0f0;
-    --section-bg: #f0f0f0;
+    --section-bg-odd: #fff;
+    --section-bg-even: #f0f0f0;
     --border-color: #000;
     --focus-outline: #000;
-    --focus-bg: #e0e0e0;
-    --focus-text: #000;
+    --focus-bg: #000;
+    --focus-text: #fff;
 }
 body[data-theme="dark"] {
     --text-color: #eee;
     --background-color: #121212;
     --primary-color: #bb86fc;
     --header-bg: #1e1e1e;
-    --section-bg: #1e1e1e;
+    --section-bg-odd: #1e1e1e;
+    --section-bg-even: #2a2a2a;
     --border-color: #555;
     --focus-outline: #03dac6;
     --focus-bg: #03dac6;
     --focus-text: #000;
 }
 body.monochrome { filter: grayscale(100%); }
-body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: var(--background-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: var(--background-color); color: var(--text-color); transition: background-color 0.3s, color 0.3s; }
 [hidden] { display: none !important; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.container { max-width: 1000px; margin: 0 auto; padding: 0 1rem; }
 
 *:focus-visible { outline: 3px solid var(--focus-outline) !important; outline-offset: 2px; background-color: var(--focus-bg) !important; color: var(--focus-text) !important; }
-*:focus-visible strong { color: inherit !important; }
+*:focus-visible strong, *:focus-visible a { color: inherit !important; }
 
-.skip-link { position: absolute; top: -1000px; left: 10px; background: var(--primary-color); color: white; padding: 10px; z-index: 3000; }
+.skip-link { position: absolute; top: -1000px; left: 10px; background: var(--primary-color); color: white; padding: 10px; z-index: 9999; }
 .skip-link:focus { top: 10px; }
 
 .panel-toggles { position: fixed; bottom: 1rem; left: 1rem; right: 1rem; display: flex; justify-content: space-between; z-index: 1998; pointer-events: none; }
@@ -59,7 +63,7 @@ body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; 
 .panel-toggle-btn svg { width: 28px; height: 28px; }
 .panel-toggle-btn span { font-size: 0.7em; }
 
-.side-panel { position: fixed; top: 0; width: 320px; max-width: 90vw; height: 100%; background: var(--background-color); box-shadow: 0 0 20px rgba(0,0,0,0.3); z-index: 2000; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out; }
+.side-panel { position: fixed; top: 0; width: 320px; max-width: 90vw; height: 100%; background: var(--background-color); box-shadow: 0 0 20px rgba(0,0,0,0.3); z-index: 2000; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out; border: 1px solid var(--border-color); }
 .side-panel.left { left: 0; transform: translateX(-100%); }
 .side-panel.right { right: 0; transform: translateX(100%); }
 .side-panel:not([hidden]) { transform: translateX(0); }
@@ -76,7 +80,7 @@ body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; 
 .font-controls button { font-size: 1.2rem; width: 40px; height: 40px; }
 .theme-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
 #reset-settings, #reading-toggle { width: 100%; }
-button { padding: 0.5em 1em; cursor: pointer; border: 1px solid var(--border-color); background: var(--section-bg); }
+button { padding: 0.5em 1em; cursor: pointer; border: 1px solid var(--border-color); background: var(--section-bg-even); }
 .theme-controls button.active { border-color: var(--primary-color); border-width: 2px; }
 
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2500; display: flex; justify-content: center; align-items: center; }
@@ -84,10 +88,14 @@ button { padding: 0.5em 1em; cursor: pointer; border: 1px solid var(--border-col
 .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem; }
 .close-modal-btn { font-size: 2rem; background: none; border: none; cursor: pointer; }
 
-/* ... reszta twoich styli (header, nav, main, footer itp.) ... */
-header, footer { text-align: center; padding: 1rem 0; background-color: var(--header-bg); }
+header, footer { text-align: center; padding: 1.5rem 0; background-color: var(--header-bg); }
+.logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 1.5rem; }
+.logos img, .centered-logo img { max-height: 80px; width: auto; height: auto; object-fit: contain; }
 nav { background-color: var(--primary-color); }
 nav ul { display: flex; justify-content: center; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
 nav a { color: white; text-decoration: none; padding: 1rem; display: block; }
-section { padding: 2rem 1rem; border-bottom: 1px solid var(--border-color); }
-.document-link-wrapper { margin-bottom: 1rem; }
+main { padding: 2rem 0; }
+section { padding: 2rem 1.5rem; }
+section:nth-of-type(even) { background-color: var(--section-bg-even); }
+h2 { border-bottom: 2px solid var(--primary-color); padding-bottom: 0.5rem; margin-top: 0; }
+.document-link-wrapper { margin-bottom: 1rem; padding: 0.75rem; background-color: var(--section-bg-even); border-left: 4px solid var(--primary-color); }
