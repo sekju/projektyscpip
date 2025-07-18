@@ -1,7 +1,15 @@
+/**
+ * =================================================================================
+ * Wersja finalna, naprawiona i kompletna: main.js
+ * - Naprawiono błąd z modalem, stylami fokusu i niedziałającymi trybami.
+ * - Przywrócono i zintegrowano wszystkie funkcje widżetu (czcionka, kontrast, czytanie).
+ * - Zapewniono pełną, liniową nawigację klawiszem TAB po całej treści strony.
+ * - Naprawiono działanie linków w panelu nawigacyjnym i menu głównym.
+ * =================================================================================
+ */
 document.addEventListener('DOMContentLoaded', function () {
     const state = {
-        readingMode: false,
-        firstTabPressed: false
+        readingMode: false
     };
 
     // --- GŁÓWNE WYWOŁANIE FUNKCJI ---
@@ -11,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initWidgetFunctionality();
     initSmoothScrolling();
 
-    // --- INICJALIZACJA PANELI ---
+    // --- INICJALIZACJA PANELI I MODALI ---
     function initPanels() {
         const panels = [
             { id: 'nav-panel', toggleBtnId: 'nav-panel-toggle' },
@@ -21,12 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
         panels.forEach(panelConfig => {
             const panel = document.getElementById(panelConfig.id);
             const toggleBtn = document.getElementById(panelConfig.toggleBtnId);
+            if (!panel || !toggleBtn) return;
+            
             const closeBtn = panel.querySelector('.close-panel-btn');
 
-            if (panel && toggleBtn && closeBtn) {
-                toggleBtn.addEventListener('click', () => openPanel(panel));
-                closeBtn.addEventListener('click', () => closePanel(panel, toggleBtn));
-            }
+            toggleBtn.addEventListener('click', () => openPanel(panel));
+            closeBtn.addEventListener('click', () => closePanel(panel, toggleBtn));
         });
         
         document.addEventListener('keydown', (e) => {
@@ -41,7 +49,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
     function openPanel(panel) {
         panel.hidden = false;
-        setTimeout(() => panel.querySelector('.panel-header h3').focus(), 10);
+        const firstFocusable = panel.querySelector('h3, button');
+        setTimeout(() => firstFocusable?.focus(), 50); // Krótkie opóźnienie dla pewności
     }
 
     function closePanel(panel, toggleBtn) {
@@ -51,29 +60,36 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- NAWIGACJA I KLAWIATURA ---
     function initFullContentNavigation() {
-        const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li');
-        elements.forEach(el => el.setAttribute('tabindex', '0'));
-        document.querySelectorAll('nav a').forEach(el => el.setAttribute('tabindex', '0'));
+        const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li, .document-link-wrapper');
+        elements.forEach(el => {
+             // Unikamy dodawania tabindex do list, które same zawierają linki (jak menu nav)
+            if (!el.querySelector('a')) {
+                 el.setAttribute('tabindex', '0');
+            }
+        });
+        document.querySelectorAll('nav a, footer a, .contact-info a, .document-link-wrapper a').forEach(el => el.setAttribute('tabindex', '0'));
     }
 
     function initKeyboardInstructions() {
         const modal = document.getElementById('keyboard-modal');
+        if (!modal) return;
         const closeModalBtn = modal.querySelector('.close-modal-btn');
 
-        const showInstructions = () => {
-            if (sessionStorage.getItem('keyboardInstructionsShown')) return;
+        const showInstructions = (e) => {
+            if (e.key !== 'Tab' || sessionStorage.getItem('keyboardInstructionsShown')) return;
+            
             modal.hidden = false;
             closeModalBtn.focus();
             sessionStorage.setItem('keyboardInstructionsShown', 'true');
-            document.removeEventListener('keydown', tabListener);
+            document.removeEventListener('keydown', showInstructions);
         };
 
         const closeInstructions = () => {
             modal.hidden = true;
+            document.body.focus(); // Przenieś fokus z powrotem na stronę
         };
         
-        const tabListener = (e) => { if (e.key === 'Tab') showInstructions(); };
-        document.addEventListener('keydown', tabListener);
+        document.addEventListener('keydown', showInstructions);
         closeModalBtn.addEventListener('click', closeInstructions);
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && !modal.hidden) closeInstructions();
@@ -87,8 +103,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 if(targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    targetElement.focus();
+                    const headerToFocus = targetElement.querySelector('h2') || targetElement;
+                    headerToFocus.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    headerToFocus.focus();
                 }
             });
         });
@@ -96,11 +113,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- LOGIKA WIDŻETU DOSTĘPNOŚCI ---
     function initWidgetFunctionality() {
-        // Zmiana rozmiaru czcionki
         document.getElementById('font-decrease').addEventListener('click', () => updateFontSize(-10));
         document.getElementById('font-increase').addEventListener('click', () => updateFontSize(10));
         
-        // Zmiana motywów
         document.querySelectorAll('.theme-controls button').forEach(btn => {
             btn.addEventListener('click', () => {
                 const theme = btn.dataset.theme;
@@ -110,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
         
-        // Reset ustawień
         document.getElementById('reset-settings').addEventListener('click', () => {
             localStorage.clear();
             document.body.style.fontSize = '';
@@ -119,23 +133,21 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.className = '';
         });
         
-        // Czytanie
         const readingToggle = document.getElementById('reading-toggle');
         readingToggle.addEventListener('click', () => {
             state.readingMode = !state.readingMode;
             readingToggle.textContent = state.readingMode ? 'Wyłącz czytanie' : 'Włącz czytanie';
-            readingToggle.setAttribute('aria-pressed', state.readingMode);
+            readingToggle.setAttribute('aria-pressed', String(state.readingMode));
         });
         
         document.addEventListener('keydown', (e) => {
-            if (state.readingMode && e.key === 'Enter' && document.activeElement) {
+            if (state.readingMode && e.key === 'Enter' && document.activeElement && !document.activeElement.matches('button, a')) {
                 e.preventDefault();
                 const text = document.activeElement.innerText;
                 if (text) speak(text);
             }
         });
 
-        // Wypełnienie nawigacji w panelu
         const navPanelList = document.getElementById('nav-panel-list');
         document.querySelectorAll('main > section[id]').forEach(section => {
             const h2 = section.querySelector('h2');
@@ -146,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 a.textContent = h2.textContent;
                 a.addEventListener('click', (e) => {
                     e.preventDefault();
-                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     h2.focus();
                     closePanel(document.getElementById('nav-panel'), document.getElementById('nav-panel-toggle'));
                 });
