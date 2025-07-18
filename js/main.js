@@ -1,37 +1,34 @@
 /**
  * =================================================================================
- * OSTATECZNY SKRYPT DOSTĘPNOŚCI (WCAG 2.1) - Wersja 4.0
+ * OSTATECZNY I KOMPLETNY SKRYPT DOSTĘPNOŚCI (WCAG 2.1) - Wersja 5.0 (Finalna)
  *
- * GŁÓWNA POPRAWKA:
- * Zapewnienie pełnej, linearnej nawigacji klawiszem TAB po wszystkich
- * kluczowych elementach treści strony (nagłówki, paragrafy, listy, linki),
- * a nie tylko po elementach interaktywnych.
+ * Cel: Zapewnienie pełnej funkcjonalności widżetu dostępności oraz
+ * prawidłowej, linearnej nawigacji klawiszem TAB po wszystkich kluczowych
+ * elementach treści strony.
  *
- * Autor: Gemini (poprawiona wersja)
  * Data: 18.07.2024
  * =================================================================================
  */
 document.addEventListener('DOMContentLoaded', function() {
 
+    // --- GŁÓWNE WYWOŁANIE SKRYPTÓW ---
+    enableFullContentNavigation();
+    initAccessibilityWidget();
+    restoreSettings();
+
     /**
-     * GŁÓWNA FUNKCJA INICJALIZUJĄCA POPRAWNĄ NAWIGACJĘ TAB
-     * Ta funkcja jest sercem całego rozwiązania. Przechodzi przez stronę
-     * i nadaje możliwość fokusowania wszystkim kluczowym elementom treści.
+     * Kluczowa funkcja zapewniająca nawigację TAB po całej treści.
+     * Nadaje `tabindex="0"` wszystkim elementom, które powinny być
+     * osiągalne za pomocą klawiatury.
      */
     function enableFullContentNavigation() {
-        // Selektor wybiera wszystkie kluczowe bloki treści, które domyślnie nie są fokusowalne.
         const contentElements = document.querySelectorAll(
             'h1, h2, h3, h4, p, ul, li'
         );
-
-        // Nadajemy każdemu z tych elementów tabindex="0", co włącza je do naturalnej
-        // kolejności nawigacji klawiszem Tab.
         contentElements.forEach(element => {
             element.setAttribute('tabindex', '0');
         });
 
-        // Dodatkowo, naprawiamy błąd w głównym menu nawigacyjnym, gdzie
-        // linki miały nieprawidłowy atrybut tabindex="-1".
         const navLinks = document.querySelectorAll('nav[role="navigation"] a[role="menuitem"]');
         navLinks.forEach(link => {
             link.setAttribute('tabindex', '0');
@@ -39,86 +36,198 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Inicjalizuje obsługę całego panelu dostępności, bazując na ID
-     * elementów z dostarczonego pliku HTML.
+     * Inicjalizuje cały widżet dostępności i wszystkie jego kontrolki.
      */
     function initAccessibilityWidget() {
+        const panel = document.getElementById('accessibility-panel');
+        if (!panel) return;
+
+        // Logika otwierania/zamykania panelu
         const toggleButton = document.getElementById('accessibility-toggle');
         const closeButton = document.getElementById('close-accessibility');
-        const panel = document.getElementById('accessibility-panel');
-
-        if (!toggleButton || !panel || !closeButton) {
-            console.error('Nie znaleziono kluczowych elementów widżetu dostępności.');
-            return;
-        }
-
-        // Logika otwierania i zamykania panelu
-        toggleButton.addEventListener('click', () => {
-            const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
-            toggleButton.setAttribute('aria-expanded', !isExpanded);
-            panel.setAttribute('aria-hidden', isExpanded);
-        });
-
-        closeButton.addEventListener('click', () => {
-            toggleButton.setAttribute('aria-expanded', 'false');
-            panel.setAttribute('aria-hidden', 'true');
-            toggleButton.focus(); // Zwróć fokus na przycisk otwierający
-        });
-
-        // Obsługa zamykania klawiszem Escape
+        toggleButton.addEventListener('click', () => togglePanel(panel, toggleButton, true));
+        closeButton.addEventListener('click', () => togglePanel(panel, toggleButton, false));
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && panel.getAttribute('aria-hidden') === 'false') {
-                closeButton.click();
+                togglePanel(panel, toggleButton, false);
             }
         });
 
-        initWidgetControls(panel);
+        // Inicjalizacja poszczególnych modułów widżetu
+        initFontControls(panel);
+        initContrastControls(panel);
+        initTextToSpeechControls(panel);
+        initNavigationControls(panel);
+        initHelpControls(panel);
+        initResetButton(panel);
     }
     
+    function togglePanel(panel, toggleButton, show) {
+        if (show) {
+            toggleButton.setAttribute('aria-expanded', 'true');
+            panel.setAttribute('aria-hidden', 'false');
+            panel.querySelector('button, input').focus();
+        } else {
+            toggleButton.setAttribute('aria-expanded', 'false');
+            panel.setAttribute('aria-hidden', 'true');
+            toggleButton.focus();
+        }
+    }
+
     /**
-     * Inicjalizuje wszystkie przyciski i kontrolki wewnątrz panelu dostępności.
+     * Inicjalizuje kontrolki do zmiany rozmiaru czcionki.
      */
-    function initWidgetControls(panel) {
-        // Kontrola rozmiaru czcionki
-        const fontSlider = panel.querySelector('#font-size-slider');
-        const fontValueDisplay = panel.querySelector('#font-size-value');
+    function initFontControls(panel) {
+        const slider = panel.querySelector('#font-size-slider');
+        const valueDisplay = panel.querySelector('#font-size-value');
+        const decreaseBtn = panel.querySelector('#font-decrease');
+        const increaseBtn = panel.querySelector('#font-increase');
         const root = document.documentElement;
-        
-        fontSlider.addEventListener('input', () => {
-            root.style.fontSize = fontSlider.value + 'px';
-            fontValueDisplay.textContent = fontSlider.value + 'px';
-        });
-        panel.querySelector('#font-decrease').addEventListener('click', () => { fontSlider.stepDown(); fontSlider.dispatchEvent(new Event('input')); });
-        panel.querySelector('#font-increase').addEventListener('click', () => { fontSlider.stepUp(); fontSlider.dispatchEvent(new Event('input')); });
 
+        function updateFontSize(size) {
+            root.style.fontSize = size + 'px';
+            valueDisplay.textContent = size + 'px';
+            localStorage.setItem('fontSize', size);
+        }
 
-        // Kontrola motywów (kontrast, tryb ciemny itp.)
+        slider.addEventListener('input', () => updateFontSize(slider.value));
+        decreaseBtn.addEventListener('click', () => { slider.stepDown(); slider.dispatchEvent(new Event('input')); });
+        increaseBtn.addEventListener('click', () => { slider.stepUp(); slider.dispatchEvent(new Event('input')); });
+    }
+
+    /**
+     * Inicjalizuje przyciski do zmiany motywu/kontrastu.
+     */
+    function initContrastControls(panel) {
         const contrastButtons = panel.querySelectorAll('.contrast-btn');
         contrastButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Usuń wszystkie klasy motywów z body
-                document.body.className = '';
                 const theme = button.getAttribute('data-contrast');
+                document.body.className = ''; // Reset klas
                 if (theme !== 'normal') {
                     document.body.classList.add(theme);
                 }
-                // Ustaw klasę 'active' na klikniętym przycisku
+                localStorage.setItem('theme', theme);
+
                 contrastButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
             });
         });
-
-        // Tutaj można dodać obsługę pozostałych przycisków (czytanie, reset itp.)
-        // jeśli będą potrzebne w przyszłości.
     }
 
+    /**
+     * Inicjalizuje kontrolki do czytania tekstu na głos (Text-to-Speech).
+     */
+    function initTextToSpeechControls(panel) {
+        const readBtn = panel.querySelector('#read-page');
+        const pauseBtn = panel.querySelector('#pause-reading');
+        const stopBtn = panel.querySelector('#stop-reading');
+        let isReading = false;
 
-    // --- GŁÓWNE WYWOŁANIE SKRYPTÓW ---
+        readBtn.addEventListener('click', () => {
+            if (!isReading) {
+                const content = document.querySelector('main').innerText;
+                const utterance = new SpeechSynthesisUtterance(content);
+                utterance.lang = 'pl-PL';
+                utterance.onstart = () => isReading = true;
+                utterance.onend = () => isReading = false;
+                speechSynthesis.speak(utterance);
+            }
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.paused ? speechSynthesis.resume() : speechSynthesis.pause();
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            speechSynthesis.cancel();
+            isReading = false;
+        });
+    }
+
+    /**
+     * Inicjalizuje przyciski nawigacyjne "Przejdź do...".
+     */
+    function initNavigationControls(panel) {
+        panel.querySelector('#focus-main').addEventListener('click', () => {
+            document.getElementById('main-content').focus();
+        });
+        panel.querySelector('#focus-nav').addEventListener('click', () => {
+            document.querySelector('nav a').focus();
+        });
+    }
     
-    // 1. Najważniejszy krok: Włączamy pełną nawigację po treści.
-    enableFullContentNavigation();
+    /**
+     * Inicjalizuje przyciski pomocy.
+     */
+    function initHelpControls(panel) {
+        // Ta funkcja może zostać rozbudowana o modal z instrukcjami,
+        // jeśli będzie taka potrzeba w przyszłości.
+        panel.querySelector('#keyboard-help').addEventListener('click', () => {
+            alert("Użyj klawiszy TAB i SHIFT+TAB do nawigacji, a ENTER do aktywacji elementów.");
+        });
+         panel.querySelector('#read-help').addEventListener('click', () => {
+            const helpText = "Panel dostępności pozwala na zmianę rozmiaru czcionki, kontrastu oraz włączenie czytania strony na głos.";
+            const utterance = new SpeechSynthesisUtterance(helpText);
+            utterance.lang = 'pl-PL';
+            speechSynthesis.speak(utterance);
+        });
+    }
+
+    /**
+     * Inicjalizuje przycisk resetowania ustawień.
+     */
+    function initResetButton(panel) {
+        panel.querySelector('#reset-settings').addEventListener('click', () => {
+            // Resetuj localStorage
+            localStorage.removeItem('fontSize');
+            localStorage.removeItem('theme');
+            
+            // Resetuj style
+            document.documentElement.style.fontSize = '';
+            document.body.className = '';
+            
+            // Resetuj kontrolki w panelu
+            const slider = panel.querySelector('#font-size-slider');
+            const valueDisplay = panel.querySelector('#font-size-value');
+            slider.value = 16;
+            valueDisplay.textContent = '16px';
+            
+            panel.querySelectorAll('.contrast-btn').forEach(btn => btn.classList.remove('active'));
+            panel.querySelector('[data-contrast="normal"]').classList.add('active');
+            
+            // Zatrzymaj czytanie
+            speechSynthesis.cancel();
+        });
+    }
     
-    // 2. Inicjalizujemy widżet dostępności.
-    initAccessibilityWidget();
+    /**
+     * Przywraca zapisane ustawienia z localStorage przy załadowaniu strony.
+     */
+    function restoreSettings() {
+        const savedFontSize = localStorage.getItem('fontSize');
+        if (savedFontSize) {
+            document.documentElement.style.fontSize = savedFontSize + 'px';
+            const slider = document.getElementById('font-size-slider');
+            const valueDisplay = document.getElementById('font-size-value');
+            if(slider) slider.value = savedFontSize;
+            if(valueDisplay) valueDisplay.textContent = savedFontSize + 'px';
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme && savedTheme !== 'normal') {
+            document.body.classList.add(savedTheme);
+        }
+        
+        const contrastButtons = document.querySelectorAll('.contrast-btn');
+        contrastButtons.forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.getAttribute('data-contrast') === (savedTheme || 'normal')) {
+                btn.classList.add('active');
+            }
+        });
+    }
 
 });
