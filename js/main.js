@@ -1,12 +1,3 @@
-/**
- * =================================================================================
- * Wersja finalna, naprawiona i kompletna: main.js
- * - Naprawiono błąd z modalem, stylami fokusu i niedziałającymi trybami.
- * - Przywrócono i zintegrowano wszystkie funkcje widżetu (czcionka, kontrast, czytanie).
- * - Zapewniono pełną, liniową nawigację klawiszem TAB po całej treści strony.
- * - Naprawiono działanie linków w panelu nawigacyjnym i menu głównym.
- * =================================================================================
- */
 document.addEventListener('DOMContentLoaded', function () {
     const state = {
         readingMode: false
@@ -25,18 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
             { id: 'nav-panel', toggleBtnId: 'nav-panel-toggle' },
             { id: 'a11y-panel', toggleBtnId: 'a11y-panel-toggle' }
         ];
-
         panels.forEach(panelConfig => {
             const panel = document.getElementById(panelConfig.id);
             const toggleBtn = document.getElementById(panelConfig.toggleBtnId);
             if (!panel || !toggleBtn) return;
-            
             const closeBtn = panel.querySelector('.close-panel-btn');
-
-            toggleBtn.addEventListener('click', () => openPanel(panel));
+            const firstFocusable = panel.querySelector('h3');
+            toggleBtn.addEventListener('click', () => openPanel(panel, firstFocusable));
             closeBtn.addEventListener('click', () => closePanel(panel, toggleBtn));
         });
-        
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 document.querySelectorAll('.side-panel:not([hidden])').forEach(p => {
@@ -46,11 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-    
-    function openPanel(panel) {
+
+    function openPanel(panel, firstFocusable) {
         panel.hidden = false;
-        const firstFocusable = panel.querySelector('h3, button');
-        setTimeout(() => firstFocusable?.focus(), 50); // Krótkie opóźnienie dla pewności
+        setTimeout(() => firstFocusable?.focus(), 50);
     }
 
     function closePanel(panel, toggleBtn) {
@@ -62,33 +49,29 @@ document.addEventListener('DOMContentLoaded', function () {
     function initFullContentNavigation() {
         const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li, .document-link-wrapper');
         elements.forEach(el => {
-             // Unikamy dodawania tabindex do list, które same zawierają linki (jak menu nav)
-            if (!el.querySelector('a')) {
-                 el.setAttribute('tabindex', '0');
+            if (!el.closest('nav') && !el.closest('.side-panel') && !el.closest('.modal-overlay')) {
+                if (!el.querySelector('a, button')) {
+                    el.setAttribute('tabindex', '0');
+                }
             }
         });
-        document.querySelectorAll('nav a, footer a, .contact-info a, .document-link-wrapper a').forEach(el => el.setAttribute('tabindex', '0'));
+        document.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '0'));
     }
 
     function initKeyboardInstructions() {
         const modal = document.getElementById('keyboard-modal');
         if (!modal) return;
         const closeModalBtn = modal.querySelector('.close-modal-btn');
-
         const showInstructions = (e) => {
             if (e.key !== 'Tab' || sessionStorage.getItem('keyboardInstructionsShown')) return;
-            
             modal.hidden = false;
             closeModalBtn.focus();
             sessionStorage.setItem('keyboardInstructionsShown', 'true');
             document.removeEventListener('keydown', showInstructions);
         };
-
         const closeInstructions = () => {
             modal.hidden = true;
-            document.body.focus(); // Przenieś fokus z powrotem na stronę
         };
-        
         document.addEventListener('keydown', showInstructions);
         closeModalBtn.addEventListener('click', closeInstructions);
         document.addEventListener('keydown', (e) => {
@@ -97,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function initSmoothScrolling() {
-        document.querySelectorAll('nav a').forEach(anchor => {
+        document.querySelectorAll('nav a, #nav-panel-list a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
@@ -106,6 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     const headerToFocus = targetElement.querySelector('h2') || targetElement;
                     headerToFocus.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     headerToFocus.focus();
+                    const panel = this.closest('.side-panel');
+                    if(panel){
+                         const toggleBtn = document.getElementById(panel.id.replace('-panel', '-panel-toggle'));
+                         closePanel(panel, toggleBtn);
+                    }
                 }
             });
         });
@@ -116,12 +104,15 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('font-decrease').addEventListener('click', () => updateFontSize(-10));
         document.getElementById('font-increase').addEventListener('click', () => updateFontSize(10));
         
-        document.querySelectorAll('.theme-controls button').forEach(btn => {
+        const themeButtons = document.querySelectorAll('.theme-controls button');
+        themeButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const theme = btn.dataset.theme;
                 document.body.dataset.theme = theme;
                 document.body.className = theme === 'monochrome' ? 'monochrome' : '';
                 localStorage.setItem('theme', theme);
+                themeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
             });
         });
         
@@ -131,6 +122,8 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('font-size-value').textContent = '100%';
             document.body.dataset.theme = 'normal';
             document.body.className = '';
+            themeButtons.forEach(b => b.classList.remove('active'));
+            document.querySelector('.theme-controls button[data-theme="normal"]').classList.add('active');
         });
         
         const readingToggle = document.getElementById('reading-toggle');
@@ -156,16 +149,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 const a = document.createElement('a');
                 a.href = `#${section.id}`;
                 a.textContent = h2.textContent;
-                a.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    h2.focus();
-                    closePanel(document.getElementById('nav-panel'), document.getElementById('nav-panel-toggle'));
-                });
                 li.appendChild(a);
                 navPanelList.appendChild(li);
             }
         });
+        initSmoothScrolling(); // Ponowna inicjalizacja, aby objąć nowe linki
         
         restoreSettings();
     }
@@ -173,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateFontSize(change) {
         const body = document.body;
         const display = document.getElementById('font-size-value');
-        let currentSize = parseInt(body.style.fontSize || 100);
+        let currentSize = parseInt(body.style.fontSize) || 100;
         currentSize += change;
         if (currentSize < 70) currentSize = 70;
         if (currentSize > 150) currentSize = 150;
@@ -191,11 +179,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function restoreSettings() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.body.dataset.theme = savedTheme;
-            document.body.className = savedTheme === 'monochrome' ? 'monochrome' : '';
-        }
+        const savedTheme = localStorage.getItem('theme') || 'normal';
+        document.body.dataset.theme = savedTheme;
+        document.body.className = savedTheme === 'monochrome' ? 'monochrome' : '';
+        document.querySelectorAll('.theme-controls button').forEach(b => {
+            b.classList.toggle('active', b.dataset.theme === savedTheme);
+        });
 
         const savedFontSize = localStorage.getItem('fontSize');
         if (savedFontSize) {
