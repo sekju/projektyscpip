@@ -8,48 +8,70 @@
 </head>
 <body>
 
-    <button id="open-widget-btn" class="widget-toggle-btn" aria-label="Otwórz ustawienia dostępności">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28" aria-hidden="true">
-            <path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6.5c-.8 0-1.5.7-1.5 1.5V22h-2v-6h-1v6H7v-8.5c0-.8-.7-1.5-1.5-1.5H3V7h2.5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5h5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5H19v2z"/>
-        </svg>
-    </button>
+    <div class="panel-toggles">
+        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+            <span>Nawigacja</span>
+        </button>
+        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6.5c-.8 0-1.5.7-1.5 1.5V22h-2v-6h-1v6H7v-8.5c0-.8-.7-1.5-1.5-1.5H3V7h2.5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5h5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5H19v2z"></path></svg>
+            <span>Dostępność</span>
+        </button>
+    </div>
 
-    <div id="accessibility-widget" role="dialog" aria-labelledby="widget-title" hidden>
-        <div class="widget-header">
-            <h3 id="widget-title" tabindex="-1">Ustawienia Dostępności</h3>
-            <button class="close-widget" aria-label="Zamknij ustawienia dostępności">&times;</button>
+    <div id="nav-panel" class="side-panel left" hidden>
+        <div class="panel-header">
+            <h3>Szybka nawigacja</h3>
+            <button class="close-panel-btn" aria-label="Zamknij panel nawigacji">&times;</button>
         </div>
-        <div class="widget-section">
-            <h4>Wygląd</h4>
-            <ul>
-                <li><button id="increase-font">Zwiększ czcionkę</button></li>
-                <li><button id="decrease-font">Zmniejsz czcionkę</button></li>
-                <li><button id="high-contrast-mode">Wysoki kontrast</button></li>
-                <li><button id="mono-mode">Tryb monochromatyczny</button></li>
+        <ul id="nav-panel-list">
             </ul>
+    </div>
+
+    <div id="a11y-panel" class="side-panel right" hidden>
+        <div class="panel-header">
+            <h3>Panel Dostępności</h3>
+            <button class="close-panel-btn" aria-label="Zamknij panel dostępności">&times;</button>
         </div>
-        <div class="widget-section">
-            <h4>Nawigacja</h4>
-            <ul id="widget-section-nav">
-                </ul>
-        </div>
-         <div class="widget-section">
-            <h4>Inne</h4>
-            <ul>
-                <li><button id="click-to-read">Czytaj po kliknięciu</button></li>
-                <li><button id="keyboard-help">Instrukcja klawiatury</button></li>
-            </ul>
+        <div class="panel-content">
+            <div class="control-group">
+                <h4>Rozmiar czcionki</h4>
+                <div class="font-controls">
+                    <button id="font-decrease">A-</button>
+                    <span id="font-size-value">100%</span>
+                    <button id="font-increase">A+</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <h4>Tryb wyświetlania</h4>
+                <div class="theme-controls">
+                    <button data-theme="normal">Normalny</button>
+                    <button data-theme="high-contrast">Kontrast</button>
+                    <button data-theme="monochrome">Monochromatyczny</button>
+                    <button data-theme="dark">Ciemny</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <h4>Czytanie tekstu</h4>
+                <button id="reading-toggle">Włącz czytanie</button>
+            </div>
+            <div class="control-group">
+                <button id="reset-settings">Resetuj ustawienia</button>
+            </div>
         </div>
     </div>
-    
-    <div id="accessible-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+
+    <div id="keyboard-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="keyboard-modal-title" hidden>
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="modal-title" class="modal-title">Instrukcje</h2>
-                <button id="modal-close-btn" class="modal-close-btn" aria-label="Zamknij okno">&times;</button>
+                <h2 id="keyboard-modal-title">Nawigacja klawiaturą jest aktywna</h2>
+                <button class="close-modal-btn" aria-label="Zamknij okno">&times;</button>
             </div>
-            <div id="modal-body" class="modal-body">
-                </div>
+            <div class="modal-body">
+                <p>Użyj klawisza <strong>Tab</strong> aby przechodzić do kolejnych elementów lub <strong>Shift + Tab</strong> aby się cofać.</p>
+                <p>Aby włączyć tryb czytania na głos, otwórz panel dostępności (ikona w lewym dolnym rogu) i aktywuj opcję "Włącz czytanie". Gdy tryb jest aktywny, wciśnij <strong>Enter</strong> na dowolnym tekście, aby go odsłuchać.</p>
+                <p>Wciśnij <strong>Escape</strong> aby zamknąć to okno.</p>
+            </div>
         </div>
     </div>
 
@@ -128,14 +150,7 @@
                 <h4>Dostępność architektoniczna</h4>
                 <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
                 <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach” usytuowane jest na parterze budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
-                <p>Biuro projektu posiada dwa wejścia:<br>
-                1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>
-                2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>
-                Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>
-                Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>
-                Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>
-                Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>
-                W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
+                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
             </div>
             <div class="contact-info">
                 <h4>Kontakt w sprawie projektu</h4>
@@ -248,14 +263,7 @@
                 <h4>Dostępność architektoniczna</h4>
                 <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
                 <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach” usytuowane jest na parterze budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
-                <p>Biuro projektu posiada dwa wejścia:<br>
-                1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>
-                2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>
-                Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>
-                Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>
-                Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>
-                Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>
-                W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
+                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
             </div>
             <div class="contact-info">
                 <h4>Kontakt w sprawie projektu</h4>
@@ -329,14 +337,7 @@
                 <h4>Dostępność architektoniczna</h4>
                 <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
                 <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach” usytuowane jest na parterze budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
-                <p>Biuro projektu posiada dwa wejścia:<br>
-                1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>
-                2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>
-                Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>
-                Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>
-                Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>
-                Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>
-                W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
+                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
             </div>
             <div class="contact-info">
                 <h4>Kontakt w sprawie projektu</h4>
