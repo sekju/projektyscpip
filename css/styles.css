@@ -226,3 +226,18 @@ a { color: var(--primary-color); }
     text-decoration: none;
     color: var(--text-color);
 }
+
+/* ==========================================================================
+   KLUCZOWY STYL WSKAŹNIKA FOKUSU (WCAG 2.4.7)
+   ========================================================================== */
+
+/* Ten styl zapewnia wyraźne, widoczne obramowanie dla każdego elementu,
+   który otrzyma fokus za pomocą klawiatury. Dotyczy to zarówno linków,
+   przycisków, jak i teraz - dzięki skryptowi JS - nagłówków i paragrafów. */
+
+*:focus-visible {
+    outline: 3px solid #0056b3 !important; /* Wyraźny niebieski kolor */
+    outline-offset: 2px;
+    background-color: #e6f2ff; /* Delikatne tło dla lepszej widoczności */
+    box-shadow: 0 0 0 5px rgba(0, 86, 179, 0.3);
+}
