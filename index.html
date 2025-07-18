@@ -6,31 +6,31 @@
     <title>Projekty - Śląskie Centrum Profilaktyki i Psychoterapii (Wersja Dostępna)</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body data-theme="normal">
 
     <div class="panel-toggles">
-        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji">
+        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji" aria-controls="nav-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
             <span>Nawigacja</span>
         </button>
-        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności">
+        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności" aria-controls="a11y-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6.5c-.8 0-1.5.7-1.5 1.5V22h-2v-6h-1v6H7v-8.5c0-.8-.7-1.5-1.5-1.5H3V7h2.5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5h5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5H19v2z"></path></svg>
             <span>Dostępność</span>
         </button>
     </div>
 
-    <div id="nav-panel" class="side-panel left" hidden>
+    <div id="nav-panel" class="side-panel left" role="dialog" aria-modal="true" aria-labelledby="nav-panel-title" hidden>
         <div class="panel-header">
-            <h3 tabindex="-1">Szybka nawigacja</h3>
+            <h3 id="nav-panel-title" tabindex="-1">Szybka nawigacja</h3>
             <button class="close-panel-btn" aria-label="Zamknij panel nawigacji">&times;</button>
         </div>
         <ul id="nav-panel-list">
             </ul>
     </div>
 
-    <div id="a11y-panel" class="side-panel right" hidden>
+    <div id="a11y-panel" class="side-panel right" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" hidden>
         <div class="panel-header">
-            <h3 tabindex="-1">Panel Dostępności</h3>
+            <h3 id="a11y-panel-title" tabindex="-1">Panel Dostępności</h3>
             <button class="close-panel-btn" aria-label="Zamknij panel dostępności">&times;</button>
         </div>
         <div class="panel-content">
@@ -45,7 +45,7 @@
             <div class="control-group">
                 <h4>Tryb wyświetlania</h4>
                 <div class="theme-controls">
-                    <button data-theme="normal">Normalny</button>
+                    <button data-theme="normal" class="active">Normalny</button>
                     <button data-theme="high-contrast">Kontrast</button>
                     <button data-theme="monochrome">Monochromatyczny</button>
                     <button data-theme="dark">Ciemny</button>
@@ -69,7 +69,7 @@
             </div>
             <div class="modal-body">
                 <p>Użyj klawisza <strong>Tab</strong> aby przechodzić do kolejnych elementów lub <strong>Shift + Tab</strong> aby się cofać.</p>
-                <p>Aby włączyć tryb czytania na głos, otwórz panel dostępności (ikona w lewym dolnym rogu) i aktywuj opcję "Włącz czytanie". Gdy tryb jest aktywny, wciśnij <strong>Enter</strong> na dowolnym tekście, aby go odsłuchać.</p>
+                <p>Aby włączyć tryb czytania na głos, otwórz panel dostępności (ikona w prawym dolnym rogu) i aktywuj opcję "Włącz czytanie". Gdy tryb jest aktywny, wciśnij <strong>Enter</strong> na dowolnym tekście, aby go odsłuchać.</p>
                 <p>Wciśnij <strong>Escape</strong> aby zamknąć to okno.</p>
             </div>
         </div>
