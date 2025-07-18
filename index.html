@@ -21,7 +21,7 @@
 
     <div id="nav-panel" class="side-panel left" hidden>
         <div class="panel-header">
-            <h3>Szybka nawigacja</h3>
+            <h3 tabindex="-1">Szybka nawigacja</h3>
             <button class="close-panel-btn" aria-label="Zamknij panel nawigacji">&times;</button>
         </div>
         <ul id="nav-panel-list">
@@ -30,7 +30,7 @@
 
     <div id="a11y-panel" class="side-panel right" hidden>
         <div class="panel-header">
-            <h3>Panel Dostępności</h3>
+            <h3 tabindex="-1">Panel Dostępności</h3>
             <button class="close-panel-btn" aria-label="Zamknij panel dostępności">&times;</button>
         </div>
         <div class="panel-content">
@@ -53,7 +53,7 @@
             </div>
             <div class="control-group">
                 <h4>Czytanie tekstu</h4>
-                <button id="reading-toggle">Włącz czytanie</button>
+                <button id="reading-toggle" aria-pressed="false">Włącz czytanie</button>
             </div>
             <div class="control-group">
                 <button id="reset-settings">Resetuj ustawienia</button>
@@ -64,7 +64,7 @@
     <div id="keyboard-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="keyboard-modal-title" hidden>
         <div class="modal-content">
             <div class="modal-header">
-                <h2 id="keyboard-modal-title">Nawigacja klawiaturą jest aktywna</h2>
+                <h2 id="keyboard-modal-title" tabindex="-1">Nawigacja klawiaturą jest aktywna</h2>
                 <button class="close-modal-btn" aria-label="Zamknij okno">&times;</button>
             </div>
             <div class="modal-body">
