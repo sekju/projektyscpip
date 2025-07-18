@@ -88,20 +88,25 @@ document.addEventListener('DOMContentLoaded', function () {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    const headerToFocus = targetElement.querySelector('h2') || targetElement;
-                    headerToFocus.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    headerToFocus.focus();
-                    const panel = this.closest('.side-panel');
-                    if(panel){
-                         const toggleBtn = document.getElementById(panel.id.replace('-panel', '-panel-toggle'));
-                         closePanel(panel, toggleBtn);
+                if (targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerToFocus = targetElement.querySelector('h2') || targetElement;
+                        headerToFocus.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        headerToFocus.focus();
+                        const panel = this.closest('.side-panel');
+                        if (panel) {
+                             const toggleBtn = document.getElementById(panel.id.replace('-panel', '-panel-toggle'));
+                             closePanel(panel, toggleBtn);
+                        }
                     }
+                } else {
+                    window.location.href = targetId;
                 }
             });
         });
     }
+    
 
     // --- LOGIKA WIDŻETU DOSTĘPNOŚCI ---
     function initWidgetFunctionality() {
@@ -114,14 +119,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const theme = btn.dataset.theme;
                 document.body.dataset.theme = theme;
                 document.body.className = theme === 'monochrome' ? 'monochrome' : '';
-                localStorage.setItem('theme', theme);
                 themeButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             });
         });
         
         document.getElementById('reset-settings').addEventListener('click', () => {
-            localStorage.clear();
             document.body.style.fontSize = '';
             document.getElementById('font-size-value').textContent = '100%';
             document.body.dataset.theme = 'normal';
@@ -137,6 +140,12 @@ document.addEventListener('DOMContentLoaded', function () {
             readingToggle.setAttribute('aria-pressed', String(state.readingMode));
         });
         
+        document.addEventListener('click', (e) => {
+            if (state.readingMode && e.target.matches('p, h1, h2, h3, h4, li')) {
+                speak(e.target.innerText);
+            }
+        });
+
         document.addEventListener('keydown', (e) => {
             if (state.readingMode && e.key === 'Enter' && document.activeElement && !document.activeElement.matches('button, a')) {
                 e.preventDefault();
@@ -160,8 +169,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             initSmoothScrolling();
         }
-        
-        restoreSettings();
     }
 
     function updateFontSize(change) {
@@ -173,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentSize > 150) currentSize = 150;
         body.style.fontSize = currentSize + '%';
         display.textContent = currentSize + '%';
-        localStorage.setItem('fontSize', currentSize);
     }
     
     function speak(text) {
@@ -182,20 +188,5 @@ document.addEventListener('DOMContentLoaded', function () {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'pl-PL';
         speechSynthesis.speak(utterance);
-    }
-
-    function restoreSettings() {
-        const savedTheme = localStorage.getItem('theme') || 'normal';
-        document.body.dataset.theme = savedTheme;
-        document.body.className = savedTheme === 'monochrome' ? 'monochrome' : '';
-        document.querySelectorAll('.theme-controls button').forEach(b => {
-            b.classList.toggle('active', b.dataset.theme === savedTheme);
-        });
-
-        const savedFontSize = localStorage.getItem('fontSize');
-        if (savedFontSize) {
-            document.body.style.fontSize = savedFontSize + '%';
-            document.getElementById('font-size-value').textContent = savedFontSize + '%';
-        }
     }
 });
