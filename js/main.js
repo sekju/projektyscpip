@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!panel || !toggleBtn) return;
             const closeBtn = panel.querySelector('.close-panel-btn');
             const firstFocusable = panel.querySelector('h3');
-            toggleBtn.addEventListener('click', () => openPanel(panel, firstFocusable));
+            toggleBtn.addEventListener('click', () => openPanel(panel, firstFocusable, toggleBtn));
             closeBtn.addEventListener('click', () => closePanel(panel, toggleBtn));
         });
         document.addEventListener('keydown', (e) => {
@@ -35,13 +35,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function openPanel(panel, firstFocusable) {
+    function openPanel(panel, firstFocusable, toggleBtn) {
         panel.hidden = false;
+        toggleBtn.setAttribute('aria-expanded', 'true');
         setTimeout(() => firstFocusable?.focus(), 50);
     }
 
     function closePanel(panel, toggleBtn) {
         panel.hidden = true;
+        toggleBtn?.setAttribute('aria-expanded', 'false');
         toggleBtn?.focus();
     }
 
@@ -64,13 +66,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const closeModalBtn = modal.querySelector('.close-modal-btn');
         const showInstructions = (e) => {
             if (e.key !== 'Tab' || sessionStorage.getItem('keyboardInstructionsShown')) return;
+            
             modal.hidden = false;
-            closeModalBtn.focus();
+            modal.querySelector('h2').focus();
             sessionStorage.setItem('keyboardInstructionsShown', 'true');
             document.removeEventListener('keydown', showInstructions);
         };
         const closeInstructions = () => {
             modal.hidden = true;
+            document.querySelector('.skip-link')?.focus();
         };
         document.addEventListener('keydown', showInstructions);
         closeModalBtn.addEventListener('click', closeInstructions);
@@ -142,18 +146,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         const navPanelList = document.getElementById('nav-panel-list');
-        document.querySelectorAll('main > section[id]').forEach(section => {
-            const h2 = section.querySelector('h2');
-            if(h2) {
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = `#${section.id}`;
-                a.textContent = h2.textContent;
-                li.appendChild(a);
-                navPanelList.appendChild(li);
-            }
-        });
-        initSmoothScrolling(); // Ponowna inicjalizacja, aby objąć nowe linki
+        if (navPanelList) {
+            document.querySelectorAll('main > section[id]').forEach(section => {
+                const h2 = section.querySelector('h2');
+                if(h2) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = `#${section.id}`;
+                    a.textContent = h2.textContent;
+                    li.appendChild(a);
+                    navPanelList.appendChild(li);
+                }
+            });
+            initSmoothScrolling();
+        }
         
         restoreSettings();
     }
