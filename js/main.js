@@ -88,6 +88,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
                             (currentPath === '/' && linkPath.endsWith('index.html')) ||
                             (currentPath.endsWith('index.html') && linkPath === '/')) {
+                            
+                            // POPRAWKA: W trybie czytania, przeczytaj alt text przed zapobieganiem nawigacji
+                            if (state.readingMode && img.alt) {
+                                console.log('Tryb czytania aktywny - czytam alt text:', img.alt);
+                                speak(img.alt);
+                            }
+                            
                             console.log('Zapobiegam odświeżeniu strony - Enter na linku z obrazem do tej samej strony');
                             e.preventDefault();
                             return false;
@@ -192,21 +199,48 @@ document.addEventListener('DOMContentLoaded', function () {
         const handleReading = (e) => {
              if (e.target.closest('.side-panel') || e.target.closest('.panel-toggles')) return;
              console.log('Tryb czytania - kliknięto element:', e.target);
-             e.preventDefault();
-             const textToRead = e.target.alt || e.target.innerText;
+             
+             // Sprawdź czy kliknięto na obraz lub link z obrazem
+             let textToRead = '';
+             if (e.target.tagName === 'IMG') {
+                 textToRead = e.target.alt;
+             } else if (e.target.tagName === 'A') {
+                 const img = e.target.querySelector('img');
+                 if (img && img.alt) {
+                     textToRead = img.alt;
+                 }
+             } else {
+                 textToRead = e.target.alt || e.target.innerText;
+             }
+             
              if (textToRead) {
                  console.log('Czytam tekst:', textToRead);
+                 e.preventDefault();
                  speak(textToRead);
              }
         };
         const handleReadingOnEnter = (e) => {
-            if (state.readingMode && e.key === 'Enter' && document.activeElement && !document.activeElement.matches('button, a')) {
-                console.log('Tryb czytania - Enter na elemencie:', document.activeElement);
-                e.preventDefault();
-                const textToRead = document.activeElement.alt || document.activeElement.innerText;
-                if (textToRead) {
-                    console.log('Czytam tekst (Enter):', textToRead);
-                    speak(textToRead);
+            if (state.readingMode && e.key === 'Enter' && document.activeElement) {
+                const activeElement = document.activeElement;
+                console.log('Tryb czytania - Enter na elemencie:', activeElement);
+                
+                // Dla linków, sprawdź czy zawierają obrazy
+                if (activeElement.matches('a')) {
+                    const img = activeElement.querySelector('img');
+                    if (img && img.alt) {
+                        console.log('Czytam alt text obrazu w linku:', img.alt);
+                        speak(img.alt);
+                        return; // Nie zapobiegaj nawigacji tutaj - będzie obsłużone w initSamePageLinkFix
+                    }
+                }
+                // Dla innych elementów (nie-linków, nie-przycisków)
+                else if (!activeElement.matches('button')) {
+                    e.preventDefault();
+                    const textToRead = activeElement.alt || activeElement.innerText;
+                    if (textToRead) {
+                        console.log('Czytam tekst (Enter):', textToRead);
+                        speak(textToRead);
+                    }
                 }
             }
         };
