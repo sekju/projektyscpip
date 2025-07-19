@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const state = {
-        readingMode: false
+        readingMode: false,
+        readLinks: new Set() // POPRAWKA: Śledzenie przeczytanych linków
     };
 
     // --- GŁÓWNE WYWOŁANIE FUNKCJI ---
@@ -61,13 +62,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 const currentPath = window.location.pathname;
                 const linkPath = new URL(link.href, window.location.origin).pathname;
                 
-                // W trybie czytania, przeczytaj alt text przed blokowaniem
+                // W trybie czytania, sprawdź czy to pierwsze czy drugie kliknięcie
                 if (state.readingMode) {
-                    const img = link.querySelector('img');
-                    if (img && img.alt) {
-                        console.log('CZYTANIE: Alt text z linka:', img.alt);
-                        speak(img.alt);
+                    const linkId = link.href + '|' + link.textContent.trim();
+                    if (!state.readLinks.has(linkId)) {
+                        // Pierwsze kliknięcie - nie pozwalaj na nawigację nawet na inne strony w trybie czytania
+                        console.log('KLIK LINK: Pierwsze kliknięcie w trybie czytania');
+                        return; // handleReading obsłuży czytanie i preventDefault
                     }
+                    // Drugie kliknięcie - sprawdź czy to ta sama strona
                 }
                 
                 // Jeśli link prowadzi do tej samej strony, nie rób nic
@@ -80,62 +83,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     return false;
                 }
             });
-        });
-
-        // POPRAWKA: Globalna obsługa Enter dla wszystkich elementów w trybie czytania
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && state.readingMode && document.activeElement) {
-                const activeElement = document.activeElement;
-                console.log('ENTER - Element aktywny:', activeElement.tagName, activeElement);
-                
-                let textToRead = '';
-                
-                // Jeśli to link z obrazem
-                if (activeElement.tagName === 'A') {
-                    const img = activeElement.querySelector('img');
-                    if (img && img.alt) {
-                        textToRead = img.alt;
-                        console.log('CZYTANIE ENTER: Alt text z linka:', textToRead);
-                    } else if (activeElement.textContent.trim()) {
-                        textToRead = activeElement.textContent.trim();
-                        console.log('CZYTANIE ENTER: Tekst z linka:', textToRead);
-                    }
-                    
-                    // Sprawdź czy to link do tej samej strony
-                    const currentPath = window.location.pathname;
-                    try {
-                        const linkPath = new URL(activeElement.href, window.location.origin).pathname;
-                        const isSamePage = currentPath === linkPath || 
-                            (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
-                            (currentPath === '/' && linkPath.endsWith('index.html')) ||
-                            (currentPath.endsWith('index.html') && linkPath === '/');
-                        
-                        if (isSamePage) {
-                            console.log('ENTER: Zapobiegam nawigacji do tej samej strony');
-                            e.preventDefault();
-                        }
-                    } catch (error) {
-                        console.log('ENTER: Błąd podczas sprawdzania URL:', error);
-                    }
-                } 
-                // Jeśli to obraz
-                else if (activeElement.tagName === 'IMG') {
-                    textToRead = activeElement.alt;
-                    console.log('CZYTANIE ENTER: Alt text obrazu:', textToRead);
-                    e.preventDefault();
-                }
-                // Inne elementy
-                else if (!activeElement.matches('button, input, textarea, select')) {
-                    textToRead = activeElement.textContent.trim();
-                    console.log('CZYTANIE ENTER: Tekst elementu:', textToRead);
-                    e.preventDefault();
-                }
-                
-                if (textToRead) {
-                    console.log('MÓWIĘ:', textToRead);
-                    speak(textToRead);
-                }
-            }
         });
     }
 
@@ -227,6 +174,10 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.className = '';
             themeButtons.forEach(b => b.classList.remove('active'));
             document.querySelector('.theme-controls button[data-theme="normal"]').classList.add('active');
+            
+            // POPRAWKA: Reset listy przeczytanych linków
+            state.readLinks.clear();
+            console.log('Ustawienia zresetowane, włącznie z listą przeczytanych linków');
         });
         
         const readingToggle = document.getElementById('reading-toggle');
@@ -236,12 +187,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('KLIK - Tryb czytania - element:', e.target.tagName, e.target);
             
             let textToRead = '';
+            let linkElement = null;
             
             // Sprawdź typ elementu i pobierz odpowiedni tekst
             if (e.target.tagName === 'IMG') {
                 textToRead = e.target.alt;
                 console.log('KLIK - Alt text obrazu:', textToRead);
             } else if (e.target.tagName === 'A') {
+                linkElement = e.target;
                 const img = e.target.querySelector('img');
                 if (img && img.alt) {
                     textToRead = img.alt;
@@ -255,12 +208,101 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('KLIK - Tekst elementu:', textToRead);
             }
             
+            // POPRAWKA: Logika pierwsze kliknięcie czyta, drugie otwiera link
+            if (linkElement && linkElement.href) {
+                const linkId = linkElement.href + '|' + linkElement.textContent.trim();
+                
+                if (state.readLinks.has(linkId)) {
+                    // Drugie kliknięcie - otwórz link
+                    console.log('KLIK - Drugie kliknięcie - otwieram link:', linkElement.href);
+                    state.readLinks.delete(linkId); // Reset dla kolejnych kliknięć
+                    
+                    // Sprawdź czy to link do tej samej strony
+                    const currentPath = window.location.pathname;
+                    try {
+                        const linkPath = new URL(linkElement.href, window.location.origin).pathname;
+                        const isSamePage = currentPath === linkPath || 
+                            (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
+                            (currentPath === '/' && linkPath.endsWith('index.html')) ||
+                            (currentPath.endsWith('index.html') && linkPath === '/');
+                        
+                        if (!isSamePage) {
+                            // Tylko jeśli to nie ta sama strona, pozwól na nawigację
+                            window.location.href = linkElement.href;
+                        }
+                    } catch (error) {
+                        console.log('KLIK - Błąd podczas sprawdzania URL, nie otwieram:', error);
+                    }
+                    return; // Nie zapobiegaj domyślnemu zachowaniu dla prawdziwej nawigacji
+                } else {
+                    // Pierwsze kliknięcie - tylko czytaj
+                    console.log('KLIK - Pierwsze kliknięcie - czytam i zaznaczam jako przeczytany');
+                    state.readLinks.add(linkId);
+                    e.preventDefault(); // Zapobiegaj nawigacji przy pierwszym kliknięciu
+                }
+            }
+            
             if (textToRead) {
                 console.log('KLIK - MÓWIĘ:', textToRead);
-                e.preventDefault();
+                if (!linkElement) e.preventDefault(); // Zapobiegaj domyślnym akcjom tylko dla nie-linków
                 speak(textToRead);
             }
         };
+
+        // POPRAWKA: Globalna obsługa Enter dla wszystkich elementów w trybie czytania
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && state.readingMode && document.activeElement) {
+                const activeElement = document.activeElement;
+                console.log('ENTER - Element aktywny:', activeElement.tagName, activeElement);
+                
+                let textToRead = '';
+                
+                // Jeśli to link
+                if (activeElement.tagName === 'A' && activeElement.href) {
+                    const linkId = activeElement.href + '|' + activeElement.textContent.trim();
+                    const img = activeElement.querySelector('img');
+                    
+                    if (img && img.alt) {
+                        textToRead = img.alt;
+                        console.log('ENTER - Alt text z linka:', textToRead);
+                    } else if (activeElement.textContent.trim()) {
+                        textToRead = activeElement.textContent.trim();
+                        console.log('ENTER - Tekst z linka:', textToRead);
+                    }
+                    
+                    // POPRAWKA: Logika pierwsze/drugie kliknięcie dla Enter
+                    if (state.readLinks.has(linkId)) {
+                        // Drugie "kliknięcie" - pozwól na nawigację
+                        console.log('ENTER - Drugie naciśnięcie - pozwalam na nawigację');
+                        state.readLinks.delete(linkId);
+                        // Nie zapobiegaj domyślnemu zachowaniu dla prawdziwej nawigacji
+                        return;
+                    } else {
+                        // Pierwsze "kliknięcie" - tylko czytaj
+                        console.log('ENTER - Pierwsze naciśnięcie - czytam i zaznaczam');
+                        state.readLinks.add(linkId);
+                        e.preventDefault(); // Zapobiegaj nawigacji przy pierwszym naciśnięciu
+                    }
+                } 
+                // Jeśli to obraz
+                else if (activeElement.tagName === 'IMG') {
+                    textToRead = activeElement.alt;
+                    console.log('ENTER - Alt text obrazu:', textToRead);
+                    e.preventDefault();
+                }
+                // Inne elementy
+                else if (!activeElement.matches('button, input, textarea, select')) {
+                    textToRead = activeElement.textContent.trim();
+                    console.log('ENTER - Tekst elementu:', textToRead);
+                    e.preventDefault();
+                }
+                
+                if (textToRead) {
+                    console.log('ENTER - MÓWIĘ:', textToRead);
+                    speak(textToRead);
+                }
+            }
+        });
 
         readingToggle.addEventListener('click', () => {
             state.readingMode = !state.readingMode;
@@ -269,11 +311,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Tryb czytania:', state.readingMode ? 'WŁĄCZONY' : 'WYŁĄCZONY');
 
             if (state.readingMode) {
-                // Test czy speech synthesis działa
-                speak("Tryb czytania włączony");
+                // Test czy speech synthesis działa + reset listy przeczytanych linków
+                state.readLinks.clear();
+                console.log('Lista przeczytanych linków wyczyszczona');
+                speak("Tryb czytania włączony. Pierwsze kliknięcie czyta, drugie otwiera.");
                 document.addEventListener('click', handleReading, true);
             } else {
                 speechSynthesis.cancel();
+                state.readLinks.clear(); // Reset też przy wyłączeniu
                 document.removeEventListener('click', handleReading, true);
             }
         });
