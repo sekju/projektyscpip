@@ -87,9 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('nav a, #nav-panel-list a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId.startsWith('#')) {
-                    const targetElement = document.querySelector(targetId);
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    const targetElement = document.querySelector(href);
                     if (targetElement) {
                         const headerToFocus = targetElement.querySelector('h2') || targetElement;
                         headerToFocus.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -101,12 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }
                 } else {
-                    window.location.href = targetId;
+                    window.location.href = href;
                 }
             });
         });
     }
-    
 
     // --- LOGIKA WIDŻETU DOSTĘPNOŚCI ---
     function initWidgetFunctionality() {
@@ -136,6 +135,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const readingToggle = document.getElementById('reading-toggle');
         readingToggle.addEventListener('click', () => {
             state.readingMode = !state.readingMode;
+            if (!state.readingMode) {
+                speechSynthesis.cancel();
+            }
             readingToggle.textContent = state.readingMode ? 'Wyłącz czytanie' : 'Włącz czytanie';
             readingToggle.setAttribute('aria-pressed', String(state.readingMode));
         });
