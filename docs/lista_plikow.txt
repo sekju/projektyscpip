@@ -1,0 +1,30 @@
+ Volume in drive C is Windows
+ Volume Serial Number is 20B2-AB3A
+
+ Directory of C:\Users\piotr\OneDrive\0_FIDES PRO Sp z o o\0 GROWTH TOOLS\AI TESTY\000 VSC\WWW SCPIP\projektyscpip\docs
+
+19.07.2025  17:10    <DIR>          .
+19.07.2025  15:33    <DIR>          ..
+19.07.2025  17:10                 0 lista_plikow.txt
+19.07.2025  16:54             55506 ZWROTNICA_KTW-Ankieta_Potrzeb_Zwrotnica_dostepna.docx
+19.07.2025  16:54             73687 ZWROTNICA_KTW-Deklaracja_Uczestnictwa_Zwrotnica_dostepna.docx
+19.07.2025  16:54             71795 ZWROTNICA_KTW-Formularz_Rekrutacyjny_Zwrotnica_dostepny.docx
+19.07.2025  16:54             74381 ZWROTNICA_KTW-Katalog_Instrumentow_Aktywnej_Integracji_dostepny.docx
+19.07.2025  16:54             72295 ZWROTNICA_KTW-Klauzula_RODO_Zwrotnica_dostepna.docx
+19.07.2025  16:54             75576 ZWROTNICA_KTW-Kwestionariusz_Kwalifikacji.docx
+19.07.2025  16:54           1604750 ZWROTNICA_KTW-Regulamin_Rekrutacji_Zwrotnica_dostepny.docx
+19.07.2025  16:54             52740 ZWROTNICA_RSL-Ankieta_badania_specjalnych_potrzeb.docx
+19.07.2025  16:54             78033 ZWROTNICA_RSL-Ankieta_samooceny_i_motywacji.docx
+19.07.2025  16:54             77234 ZWROTNICA_RSL-Deklaracja_uczestnictwa_w_projekcie.docx
+19.07.2025  16:54             70997 ZWROTNICA_RSL-Formularz_rekrutacyjny_kandydata_na_uczestnika.docx
+19.07.2025  16:54             88957 ZWROTNICA_RSL-Indywidualny_Plan_Dziaˆania.docx
+19.07.2025  16:54             74975 ZWROTNICA_RSL-Katalog_instrumentow_aktywnej_integracji.docx
+19.07.2025  16:54           1613753 ZWROTNICA_RSL-Klauzula_RODO.docx
+19.07.2025  16:54           1595302 ZWROTNICA_RSL-Kwestionariusz_Kwalifikacji.docx
+19.07.2025  16:54           1602715 ZWROTNICA_RSL-Regulamin_Rekrutacji_i_Uczestnictwa_w_projekcie.docx
+19.07.2025  16:54             20560 ZWROTNICA_RSL-scie¾ka_uczestnika.docx
+              18 File(s)        7303256 bytes
+
+     Total Files Listed:
+              18 File(s)        7303256 bytes
+               2 Dir(s)   1222188658688 bytes free
