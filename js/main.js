@@ -49,10 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- NAWIGACJA I KLAWIATURA ---
     function initFullContentNavigation() {
-        const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li, .document-link-wrapper');
+        const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li, .document-link-wrapper, img');
         elements.forEach(el => {
             if (!el.closest('nav') && !el.closest('.side-panel') && !el.closest('.modal-overlay')) {
-                if (!el.querySelector('a, button')) {
+                const isInteractive = el.querySelector('a, button');
+                if (!isInteractive) {
                     el.setAttribute('tabindex', '0');
                 }
             }
@@ -106,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-
+    
     // --- LOGIKA WIDŻETU DOSTĘPNOŚCI ---
     function initWidgetFunctionality() {
         document.getElementById('font-decrease').addEventListener('click', () => updateFontSize(-10));
@@ -118,12 +119,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 const theme = btn.dataset.theme;
                 document.body.dataset.theme = theme;
                 document.body.className = theme === 'monochrome' ? 'monochrome' : '';
+                localStorage.setItem('theme', theme);
                 themeButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
             });
         });
         
         document.getElementById('reset-settings').addEventListener('click', () => {
+            localStorage.clear();
             document.body.style.fontSize = '';
             document.getElementById('font-size-value').textContent = '100%';
             document.body.dataset.theme = 'normal';
@@ -133,26 +136,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         
         const readingToggle = document.getElementById('reading-toggle');
-        readingToggle.addEventListener('click', () => {
-            state.readingMode = !state.readingMode;
-            if (!state.readingMode) {
-                speechSynthesis.cancel();
-            }
-            readingToggle.textContent = state.readingMode ? 'Wyłącz czytanie' : 'Włącz czytanie';
-            readingToggle.setAttribute('aria-pressed', String(state.readingMode));
-        });
-        
-        document.addEventListener('click', (e) => {
-            if (state.readingMode && e.target.matches('p, h1, h2, h3, h4, li')) {
-                speak(e.target.innerText);
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
+        const handleReading = (e) => {
+             if (e.target.closest('.side-panel') || e.target.closest('.panel-toggles')) return;
+             e.preventDefault();
+             const textToRead = e.target.alt || e.target.innerText;
+             speak(textToRead);
+        };
+        const handleReadingOnEnter = (e) => {
             if (state.readingMode && e.key === 'Enter' && document.activeElement && !document.activeElement.matches('button, a')) {
                 e.preventDefault();
-                const text = document.activeElement.innerText;
-                if (text) speak(text);
+                const textToRead = document.activeElement.alt || document.activeElement.innerText;
+                if (textToRead) speak(textToRead);
+            }
+        };
+
+        readingToggle.addEventListener('click', () => {
+            state.readingMode = !state.readingMode;
+            readingToggle.textContent = state.readingMode ? 'Wyłącz czytanie' : 'Włącz czytanie';
+            readingToggle.setAttribute('aria-pressed', String(state.readingMode));
+
+            if (state.readingMode) {
+                document.addEventListener('click', handleReading, true);
+                document.addEventListener('keydown', handleReadingOnEnter, true);
+            } else {
+                speechSynthesis.cancel();
+                document.removeEventListener('click', handleReading, true);
+                document.removeEventListener('keydown', handleReadingOnEnter, true);
             }
         });
 
@@ -171,6 +180,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             initSmoothScrolling();
         }
+        
+        restoreSettings();
     }
 
     function updateFontSize(change) {
@@ -182,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentSize > 150) currentSize = 150;
         body.style.fontSize = currentSize + '%';
         display.textContent = currentSize + '%';
+        localStorage.setItem('fontSize', currentSize);
     }
     
     function speak(text) {
@@ -190,5 +202,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'pl-PL';
         speechSynthesis.speak(utterance);
+    }
+
+    function restoreSettings() {
+        const savedTheme = localStorage.getItem('theme') || 'normal';
+        document.body.dataset.theme = savedTheme;
+        document.body.className = savedTheme === 'monochrome' ? 'monochrome' : '';
+        document.querySelectorAll('.theme-controls button').forEach(b => {
+            b.classList.toggle('active', b.dataset.theme === savedTheme);
+        });
+
+        const savedFontSize = localStorage.getItem('fontSize');
+        if (savedFontSize) {
+            document.body.style.fontSize = savedFontSize + '%';
+            document.getElementById('font-size-value').textContent = savedFontSize + '%';
+        }
     }
 });
