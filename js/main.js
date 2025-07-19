@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const state = {
-        readingMode: false,
-        readLinks: new Set() // POPRAWKA: Śledzenie przeczytanych linków
+        readingMode: false
     };
 
     // --- GŁÓWNE WYWOŁANIE FUNKCJI ---
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initKeyboardInstructions();
     initWidgetFunctionality();
     initSmoothScrolling();
-    initSamePageLinkFix(); // POPRAWKA: Nowa funkcja
+    initSamePageLinkFix();
 
     // --- INICJALIZACJA PANELI I MODALI ---
     function initPanels() {
@@ -52,47 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleBtn?.focus();
     }
 
-    // POPRAWKA: Naprawienie problemu z resetem strony na linkach do tej samej strony
-    function initSamePageLinkFix() {
-        console.log('Inicjalizacja naprawy linków do tej samej strony');
-        
-        document.querySelectorAll('a[href="index.html"], a[href="../index.html"], a[href="./index.html"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                console.log('Kliknięto link do tej samej strony:', link.href);
-                const currentPath = window.location.pathname;
-                const linkPath = new URL(link.href, window.location.origin).pathname;
-                
-                // W trybie czytania, sprawdź czy to pierwsze czy drugie kliknięcie
-                if (state.readingMode) {
-                    const linkId = link.href + '|' + link.textContent.trim();
-                    if (!state.readLinks.has(linkId)) {
-                        // Pierwsze kliknięcie - nie pozwalaj na nawigację nawet na inne strony w trybie czytania
-                        console.log('KLIK LINK: Pierwsze kliknięcie w trybie czytania');
-                        return; // handleReading obsłuży czytanie i preventDefault
-                    }
-                    // Drugie kliknięcie - sprawdź czy to ta sama strona
-                }
-                
-                // Jeśli link prowadzi do tej samej strony, nie rób nic
-                if (currentPath === linkPath || 
-                    (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
-                    (currentPath === '/' && linkPath.endsWith('index.html')) ||
-                    (currentPath.endsWith('index.html') && linkPath === '/')) {
-                    console.log('Zapobiegam odświeżeniu strony - link prowadzi do tej samej strony');
-                    e.preventDefault();
-                    return false;
-                }
-            });
-        });
-    }
-
     // --- NAWIGACJA I KLAWIATURA ---
     function initFullContentNavigation() {
         const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li, .document-link-wrapper, img');
         elements.forEach(el => {
             if (!el.closest('nav') && !el.closest('.side-panel') && !el.closest('.modal-overlay')) {
                 const isInteractive = el.querySelector('a, button');
-                // POPRAWKA: Nie dodawaj tabindex do obrazów wewnątrz linków
                 const isImageInLink = el.tagName === 'IMG' && el.closest('a');
                 if (!isInteractive && !isImageInLink) {
                     el.setAttribute('tabindex', '0');
@@ -148,7 +112,67 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    // --- NAPRAWIENIE PROBLEMU Z RESETEM STRONY ---
+    function initSamePageLinkFix() {
+        console.log('Inicjalizacja naprawy linków do tej samej strony');
+        
+        document.querySelectorAll('a[href="index.html"], a[href="../index.html"], a[href="./index.html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                console.log('Kliknięto link do tej samej strony:', link.href);
+                const currentPath = window.location.pathname;
+                const linkPath = new URL(link.href, window.location.origin).pathname;
+                
+                // Jeśli link prowadzi do tej samej strony, nie rób nic
+                if (currentPath === linkPath || 
+                    (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
+                    (currentPath === '/' && linkPath.endsWith('index.html')) ||
+                    (currentPath.endsWith('index.html') && linkPath === '/')) {
+                    console.log('Zapobiegam odświeżeniu strony - link prowadzi do tej samej strony');
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    }
     
+    // --- TRYB CZYTANIA ZGODNY Z WCAG 2.1 ---
+    function handleFocusReading(e) {
+        if (!state.readingMode) return;
+        if (e.target.closest('.side-panel') || e.target.closest('.panel-toggles')) return;
+        
+        const element = e.target;
+        let textToRead = '';
+        
+        console.log('FOCUS: Element otrzymał focus:', element.tagName, element);
+        
+        // Pobierz tekst do przeczytania na podstawie typu elementu
+        if (element.tagName === 'IMG') {
+            textToRead = element.alt;
+            console.log('FOCUS: Alt text obrazu:', textToRead);
+        } else if (element.tagName === 'A') {
+            const img = element.querySelector('img');
+            if (img && img.alt) {
+                textToRead = img.alt;
+                console.log('FOCUS: Alt text obrazu w linku:', textToRead);
+            } else {
+                textToRead = element.textContent.trim();
+                console.log('FOCUS: Tekst linka:', textToRead);
+            }
+        } else if (element.tagName === 'BUTTON') {
+            textToRead = element.textContent.trim() || element.getAttribute('aria-label');
+            console.log('FOCUS: Tekst przycisku:', textToRead);
+        } else {
+            textToRead = element.textContent.trim();
+            console.log('FOCUS: Tekst elementu:', textToRead);
+        }
+        
+        if (textToRead) {
+            console.log('FOCUS: Czytam automatycznie:', textToRead);
+            speak(textToRead);
+        }
+    }
+
     // --- LOGIKA WIDŻETU DOSTĘPNOŚCI ---
     function initWidgetFunctionality() {
         document.getElementById('font-decrease').addEventListener('click', () => updateFontSize(-10));
@@ -174,136 +198,12 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.className = '';
             themeButtons.forEach(b => b.classList.remove('active'));
             document.querySelector('.theme-controls button[data-theme="normal"]').classList.add('active');
-            
-            // POPRAWKA: Reset listy przeczytanych linków
-            state.readLinks.clear();
-            console.log('Ustawienia zresetowane, włącznie z listą przeczytanych linków');
+            console.log('Ustawienia zresetowane');
         });
         
+        // NOWA LOGIKA TRYBU CZYTANIA - zgodna z WCAG 2.1
         const readingToggle = document.getElementById('reading-toggle');
         
-        const handleReading = (e) => {
-            if (e.target.closest('.side-panel') || e.target.closest('.panel-toggles')) return;
-            console.log('KLIK - Tryb czytania - element:', e.target.tagName, e.target);
-            
-            let textToRead = '';
-            let linkElement = null;
-            
-            // Sprawdź typ elementu i pobierz odpowiedni tekst
-            if (e.target.tagName === 'IMG') {
-                textToRead = e.target.alt;
-                console.log('KLIK - Alt text obrazu:', textToRead);
-            } else if (e.target.tagName === 'A') {
-                linkElement = e.target;
-                const img = e.target.querySelector('img');
-                if (img && img.alt) {
-                    textToRead = img.alt;
-                    console.log('KLIK - Alt text z linka:', textToRead);
-                } else {
-                    textToRead = e.target.textContent.trim();
-                    console.log('KLIK - Tekst z linka:', textToRead);
-                }
-            } else {
-                textToRead = e.target.textContent.trim();
-                console.log('KLIK - Tekst elementu:', textToRead);
-            }
-            
-            // POPRAWKA: Logika pierwsze kliknięcie czyta, drugie otwiera link
-            if (linkElement && linkElement.href) {
-                const linkId = linkElement.href + '|' + linkElement.textContent.trim();
-                
-                if (state.readLinks.has(linkId)) {
-                    // Drugie kliknięcie - otwórz link
-                    console.log('KLIK - Drugie kliknięcie - otwieram link:', linkElement.href);
-                    state.readLinks.delete(linkId); // Reset dla kolejnych kliknięć
-                    
-                    // Sprawdź czy to link do tej samej strony
-                    const currentPath = window.location.pathname;
-                    try {
-                        const linkPath = new URL(linkElement.href, window.location.origin).pathname;
-                        const isSamePage = currentPath === linkPath || 
-                            (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
-                            (currentPath === '/' && linkPath.endsWith('index.html')) ||
-                            (currentPath.endsWith('index.html') && linkPath === '/');
-                        
-                        if (!isSamePage) {
-                            // Tylko jeśli to nie ta sama strona, pozwól na nawigację
-                            window.location.href = linkElement.href;
-                        }
-                    } catch (error) {
-                        console.log('KLIK - Błąd podczas sprawdzania URL, nie otwieram:', error);
-                    }
-                    return; // Nie zapobiegaj domyślnemu zachowaniu dla prawdziwej nawigacji
-                } else {
-                    // Pierwsze kliknięcie - tylko czytaj
-                    console.log('KLIK - Pierwsze kliknięcie - czytam i zaznaczam jako przeczytany');
-                    state.readLinks.add(linkId);
-                    e.preventDefault(); // Zapobiegaj nawigacji przy pierwszym kliknięciu
-                }
-            }
-            
-            if (textToRead) {
-                console.log('KLIK - MÓWIĘ:', textToRead);
-                if (!linkElement) e.preventDefault(); // Zapobiegaj domyślnym akcjom tylko dla nie-linków
-                speak(textToRead);
-            }
-        };
-
-        // POPRAWKA: Globalna obsługa Enter dla wszystkich elementów w trybie czytania
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && state.readingMode && document.activeElement) {
-                const activeElement = document.activeElement;
-                console.log('ENTER - Element aktywny:', activeElement.tagName, activeElement);
-                
-                let textToRead = '';
-                
-                // Jeśli to link
-                if (activeElement.tagName === 'A' && activeElement.href) {
-                    const linkId = activeElement.href + '|' + activeElement.textContent.trim();
-                    const img = activeElement.querySelector('img');
-                    
-                    if (img && img.alt) {
-                        textToRead = img.alt;
-                        console.log('ENTER - Alt text z linka:', textToRead);
-                    } else if (activeElement.textContent.trim()) {
-                        textToRead = activeElement.textContent.trim();
-                        console.log('ENTER - Tekst z linka:', textToRead);
-                    }
-                    
-                    // POPRAWKA: Logika pierwsze/drugie kliknięcie dla Enter
-                    if (state.readLinks.has(linkId)) {
-                        // Drugie "kliknięcie" - pozwól na nawigację
-                        console.log('ENTER - Drugie naciśnięcie - pozwalam na nawigację');
-                        state.readLinks.delete(linkId);
-                        // Nie zapobiegaj domyślnemu zachowaniu dla prawdziwej nawigacji
-                        return;
-                    } else {
-                        // Pierwsze "kliknięcie" - tylko czytaj
-                        console.log('ENTER - Pierwsze naciśnięcie - czytam i zaznaczam');
-                        state.readLinks.add(linkId);
-                        e.preventDefault(); // Zapobiegaj nawigacji przy pierwszym naciśnięciu
-                    }
-                } 
-                // Jeśli to obraz
-                else if (activeElement.tagName === 'IMG') {
-                    textToRead = activeElement.alt;
-                    console.log('ENTER - Alt text obrazu:', textToRead);
-                    e.preventDefault();
-                }
-                // Inne elementy
-                else if (!activeElement.matches('button, input, textarea, select')) {
-                    textToRead = activeElement.textContent.trim();
-                    console.log('ENTER - Tekst elementu:', textToRead);
-                    e.preventDefault();
-                }
-                
-                if (textToRead) {
-                    console.log('ENTER - MÓWIĘ:', textToRead);
-                    speak(textToRead);
-                }
-            }
-        });
-
         readingToggle.addEventListener('click', () => {
             state.readingMode = !state.readingMode;
             readingToggle.textContent = state.readingMode ? 'Wyłącz czytanie' : 'Włącz czytanie';
@@ -311,18 +211,18 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Tryb czytania:', state.readingMode ? 'WŁĄCZONY' : 'WYŁĄCZONY');
 
             if (state.readingMode) {
-                // Test czy speech synthesis działa + reset listy przeczytanych linków
-                state.readLinks.clear();
-                console.log('Lista przeczytanych linków wyczyszczona');
-                speak("Tryb czytania włączony. Pierwsze kliknięcie czyta, drugie otwiera.");
-                document.addEventListener('click', handleReading, true);
+                // Test funkcjonalności + dodanie event listenera dla focus
+                speak("Tryb czytania włączony. Nawiguj klawiszem Tab, aby słyszeć treść elementów.");
+                document.addEventListener('focus', handleFocusReading, true);
             } else {
+                // Wyłącz czytanie i usuń event listener
                 speechSynthesis.cancel();
-                state.readLinks.clear(); // Reset też przy wyłączeniu
-                document.removeEventListener('click', handleReading, true);
+                document.removeEventListener('focus', handleFocusReading, true);
+                speak("Tryb czytania wyłączony.");
             }
         });
 
+        // Generowanie nawigacji w panelu
         const navPanelList = document.getElementById('nav-panel-list');
         if (navPanelList) {
             document.querySelectorAll('main > section[id]').forEach(section => {
@@ -360,7 +260,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         
-        console.log('SPEAK: Próbuję odczytać:', text);
+        console.log('SPEAK: Czytam:', text);
         speechSynthesis.cancel(); // Zatrzymaj poprzednie czytanie
         
         const utterance = new SpeechSynthesisUtterance(text);
@@ -374,7 +274,6 @@ document.addEventListener('DOMContentLoaded', function () {
         utterance.onerror = (e) => console.log('SPEAK: Błąd:', e);
         
         speechSynthesis.speak(utterance);
-        console.log('SPEAK: Polecenie speak() wydane');
     }
 
     function restoreSettings() {
