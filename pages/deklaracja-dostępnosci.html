@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deklaracja dostępności - Śląskie Centrum Profilaktyki i Psychoterapii</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body data-theme="normal">
+
+    <div class="panel-toggles">
+        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji" aria-controls="nav-panel" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+            <span>Nawigacja</span>
+        </button>
+        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności" aria-controls="a11y-panel" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6.5c-.8 0-1.5.7-1.5 1.5V22h-2v-6h-1v6H7v-8.5c0-.8-.7-1.5-1.5-1.5H3V7h2.5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5h5c.8 0 1.5-.7 1.5-1.5V3h1v2.5c0 .8.7 1.5 1.5 1.5H19v2z"></path></svg>
+            <span>Dostępność</span>
+        </button>
+    </div>
+
+    <div id="nav-panel" class="side-panel left" role="dialog" aria-modal="true" aria-labelledby="nav-panel-title" hidden>
+        <div class="panel-header">
+            <h3 id="nav-panel-title" tabindex="-1">Szybka nawigacja</h3>
+            <button class="close-panel-btn" aria-label="Zamknij panel nawigacji">&times;</button>
+        </div>
+        <ul id="nav-panel-list">
+            </ul>
+    </div>
+
+    <div id="a11y-panel" class="side-panel right" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" hidden>
+        <div class="panel-header">
+            <h3 id="a11y-panel-title" tabindex="-1">Panel Dostępności</h3>
+            <button class="close-panel-btn" aria-label="Zamknij panel dostępności">&times;</button>
+        </div>
+        <div class="panel-content">
+            <div class="control-group">
+                <h4>Rozmiar czcionki</h4>
+                <div class="font-controls">
+                    <button id="font-decrease">A-</button>
+                    <span id="font-size-value">100%</span>
+                    <button id="font-increase">A+</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <h4>Tryb wyświetlania</h4>
+                <div class="theme-controls">
+                    <button data-theme="normal" class="active">Normalny</button>
+                    <button data-theme="high-contrast">Kontrast</button>
+                    <button data-theme="monochrome">Monochromatyczny</button>
+                    <button data-theme="dark">Ciemny</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <h4>Czytanie tekstu</h4>
+                <button id="reading-toggle" aria-pressed="false">Włącz czytanie</button>
+            </div>
+            <div class="control-group">
+                <button id="reset-settings">Resetuj ustawienia</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="keyboard-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="keyboard-modal-title" hidden>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="keyboard-modal-title" tabindex="-1">Nawigacja klawiaturą jest aktywna</h2>
+                <button class="close-modal-btn" aria-label="Zamknij okno">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Użyj klawisza <strong>Tab</strong> aby przechodzić do kolejnych elementów lub <strong>Shift + Tab</strong> aby się cofać.</p>
+                <p>Aby włączyć tryb czytania na głos, otwórz panel dostępności (ikona w prawym dolnym rogu) i aktywuj opcję "Włącz czytanie".</p>
+                <p><strong>W trybie czytania:</strong></p>
+                <ul>
+                    <li><strong>Nawigacja klawiszem Tab</strong> - automatycznie czyta treść elementów podczas przechodzenia</li>
+                    <li><strong>Kliknięcie lub Enter</strong> - normalnie otwiera linki i aktywuje przyciski</li>
+                </ul>
+                <p><strong>Nawigacja:</strong> Użyj <strong>Alt + Strzałka w lewo</strong> lub przycisku "Wstecz" przeglądarki, aby wrócić na poprzednią stronę.</p>
+                <p>Wciśnij <strong>Escape</strong> aby zamknąć to okno.</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
+
+    <header>
+        <div class="container">
+            <div class="centered-logo">
+                <a href="../index.html" aria-label="Strona główna Śląskiego Centrum Profilaktyki i Psychoterapii"><img src="../media/images/logo-scpip-1.png" alt="Logo Śląskiego Centrum Profilaktyki i Psychoterapii"></a>
+            </div>
+            <h1>Deklaracja dostępności</h1>
+        </div>
+    </header>
+
+    <nav aria-label="Nawigacja powrotu">
+        <div class="container">
+            <ul>
+                <li><a href="../index.html">← Powrót do strony głównej</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+ <main id="main-content" class="container">
+        <section id="a11y-informacje-ogolne" aria-labelledby="a11y-informacje-ogolne-heading">
+            <h2 id="a11y-informacje-ogolne-heading">1. Informacje ogólne</h2>
+            <p><strong>Podmiot odpowiedzialny:</strong> Stowarzyszenie Centrum Promocji i Informacji Projektów</p>
+            <p><strong>Adres strony objętej deklaracją:</strong> <a href="https://projekty.scpip.pl/" aria-label="Odwiedź stronę projekty.scpip.pl">https://projekty.scpip.pl/</a></p>
+            <p><strong>Data publikacji strony:</strong> <time datetime="2023-04-01">01.04.2023</time></p>
+            <p><strong>Data ostatniej istotnej aktualizacji:</strong> <time datetime="2025-07-19">19.07.2025</time></p>
+        </section>
+
+        <section id="a11y-status" aria-labelledby="a11y-status-heading">
+            <h2 id="a11y-status-heading">2. Status zgodności</h2>
+            <p>Strona internetowa jest <strong>w pełni zgodna</strong> z ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych oraz z wytycznymi WCAG 2.2 na poziomie AA.</p>
+            
+            <h3>Wyniki ostatniego audytu dostępności:</h3>
+            <ul>
+                <li><strong>Wynik zgodności:</strong> 95% (powyżej wymaganego progu 95%)</li>
+                <li><strong>Błędy krytyczne:</strong> 0</li>
+                <li><strong>Audyty zaliczone:</strong> 39</li>
+                <li><strong>Ryzyko prawne:</strong> Minimalne</li>
+                <li><strong>Data audytu:</strong> <time datetime="2025-07-19">19.07.2025</time></li>
+            </ul>
+            
+            <p>Strona spełnia międzynarodowe standardy dostępności WCAG 2.2, które są akceptowane przez ADA, Section 508, EEA i EN 301 549.</p>
+        </section>
+
+        <section id="a11y-metodologia" aria-labelledby="a11y-metodologia-heading">
+            <h2 id="a11y-metodologia-heading">3. Metoda oceny dostępności</h2>
+            <p>Deklarację sporządzono na podstawie kompleksowej oceny przeprowadzonej przy użyciu:</p>
+            <ul>
+                <li><strong>Automatycznego audytu dostępności</strong> - narzędzie <a href="https://www.accessibilitychecker.org/" aria-label="AccessibilityChecker.org - narzędzie do audytu dostępności - otwiera się w nowej karcie" target="_blank">AccessibilityChecker.org</a></li>
+                <li><strong>Audytu WAVE</strong> - narzędzie <a href="https://wave.webaim.org/" aria-label="WAVE - narzędzie do oceny dostępności stron internetowych - otwiera się w nowej karcie" target="_blank">WAVE Web Accessibility Evaluation Tool</a></li>
+                <li><strong>Samooceny zespołu</strong> ds. dostępności SCPIP</li>
+                <li><strong>Testów manualnych</strong> - nawigacja klawiaturą, czytniki ekranu, kontrast kolorów</li>
+            </ul>
+            <p>Ocena została przeprowadzona zgodnie ze standardami WCAG 2.2 na poziomie AA.</p>
+        </section>
+
+        <section id="a11y-rozwiazane-problemy" aria-labelledby="a11y-rozwiazane-problemy-heading">
+            <h2 id="a11y-rozwiazane-problemy-heading">4. Rozwiązane problemy dostępności</h2>
+            <p>W ramach poprawy dostępności strony zostały naprawione następujące problemy:</p>
+            <ul>
+                <li><strong>✅ Naprawiono hierarchię nagłówków</strong> - poprawiona struktura H1-H6 zgodnie z WCAG</li>
+                <li><strong>✅ Usunięto redundantne linki</strong> - każdy link ma teraz unikalny, opisowy tekst</li>
+                <li><strong>✅ Poprawiono rozmiary czcionek</strong> - wszystkie teksty spełniają minimalne wymagania czytelności</li>
+                <li><strong>✅ Wzbogacono opisy ARIA</strong> - dodano szczegółowe aria-labels dla lepszej obsługi czytników ekranu</li>
+                <li><strong>✅ Zoptymalizowano nawigację</strong> - pełna obsługa klawiaturą i technologiami wspomagającymi</li>
+                <li><strong>✅ Udostępniono pliki WORD dokumentów z poprawnym formatowaniem</strong> - standardowa obsługa przez czytniki ekranu</li>
+            </ul>
+            <p><strong>Obecnie strona nie zawiera żadnych błędów krytycznych dostępności.</strong></p>
+        </section>
+
+        <section id="a11y-dostepnosc-arch" aria-labelledby="a11y-dostepnosc-arch-heading">
+            <h2 id="a11y-dostepnosc-arch-heading">5. Informacje o dostępności architektonicznej</h2>
+            <p>Siedziba podmiotu znajduje się na parterze budynku przy ul. Mikołowskiej 21, 40-067 Katowice. Budynek posiada podjazd dla wózków, toalety dostępne dla osób z niepełnosprawnością oraz specjalne miejsca parkingowe dla osób niepełnosprawnych.</p>
+            
+            <h3>Biura projektów:</h3>
+            <ul>
+                <li><strong>Katowice, ul. Ligocka 5:</strong> Wejście dostępne, winda, toaleta dostosowana, miejsca parkingowe</li>
+                <li><strong>Ruda Śląska, ul. Solidarności 5/9:</strong> Wejście dostępne, winda, toaleta dostosowana, miejsca parkingowe</li>
+            </ul>
+        </section>
+
+        <section id="a11y-kontakt" aria-labelledby="a11y-kontakt-heading">
+            <h2 id="a11y-kontakt-heading">6. Dane kontaktowe</h2>
+            <p><strong>Osoba do kontaktu w sprawie dostępności:</strong> Łukasz Kosicki</p>
+            <p><strong>Stanowisko:</strong> Informatyk</p>
+            <p><strong>E-mail:</strong> <a href="mailto:lukasz.scpip@gmail.com" aria-label="Wyślij email do lukasz.scpip@gmail.com">lukasz.scpip@gmail.com</a></p>
+            <p><strong>Telefon:</strong> <a href="tel:+48792523534" aria-label="Zadzwoń pod numer 792 523 534">792 523 534</a></p>
+            
+            <h3>Procedura zgłaszania problemów z dostępnością:</h3>
+            <p>W przypadku problemów z dostępnością strony internetowej prosimy o kontakt. Każdy ma prawo do zażądania udostępnienia dostępnej cyfrowo informacji, żądania udostępnienia informacji w formie alternatywnej oraz skorzystania z procedury skargowej. Odpowiedź na zgłoszenie zostanie udzielona w ciągu 7 dni roboczych.</p>
+        </section>
+
+        <section id="a11y-procedura" aria-labelledby="a11y-procedura-heading">
+            <h2 id="a11y-procedura-heading">7. Procedura składania skarg</h2>
+            <p>W przypadku braku satysfakcjonującej odpowiedzi na zgłoszenie lub odmowy realizacji żądania dotyczącego dostępności cyfrowej, można złożyć skargę do <a href="https://www.rpo.gov.pl" aria-label="Odwiedź stronę Rzecznika Praw Obywatelskich - otwiera się w nowej karcie" target="_blank">Rzecznika Praw Obywatelskich</a>.</p>
+            <p>Procedura jest dostępna na stronie: <a href="https://www.rpo.gov.pl/dostepnosc-cyfrowa" aria-label="Procedura składania skarg dot. dostępności cyfrowej - otwiera się w nowej karcie" target="_blank">www.rpo.gov.pl/dostepnosc-cyfrowa</a></p>
+        </section>
+
+        <section id="a11y-data-deklaracji" aria-labelledby="a11y-data-deklaracji-heading">
+            <h2 id="a11y-data-deklaracji-heading">8. Data sporządzenia deklaracji</h2>
+            <p><strong>Data sporządzenia deklaracji:</strong> <time datetime="2025-07-19">19.07.2025</time></p>
+            <p><strong>Data ostatniej aktualizacji:</strong> <time datetime="2025-07-19">19.07.2025</time></p>
+            <p><strong>Data następnego przeglądu:</strong> <time datetime="2026-07-19">19.07.2026</time></p>
+        </section>
+        
+    </main>
+    
+    <footer id="footer">
+        <div class="container">
+            <h3>Kontakt</h3>
+            <address>
+                <strong>Śląskie Centrum Profilaktyki i Psychoterapii</strong><br>
+                ul. Mikołowska 21, 40-067 Katowice<br><br>
+                <strong>Biuro projektów SCPiP</strong><br>
+                ul. Ligocka 5, 40-570 Katowice
+            </address>
+            <p style="margin-top: 2rem;">
+                <a href="../index.html">← Powrót do strony głównej</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
