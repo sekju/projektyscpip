@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initKeyboardInstructions();
     initWidgetFunctionality();
     initSmoothScrolling();
+    initSamePageLinkFix(); // POPRAWKA: Nowa funkcja
 
     // --- INICJALIZACJA PANELI I MODALI ---
     function initPanels() {
@@ -47,13 +48,65 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleBtn?.focus();
     }
 
+    // POPRAWKA: Naprawienie problemu z resetem strony na linkach do tej samej strony
+    function initSamePageLinkFix() {
+        console.log('Inicjalizacja naprawy linków do tej samej strony');
+        document.querySelectorAll('a[href="index.html"], a[href="../index.html"], a[href="./index.html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                console.log('Kliknięto link do tej samej strony:', link.href);
+                const currentPath = window.location.pathname;
+                const linkPath = new URL(link.href, window.location.origin).pathname;
+                
+                // Jeśli link prowadzi do tej samej strony, nie rób nic
+                if (currentPath === linkPath || 
+                    (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
+                    (currentPath === '/' && linkPath.endsWith('index.html')) ||
+                    (currentPath.endsWith('index.html') && linkPath === '/')) {
+                    console.log('Zapobiegam odświeżeniu strony - link prowadzi do tej samej strony');
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        // POPRAWKA: Dodanie obsługi klawiszy dla obrazów bez resetowania strony
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const activeElement = document.activeElement;
+                console.log('Wciśnięto Enter na elemencie:', activeElement.tagName, activeElement);
+                
+                // Jeśli aktywny element to link zawierający obraz
+                if (activeElement && activeElement.tagName === 'A') {
+                    const img = activeElement.querySelector('img');
+                    if (img) {
+                        console.log('Element aktywny to link z obrazem');
+                        const currentPath = window.location.pathname;
+                        const linkPath = new URL(activeElement.href, window.location.origin).pathname;
+                        
+                        // Jeśli link prowadzi do tej samej strony
+                        if (currentPath === linkPath || 
+                            (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
+                            (currentPath === '/' && linkPath.endsWith('index.html')) ||
+                            (currentPath.endsWith('index.html') && linkPath === '/')) {
+                            console.log('Zapobiegam odświeżeniu strony - Enter na linku z obrazem do tej samej strony');
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     // --- NAWIGACJA I KLAWIATURA ---
     function initFullContentNavigation() {
         const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li, .document-link-wrapper, img');
         elements.forEach(el => {
             if (!el.closest('nav') && !el.closest('.side-panel') && !el.closest('.modal-overlay')) {
                 const isInteractive = el.querySelector('a, button');
-                if (!isInteractive) {
+                // POPRAWKA: Nie dodawaj tabindex do obrazów wewnątrz linków
+                const isImageInLink = el.tagName === 'IMG' && el.closest('a');
+                if (!isInteractive && !isImageInLink) {
                     el.setAttribute('tabindex', '0');
                 }
             }
@@ -138,15 +191,23 @@ document.addEventListener('DOMContentLoaded', function () {
         const readingToggle = document.getElementById('reading-toggle');
         const handleReading = (e) => {
              if (e.target.closest('.side-panel') || e.target.closest('.panel-toggles')) return;
+             console.log('Tryb czytania - kliknięto element:', e.target);
              e.preventDefault();
              const textToRead = e.target.alt || e.target.innerText;
-             speak(textToRead);
+             if (textToRead) {
+                 console.log('Czytam tekst:', textToRead);
+                 speak(textToRead);
+             }
         };
         const handleReadingOnEnter = (e) => {
             if (state.readingMode && e.key === 'Enter' && document.activeElement && !document.activeElement.matches('button, a')) {
+                console.log('Tryb czytania - Enter na elemencie:', document.activeElement);
                 e.preventDefault();
                 const textToRead = document.activeElement.alt || document.activeElement.innerText;
-                if (textToRead) speak(textToRead);
+                if (textToRead) {
+                    console.log('Czytam tekst (Enter):', textToRead);
+                    speak(textToRead);
+                }
             }
         };
 
@@ -154,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
             state.readingMode = !state.readingMode;
             readingToggle.textContent = state.readingMode ? 'Wyłącz czytanie' : 'Włącz czytanie';
             readingToggle.setAttribute('aria-pressed', String(state.readingMode));
+            console.log('Tryb czytania:', state.readingMode ? 'WŁĄCZONY' : 'WYŁĄCZONY');
 
             if (state.readingMode) {
                 document.addEventListener('click', handleReading, true);
