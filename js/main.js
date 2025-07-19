@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // --- GŁÓWNE WYWOŁANIE FUNKCJI ---
+    console.log('=== INICJALIZACJA STRONY ===');
+    console.log('speechSynthesis dostępny:', typeof speechSynthesis !== 'undefined');
+    
     initPanels();
     initFullContentNavigation();
     initKeyboardInstructions();
@@ -51,11 +54,21 @@ document.addEventListener('DOMContentLoaded', function () {
     // POPRAWKA: Naprawienie problemu z resetem strony na linkach do tej samej strony
     function initSamePageLinkFix() {
         console.log('Inicjalizacja naprawy linków do tej samej strony');
+        
         document.querySelectorAll('a[href="index.html"], a[href="../index.html"], a[href="./index.html"]').forEach(link => {
             link.addEventListener('click', function(e) {
                 console.log('Kliknięto link do tej samej strony:', link.href);
                 const currentPath = window.location.pathname;
                 const linkPath = new URL(link.href, window.location.origin).pathname;
+                
+                // W trybie czytania, przeczytaj alt text przed blokowaniem
+                if (state.readingMode) {
+                    const img = link.querySelector('img');
+                    if (img && img.alt) {
+                        console.log('CZYTANIE: Alt text z linka:', img.alt);
+                        speak(img.alt);
+                    }
+                }
                 
                 // Jeśli link prowadzi do tej samej strony, nie rób nic
                 if (currentPath === linkPath || 
@@ -69,37 +82,58 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        // POPRAWKA: Dodanie obsługi klawiszy dla obrazów bez resetowania strony
+        // POPRAWKA: Globalna obsługa Enter dla wszystkich elementów w trybie czytania
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && state.readingMode && document.activeElement) {
                 const activeElement = document.activeElement;
-                console.log('Wciśnięto Enter na elemencie:', activeElement.tagName, activeElement);
+                console.log('ENTER - Element aktywny:', activeElement.tagName, activeElement);
                 
-                // Jeśli aktywny element to link zawierający obraz
-                if (activeElement && activeElement.tagName === 'A') {
+                let textToRead = '';
+                
+                // Jeśli to link z obrazem
+                if (activeElement.tagName === 'A') {
                     const img = activeElement.querySelector('img');
-                    if (img) {
-                        console.log('Element aktywny to link z obrazem');
-                        const currentPath = window.location.pathname;
+                    if (img && img.alt) {
+                        textToRead = img.alt;
+                        console.log('CZYTANIE ENTER: Alt text z linka:', textToRead);
+                    } else if (activeElement.textContent.trim()) {
+                        textToRead = activeElement.textContent.trim();
+                        console.log('CZYTANIE ENTER: Tekst z linka:', textToRead);
+                    }
+                    
+                    // Sprawdź czy to link do tej samej strony
+                    const currentPath = window.location.pathname;
+                    try {
                         const linkPath = new URL(activeElement.href, window.location.origin).pathname;
-                        
-                        // Jeśli link prowadzi do tej samej strony
-                        if (currentPath === linkPath || 
+                        const isSamePage = currentPath === linkPath || 
                             (currentPath.endsWith('index.html') && linkPath.endsWith('index.html')) ||
                             (currentPath === '/' && linkPath.endsWith('index.html')) ||
-                            (currentPath.endsWith('index.html') && linkPath === '/')) {
-                            
-                            // POPRAWKA: W trybie czytania, przeczytaj alt text przed zapobieganiem nawigacji
-                            if (state.readingMode && img.alt) {
-                                console.log('Tryb czytania aktywny - czytam alt text:', img.alt);
-                                speak(img.alt);
-                            }
-                            
-                            console.log('Zapobiegam odświeżeniu strony - Enter na linku z obrazem do tej samej strony');
+                            (currentPath.endsWith('index.html') && linkPath === '/');
+                        
+                        if (isSamePage) {
+                            console.log('ENTER: Zapobiegam nawigacji do tej samej strony');
                             e.preventDefault();
-                            return false;
                         }
+                    } catch (error) {
+                        console.log('ENTER: Błąd podczas sprawdzania URL:', error);
                     }
+                } 
+                // Jeśli to obraz
+                else if (activeElement.tagName === 'IMG') {
+                    textToRead = activeElement.alt;
+                    console.log('CZYTANIE ENTER: Alt text obrazu:', textToRead);
+                    e.preventDefault();
+                }
+                // Inne elementy
+                else if (!activeElement.matches('button, input, textarea, select')) {
+                    textToRead = activeElement.textContent.trim();
+                    console.log('CZYTANIE ENTER: Tekst elementu:', textToRead);
+                    e.preventDefault();
+                }
+                
+                if (textToRead) {
+                    console.log('MÓWIĘ:', textToRead);
+                    speak(textToRead);
                 }
             }
         });
@@ -196,52 +230,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         
         const readingToggle = document.getElementById('reading-toggle');
+        
         const handleReading = (e) => {
-             if (e.target.closest('.side-panel') || e.target.closest('.panel-toggles')) return;
-             console.log('Tryb czytania - kliknięto element:', e.target);
-             
-             // Sprawdź czy kliknięto na obraz lub link z obrazem
-             let textToRead = '';
-             if (e.target.tagName === 'IMG') {
-                 textToRead = e.target.alt;
-             } else if (e.target.tagName === 'A') {
-                 const img = e.target.querySelector('img');
-                 if (img && img.alt) {
-                     textToRead = img.alt;
-                 }
-             } else {
-                 textToRead = e.target.alt || e.target.innerText;
-             }
-             
-             if (textToRead) {
-                 console.log('Czytam tekst:', textToRead);
-                 e.preventDefault();
-                 speak(textToRead);
-             }
-        };
-        const handleReadingOnEnter = (e) => {
-            if (state.readingMode && e.key === 'Enter' && document.activeElement) {
-                const activeElement = document.activeElement;
-                console.log('Tryb czytania - Enter na elemencie:', activeElement);
-                
-                // Dla linków, sprawdź czy zawierają obrazy
-                if (activeElement.matches('a')) {
-                    const img = activeElement.querySelector('img');
-                    if (img && img.alt) {
-                        console.log('Czytam alt text obrazu w linku:', img.alt);
-                        speak(img.alt);
-                        return; // Nie zapobiegaj nawigacji tutaj - będzie obsłużone w initSamePageLinkFix
-                    }
+            if (e.target.closest('.side-panel') || e.target.closest('.panel-toggles')) return;
+            console.log('KLIK - Tryb czytania - element:', e.target.tagName, e.target);
+            
+            let textToRead = '';
+            
+            // Sprawdź typ elementu i pobierz odpowiedni tekst
+            if (e.target.tagName === 'IMG') {
+                textToRead = e.target.alt;
+                console.log('KLIK - Alt text obrazu:', textToRead);
+            } else if (e.target.tagName === 'A') {
+                const img = e.target.querySelector('img');
+                if (img && img.alt) {
+                    textToRead = img.alt;
+                    console.log('KLIK - Alt text z linka:', textToRead);
+                } else {
+                    textToRead = e.target.textContent.trim();
+                    console.log('KLIK - Tekst z linka:', textToRead);
                 }
-                // Dla innych elementów (nie-linków, nie-przycisków)
-                else if (!activeElement.matches('button')) {
-                    e.preventDefault();
-                    const textToRead = activeElement.alt || activeElement.innerText;
-                    if (textToRead) {
-                        console.log('Czytam tekst (Enter):', textToRead);
-                        speak(textToRead);
-                    }
-                }
+            } else {
+                textToRead = e.target.textContent.trim();
+                console.log('KLIK - Tekst elementu:', textToRead);
+            }
+            
+            if (textToRead) {
+                console.log('KLIK - MÓWIĘ:', textToRead);
+                e.preventDefault();
+                speak(textToRead);
             }
         };
 
@@ -252,12 +269,12 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Tryb czytania:', state.readingMode ? 'WŁĄCZONY' : 'WYŁĄCZONY');
 
             if (state.readingMode) {
+                // Test czy speech synthesis działa
+                speak("Tryb czytania włączony");
                 document.addEventListener('click', handleReading, true);
-                document.addEventListener('keydown', handleReadingOnEnter, true);
             } else {
                 speechSynthesis.cancel();
                 document.removeEventListener('click', handleReading, true);
-                document.removeEventListener('keydown', handleReadingOnEnter, true);
             }
         });
 
@@ -293,11 +310,26 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     function speak(text) {
-        if (!text || typeof speechSynthesis === 'undefined') return;
-        speechSynthesis.cancel();
+        if (!text || typeof speechSynthesis === 'undefined') {
+            console.log('SPEAK: Brak tekstu lub brak obsługi speechSynthesis');
+            return;
+        }
+        
+        console.log('SPEAK: Próbuję odczytać:', text);
+        speechSynthesis.cancel(); // Zatrzymaj poprzednie czytanie
+        
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'pl-PL';
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        
+        utterance.onstart = () => console.log('SPEAK: Rozpoczęto czytanie');
+        utterance.onend = () => console.log('SPEAK: Zakończono czytanie');
+        utterance.onerror = (e) => console.log('SPEAK: Błąd:', e);
+        
         speechSynthesis.speak(utterance);
+        console.log('SPEAK: Polecenie speak() wydane');
     }
 
     function restoreSettings() {
