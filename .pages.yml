@@ -1,46 +1,32 @@
-# .pages.yml — Pages CMS dla projekty.scpip.pl
-
 auth:
-  provider: github   # edytować mogą współpracownicy repo (Write)
+  provider: github
 
 media:
-  input: "media/images"   # gdzie w repo zapisywać uploady
-  output: "/media/images" # jak będą linkowane w HTML
+  input: "media/images"
+  output: "/media/images"
 
 collections:
-
-  # Jedyna strona: index.html
+  # Jedyna edytowana strona: index.html
   - label: "Strona główna"
     name: "home"
     path: "/"
     match: "index.html"
     format: "html"
     fields:
-      # <head>
       - label: "Tytuł strony (<title>)"
         name: "meta_title"
         type: "text"
         selector: "head > title"
 
-      # HEADER
       - label: "Nagłówek H1"
         name: "header_h1"
         type: "text"
         selector: "header h1"
-      - label: "Podtytuł w nagłówku (H3)"
-        name: "header_h3"
-        type: "text"
-        selector: "header h3"
 
-      # NAWIGACJA (lista odnośników kotwicowych)
-      - label: "Menu nawigacji (lista linków)"
+      - label: "Menu (lista linków)"
         name: "nav_list"
-        type: "rich-text"         # edytujesz <ul> w trybie WYSIWYG
+        type: "rich-text"
         selector: "nav .container > ul"
-
-      # --- SEKCJE GŁÓWNE (MAIN) ---
-      # Każde pole 'rich-text' obejmuje całą sekcję (wraz z H2 i treścią).
-      # Jeśli chcesz zablokować zmiany H2, daj znać — rozdzielę pola na tytuł i treść.
 
       - label: "Sekcja: O projektach"
         name: "sec_o_projektach"
@@ -72,21 +58,20 @@ collections:
         type: "rich-text"
         selector: "main section#freedom"
 
-      - label: "Sekcja: Praktykant - doświadczenie na wagę złota"
+      - label: "Sekcja: Praktykant – doświadczenie na wagę złota"
         name: "sec_praktykant"
         type: "rich-text"
         selector: "main section#praktykant"
 
-      # STOPKA
-      - label: "Stopka (cała zawartość)"
+      - label: "Stopka"
         name: "footer"
         type: "rich-text"
         selector: "footer#footer .container"
 
-  # (Opcjonalnie) edycja plików .md w repo (np. README.md)
-  - label: "Pliki Markdown w katalogu głównym"
-    name: "root_markdown"
-    path: "/"
+  # Dokumenty w /docs (Markdown) – pokaże się nowa kolekcja w panelu
+  - label: "Dokumenty (docs/*.md)"
+    name: "docs_markdown"
+    path: "docs"
     match: "*.md"
     format: "markdown"
     fields:
