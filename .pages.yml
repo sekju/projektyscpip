@@ -1,80 +1,38 @@
-auth:
-  provider: github
-
 media:
   input: "media/images"
   output: "/media/images"
 
-collections:
-  # Jedyna edytowana strona: index.html
-  - label: "Strona główna"
-    name: "home"
-    path: "/"
-    match: "index.html"
-    format: "html"
-    fields:
-      - label: "Tytuł strony (<title>)"
-        name: "meta_title"
-        type: "text"
-        selector: "head > title"
+# Ustawienia globalne: bezpieczne łączenie zmian
+settings:
+  content:
+    merge: true
 
-      - label: "Nagłówek H1"
-        name: "header_h1"
-        type: "text"
-        selector: "header h1"
-
-      - label: "Menu (lista linków)"
-        name: "nav_list"
-        type: "rich-text"
-        selector: "nav .container > ul"
-
-      - label: "Sekcja: O projektach"
-        name: "sec_o_projektach"
-        type: "rich-text"
-        selector: "main section#o-projektach"
-
-      - label: "Sekcja: Strefa Transformacji Katowice"
-        name: "sec_strefa_katowice"
-        type: "rich-text"
-        selector: "main section#strefa-katowice"
-
-      - label: "Sekcja: Strefa Transformacji Ruda Śląska"
-        name: "sec_strefa_ruda"
-        type: "rich-text"
-        selector: "main section#strefa-ruda"
-
-      - label: "Sekcja: Zwrotnica Katowice"
-        name: "sec_zwrotnica_katowice"
-        type: "rich-text"
-        selector: "main section#zwrotnica-katowice"
-
-      - label: "Sekcja: Zwrotnica Ruda Śląska"
-        name: "sec_zwrotnica_ruda"
-        type: "rich-text"
-        selector: "main section#zwrotnica-ruda"
-
-      - label: "Sekcja: freeDOM – mieszkanie treningowe"
-        name: "sec_freedom"
-        type: "rich-text"
-        selector: "main section#freedom"
-
-      - label: "Sekcja: Praktykant – doświadczenie na wagę złota"
-        name: "sec_praktykant"
-        type: "rich-text"
-        selector: "main section#praktykant"
-
-      - label: "Stopka"
-        name: "footer"
-        type: "rich-text"
-        selector: "footer#footer .container"
-
-  # Dokumenty w /docs (Markdown) – pokaże się nowa kolekcja w panelu
-  - label: "Dokumenty (docs/*.md)"
-    name: "docs_markdown"
+content:
+  # Kolekcja dokumentów Markdown w /docs
+  - name: docs
+    label: "Dokumenty (docs/*.md)"
+    type: collection
     path: "docs"
-    match: "*.md"
-    format: "markdown"
+    format: raw            # pliki .md bez frontmatteru
+    subfolders: false
     fields:
-      - label: "Treść (Markdown)"
-        name: "body"
-        type: "markdown"
+      - name: body
+        label: "Treść (Markdown)"
+        type: rich-text    # edytor WYSIWYG zapisze Markdown do pliku
+    view:
+      fields: [ "path" ]   # prosta lista; możesz doprecyzować
+
+  # (Opcjonalnie) pojedyncze pliki .md w katalogu głównym
+  - name: root_md
+    label: "Pliki Markdown w katalogu głównym (*.md)"
+    type: collection
+    path: "/"
+    format: raw
+    filename: "{primary}.md"
+    exclude: [ "README.md" ]
+    fields:
+      - name: body
+        label: "Treść (Markdown)"
+        type: rich-text
+    view:
+      fields: [ "path" ]
