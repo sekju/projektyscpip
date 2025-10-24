@@ -1,0 +1,95 @@
+# .pages.yml — Pages CMS dla projekty.scpip.pl
+
+auth:
+  provider: github   # edytować mogą współpracownicy repo (Write)
+
+media:
+  input: "media/images"   # gdzie w repo zapisywać uploady
+  output: "/media/images" # jak będą linkowane w HTML
+
+collections:
+
+  # Jedyna strona: index.html
+  - label: "Strona główna"
+    name: "home"
+    path: "/"
+    match: "index.html"
+    format: "html"
+    fields:
+      # <head>
+      - label: "Tytuł strony (<title>)"
+        name: "meta_title"
+        type: "text"
+        selector: "head > title"
+
+      # HEADER
+      - label: "Nagłówek H1"
+        name: "header_h1"
+        type: "text"
+        selector: "header h1"
+      - label: "Podtytuł w nagłówku (H3)"
+        name: "header_h3"
+        type: "text"
+        selector: "header h3"
+
+      # NAWIGACJA (lista odnośników kotwicowych)
+      - label: "Menu nawigacji (lista linków)"
+        name: "nav_list"
+        type: "rich-text"         # edytujesz <ul> w trybie WYSIWYG
+        selector: "nav .container > ul"
+
+      # --- SEKCJE GŁÓWNE (MAIN) ---
+      # Każde pole 'rich-text' obejmuje całą sekcję (wraz z H2 i treścią).
+      # Jeśli chcesz zablokować zmiany H2, daj znać — rozdzielę pola na tytuł i treść.
+
+      - label: "Sekcja: O projektach"
+        name: "sec_o_projektach"
+        type: "rich-text"
+        selector: "main section#o-projektach"
+
+      - label: "Sekcja: Strefa Transformacji Katowice"
+        name: "sec_strefa_katowice"
+        type: "rich-text"
+        selector: "main section#strefa-katowice"
+
+      - label: "Sekcja: Strefa Transformacji Ruda Śląska"
+        name: "sec_strefa_ruda"
+        type: "rich-text"
+        selector: "main section#strefa-ruda"
+
+      - label: "Sekcja: Zwrotnica Katowice"
+        name: "sec_zwrotnica_katowice"
+        type: "rich-text"
+        selector: "main section#zwrotnica-katowice"
+
+      - label: "Sekcja: Zwrotnica Ruda Śląska"
+        name: "sec_zwrotnica_ruda"
+        type: "rich-text"
+        selector: "main section#zwrotnica-ruda"
+
+      - label: "Sekcja: freeDOM – mieszkanie treningowe"
+        name: "sec_freedom"
+        type: "rich-text"
+        selector: "main section#freedom"
+
+      - label: "Sekcja: Praktykant - doświadczenie na wagę złota"
+        name: "sec_praktykant"
+        type: "rich-text"
+        selector: "main section#praktykant"
+
+      # STOPKA
+      - label: "Stopka (cała zawartość)"
+        name: "footer"
+        type: "rich-text"
+        selector: "footer#footer .container"
+
+  # (Opcjonalnie) edycja plików .md w repo (np. README.md)
+  - label: "Pliki Markdown w katalogu głównym"
+    name: "root_markdown"
+    path: "/"
+    match: "*.md"
+    format: "markdown"
+    fields:
+      - label: "Treść (Markdown)"
+        name: "body"
+        type: "markdown"
