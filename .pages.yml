@@ -1,38 +1,14 @@
 media:
-  input: "media/images"
-  output: "/media/images"
+  - name: images
+    label: "Media (obrazy)"
+    input: "media/images"
+    output: "/media/images"
+    categories: [ image ]         # jpg, png, svg, webp itd.
 
-# Ustawienia globalne: bezpieczne łączenie zmian
-settings:
-  content:
-    merge: true
-
-content:
-  # Kolekcja dokumentów Markdown w /docs
   - name: docs
-    label: "Dokumenty (docs/*.md)"
-    type: collection
-    path: "docs"
-    format: raw            # pliki .md bez frontmatteru
-    subfolders: false
-    fields:
-      - name: body
-        label: "Treść (Markdown)"
-        type: rich-text    # edytor WYSIWYG zapisze Markdown do pliku
-    view:
-      fields: [ "path" ]   # prosta lista; możesz doprecyzować
-
-  # (Opcjonalnie) pojedyncze pliki .md w katalogu głównym
-  - name: root_md
-    label: "Pliki Markdown w katalogu głównym (*.md)"
-    type: collection
-    path: "/"
-    format: raw
-    filename: "{primary}.md"
-    exclude: [ "README.md" ]
-    fields:
-      - name: body
-        label: "Treść (Markdown)"
-        type: rich-text
-    view:
-      fields: [ "path" ]
+    label: "Dokumenty (/docs)"
+    input: "docs"
+    output: "/docs"
+    categories: [ document ]      # pdf, doc, docx, xls, xlsx, txt, rtf, ppt, pptx
+    # jeśli chcesz zawęzić typy wyświetlane w Media -> odkomentuj i dopasuj:
+    # extensions: [ pdf, docx, xlsx, pptx, txt, rtf ]
