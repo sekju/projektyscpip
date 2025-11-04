@@ -1,0 +1,52 @@
+media:
+  - name: images
+    label: "Media (obrazy)"
+    input: "media/images"
+    output: "/media/images"
+    categories: [ image ]
+
+  - name: docs
+    label: "Dokumenty (/docs)"
+    input: "docs"
+    output: "/docs"
+    categories: [ document ]
+    # Możesz zawęzić rozszerzenia, jeśli chcesz:
+    # extensions: [ pdf, doc, docx, xls, xlsx, ppt, pptx, txt, rtf ]
+
+settings:
+  content:
+    merge: true   # bezpieczniejsze aktualizacje (nie nadpisuje nieużytych pól)
+
+content:
+  # 1) Pojedynczy plik: index.html — edytor kodu (HTML)
+  - name: index_html
+    label: "Index (HTML)"
+    type: file
+    path: "index.html"
+    format: code
+    fields:
+      - name: body
+        label: "Zawartość index.html"
+        type: code
+        options:
+          language: html
+
+  # 2) (Opcjonalnie) Kolekcja plików Markdown w root — widok LISTY
+  - name: root_markdown
+    label: "Markdown w katalogu głównym (*.md)"
+    type: collection
+    path: "/"
+    format: raw
+    filename: "{primary}.md"
+    exclude: [ "README.md" ]
+    subfolders: false
+    fields:
+      - name: body
+        label: "Treść (Markdown)"
+        type: rich-text
+    view:
+      layout: list
+      fields: [ "path" ]
+      default:
+        sort: path
+        order: asc
