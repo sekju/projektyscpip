@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projekty - Śląskie Centrum Profilaktyki i Psychoterapii</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body data-theme="normal">
 
     <div class="panel-toggles">
-        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Nawigacja: Otwórz panel nawigacji" aria-controls="nav-panel" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Nawigacja: Otwórz panel nawigacji"
+            aria-controls="nav-panel" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+            </svg>
         </button>
-        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Dostępność: Otwórz panel dostępności" aria-controls="a11y-panel" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-accessibility-icon lucide-accessibility"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1"/><path d="m5 8 3-3 5.5 3-2.36 3.5"/><path d="M4.24 14.5a5 5 0 0 0 6.88 6"/><path d="M13.76 17.5a5 5 0 0 0-6.88-6"/></svg>
+        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Dostępność: Otwórz panel dostępności"
+            aria-controls="a11y-panel" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-accessibility-icon lucide-accessibility">
+                <circle cx="16" cy="4" r="1" />
+                <path d="m18 19 1-7-6 1" />
+                <path d="m5 8 3-3 5.5 3-2.36 3.5" />
+                <path d="M4.24 14.5a5 5 0 0 0 6.88 6" />
+                <path d="M13.76 17.5a5 5 0 0 0-6.88-6" />
+            </svg>
         </button>
     </div>
 
-    <div id="nav-panel" class="side-panel left" role="dialog" aria-modal="true" aria-labelledby="nav-panel-title" hidden>
+    <div id="nav-panel" class="side-panel left" role="dialog" aria-modal="true" aria-labelledby="nav-panel-title"
+        hidden>
         <div class="panel-header">
             <h3 id="nav-panel-title" tabindex="-1">Szybka nawigacja</h3>
             <button class="close-panel-btn" aria-label="Zamknij panel nawigacji">&times;</button>
         </div>
         <ul id="nav-panel-list">
-            </ul>
+        </ul>
     </div>
 
-    <div id="a11y-panel" class="side-panel right" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title" hidden>
+    <div id="a11y-panel" class="side-panel right" role="dialog" aria-modal="true" aria-labelledby="a11y-panel-title"
+        hidden>
         <div class="panel-header">
             <h3 id="a11y-panel-title" tabindex="-1">Panel Dostępności</h3>
             <button class="close-panel-btn" aria-label="Zamknij panel dostępności">&times;</button>
@@ -59,38 +75,50 @@
         </div>
     </div>
 
-    <div id="keyboard-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="keyboard-modal-title" hidden>
+    <div id="keyboard-modal" class="modal-overlay" role="dialog" aria-modal="true"
+        aria-labelledby="keyboard-modal-title" hidden>
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="keyboard-modal-title" tabindex="-1">Nawigacja klawiaturą jest aktywna</h2>
                 <button class="close-modal-btn" aria-label="Zamknij okno">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Użyj klawisza <strong>Tab</strong> aby przechodzić do kolejnych elementów lub <strong>Shift + Tab</strong> aby się cofać.</p>
-                <p>Aby włączyć tryb czytania na głos, otwórz panel dostępności (ikona w prawym dolnym rogu) i aktywuj opcję "Włącz czytanie".</p>
+                <p>Użyj klawisza <strong>Tab</strong> aby przechodzić do kolejnych elementów lub <strong>Shift +
+                        Tab</strong> aby się cofać.</p>
+                <p>Aby włączyć tryb czytania na głos, otwórz panel dostępności (ikona w prawym dolnym rogu) i aktywuj
+                    opcję "Włącz czytanie".</p>
                 <p><strong>W trybie czytania:</strong></p>
                 <ul>
-                    <li><strong>Nawigacja klawiszem Tab</strong> - automatycznie czyta treść elementów podczas przechodzenia</li>
+                    <li><strong>Nawigacja klawiszem Tab</strong> - automatycznie czyta treść elementów podczas
+                        przechodzenia</li>
                     <li><strong>Kliknięcie lub Enter</strong> - normalnie otwiera linki i aktywuje przyciski</li>
                 </ul>
-                <p><strong>Nawigacja:</strong> Użyj <strong>Alt + Strzałka w lewo</strong> lub przycisku "Wstecz" przeglądarki, aby wrócić na poprzednią stronę.</p>
+                <p><strong>Nawigacja:</strong> Użyj <strong>Alt + Strzałka w lewo</strong> lub przycisku "Wstecz"
+                    przeglądarki, aby wrócić na poprzednią stronę.</p>
                 <p>Wciśnij <strong>Escape</strong> aby zamknąć to okno.</p>
             </div>
         </div>
     </div>
 
     <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
-    
+
     <header>
         <div class="container">
             <div class="logos">
-                <a href="index.html" aria-label="Strona główna"><img src="media/images/kolory-pion-slaskie-rgb.png" alt="Logo Funduszy Europejskich dla Śląskiego"></a>
-                <a href="index.html" aria-label="Strona główna"><img src="media/images/kolory-pion-rzeczpospolita-polska-rgb.png" alt="Logo Rzeczpospolitej Polskiej"></a>
-                <a href="index.html" aria-label="Strona główna"><img src="media/images/kolory-pion-unia-europejska-rgb.png" alt="Logo Unii Europejskiej"></a>
-                <a href="index.html" aria-label="Strona główna"><img src="media/images/kolory-pion-wojewodztwo-slaskie.png" alt="Herb Województwa Śląskiego"></a>
+                <a href="index.html" aria-label="Strona główna"><img src="media/images/kolory-pion-slaskie-rgb.png"
+                        alt="Logo Funduszy Europejskich dla Śląskiego"></a>
+                <a href="index.html" aria-label="Strona główna"><img
+                        src="media/images/kolory-pion-rzeczpospolita-polska-rgb.png"
+                        alt="Logo Rzeczpospolitej Polskiej"></a>
+                <a href="index.html" aria-label="Strona główna"><img
+                        src="media/images/kolory-pion-unia-europejska-rgb.png" alt="Logo Unii Europejskiej"></a>
+                <a href="index.html" aria-label="Strona główna"><img
+                        src="media/images/kolory-pion-wojewodztwo-slaskie.png" alt="Herb Województwa Śląskiego"></a>
             </div>
             <div class="centered-logo">
-                <a href="index.html" aria-label="Strona główna Śląskiego Centrum Profilaktyki i Psychoterapii"><img src="media/images/logo-scpip-1.png" alt="Logo Śląskiego Centrum Profilaktyki i Psychoterapii"></a>
+                <a href="index.html" aria-label="Strona główna Śląskiego Centrum Profilaktyki i Psychoterapii"><img
+                        src="media/images/logo-scpip-1.png"
+                        alt="Logo Śląskiego Centrum Profilaktyki i Psychoterapii"></a>
             </div>
             <h1>Projekty Śląskiego Centrum Profilaktyki i Psychoterapii</h1>
             <h3>#FunduszeUE</h3>
@@ -114,7 +142,8 @@
     <main id="main-content" class="container">
         <section id="o-projektach" aria-labelledby="o-projektach-heading">
             <h2 id="o-projektach-heading">O projektach</h2>
-            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekty skierowane do mieszkańców, pracowników i uczniów miasta Katowice oraz Rudy Śląskiej:</p>
+            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekty skierowane do mieszkańców, pracowników i
+                uczniów miasta Katowice oraz Rudy Śląskiej:</p>
             <ul>
                 <li>"Strefa Transformacji w Katowicach 2.0"</li>
                 <li>"Strefa Transformacji w Rudzie Śląskiej 2.0"</li>
@@ -126,7 +155,8 @@
         </section>
         <section id="strefa-katowice" aria-labelledby="strefa-katowice-heading">
             <h2 id="strefa-katowice-heading">Strefa Transformacji w Katowicach 2.0</h2>
-            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekt skierowany do mieszkańców, pracowników i uczniów miasta Katowice. Oferujemy działania na rzecz rozwoju społeczności lokalnej.</p>
+            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekt skierowany do mieszkańców, pracowników i
+                uczniów miasta Katowice. Oferujemy działania na rzecz rozwoju społeczności lokalnej.</p>
             <h3>Zapraszamy na bezpłatne zajęcia:</h3>
             <ul>
                 <li>Strefa Cyfrowa</li>
@@ -140,7 +170,8 @@
                 <li>Wydarzenia oraz inicjatywy lokalne</li>
                 <li>Kursy oraz szkolenia edukacyjne</li>
             </ul>
-            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligocka 5. Zapewniamy poczęstunek i materiały. Obowiązują zapisy.</p>
+            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligocka 5. Zapewniamy poczęstunek i materiały. Obowiązują
+                zapisy.</p>
             <h3>Metadane Projektu:</h3>
             <ul>
                 <li><strong>Okres realizacji:</strong> 01.04.2024 – 30.06.2026 r.</li>
@@ -148,43 +179,120 @@
                 <li><strong>Finansowanie:</strong> Wkład z UE: 1 759 644,00 zł | Budżet Państwa: 195 516,00 zł</li>
             </ul>
             <h3>Cel projektu</h3>
-            <p>Głównym celem jest wzmocnienie, akceptacja procesu sprawiedliwej transformacji i zmiany klimatycznej oraz poprawa funkcjonowania społecznego. Grupę docelową stanowi co najmniej 140 osób z Katowic. Projekt jest dostępny dla osób z niepełnosprawnością.</p>
+            <p>Głównym celem jest wzmocnienie, akceptacja procesu sprawiedliwej transformacji i zmiany klimatycznej oraz
+                poprawa funkcjonowania społecznego. Grupę docelową stanowi co najmniej 140 osób z Katowic. Projekt jest
+                dostępny dla osób z niepełnosprawnością.</p>
             <div class="accessibility-info">
                 <h3>Dostępność architektoniczna</h3>
                 <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
-                <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach" usytuowane jest na parterze budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
-                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
+                <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach" usytuowane jest na parterze
+                    budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
+                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum
+                    Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście
+                    główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do
+                    bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z
+                    niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu
+                    przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z
+                    niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń
+                    udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno
+                    rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy,
+                    specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o
+                    wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.
+                </p>
             </div>
             <div class="contact-info">
                 <h3>Kontakt w sprawie projektu</h3>
                 <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
                 <ul>
-                    <li>Telefonicznie: <a href="tel:+48792377809" aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
-                    <li>Mailowo: <a href="mailto:strefa.transformacji@gmail.com?subject=Strefa Transformacji w Katowicach 2.0" aria-label="Wyślij email do strefa.transformacji@gmail.com"><strong>strefa.transformacji@gmail.com</strong></a></li>
+                    <li>Telefonicznie: <a href="tel:+48792377809"
+                            aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
+                    <li>Mailowo: <a
+                            href="mailto:strefa.transformacji@gmail.com?subject=Strefa Transformacji w Katowicach 2.0"
+                            aria-label="Wyślij email do strefa.transformacji@gmail.com"><strong>strefa.transformacji@gmail.com</strong></a>
+                    </li>
                 </ul>
             </div>
             <h3>Dokumenty rekrutacyjne do projektu</h3>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-formularz_rekrutacyjny_podstawowy.pdf" target="_blank" aria-label="Formularz rekrutacyjny podstawowy ST Kato - PDF - otworzy się w nowej karcie">Formularz rekrutacyjny podstawowy ST Kato - PDF (671 KB)</a>, <a href="docs/STREFAT_KAT-formularz_rekrutacyjny_podstawowy.docx" target="_blank" aria-label="Formularz rekrutacyjny podstawowy ST Kato - WORD - zostanie pobrany">Formularz rekrutacyjny podstawowy ST Kato - WORD (42 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-regulamin_rekrutacji_i_uczestnictwa_w_projekcie.pdf" target="_blank" aria-label="Regulamin Rekrutacji i uczestnictwa w projekcie ST KATO - PDF - otworzy się w nowej karcie">Regulamin Rekrutacji ST KATO - PDF (590 KB)</a>, <a href="docs/STREFAT_KAT-regulamin_rekrutacji_i_uczestnictwa_w_projekcie.docx" target="_blank" aria-label="Regulamin Rekrutacji i uczestnictwa w projekcie ST KATO - WORD - zostanie pobrany">Regulamin Rekrutacji ST KATO - WORD (51 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-protokol_rekrutacyjny_podstawowy.pdf" target="_blank" aria-label="Protokół rekrutacyjny podstawowy ST Kato - PDF - otworzy się w nowej karcie">Protokół rekrutacyjny podstawowy ST Kato - PDF (659 KB)</a>, <a href="docs/STREFAT_KAT-protokol_rekrutacyjny_podstawowy.docx" target="_blank" aria-label="Protokół rekrutacyjny podstawowy ST Kato - WORD - zostanie pobrany">Protokół rekrutacyjny podstawowy ST Kato - WORD (42 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-rodo_do_st_kato.pdf" target="_blank" aria-label="RODO do ST Kato - PDF - otworzy się w nowej karcie">RODO do ST Kato - PDF (725 KB)</a>, <a href="docs/STREFAT_KAT-rodo_do_st_kato.docx" target="_blank" aria-label="RODO do ST Kato - WORD - zostanie pobrany">RODO do ST Kato - WORD (48 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-suplement_do_formularza_rekrutacyjnego.pdf" target="_blank" aria-label="Suplement do formularza rekrutacyjnego ST Kato - PDF - otworzy się w nowej karcie">Suplement do formularza rekrutacyjnego ST Kato - PDF (973 KB)</a>, <a href="docs/STREFAT_KAT-suplement_do_formularza_rekrutacyjnego.docx" target="_blank" aria-label="Suplement do formularza rekrutacyjnego ST Kato - WORD - zostanie pobrany">Suplement do formularza rekrutacyjnego ST Kato - WORD (2244 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-wizerunek.pdf" target="_blank" aria-label="Wizerunek ST Kato - PDF - otworzy się w nowej karcie">Wizerunek ST Kato - PDF (642 KB)</a>, <a href="docs/STREFAT_KAT-wizerunek.docx" target="_blank" aria-label="Wizerunek ST Kato - WORD - zostanie pobrany">Wizerunek ST Kato - WORD (41 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-wzor_zaswiadczenia_o_zatrudnieniu_lub_edukacji_na_terenie_kato_projekt_st.pdf" target="_blank" aria-label="Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - PDF - otworzy się w nowej karcie">Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - PDF (570 KB)</a>, <a href="docs/STREFAT_KAT-wzor_zaswiadczenia_o_zatrudnieniu_lub_edukacji_na_terenie_kato_projekt_st.docx" target="_blank" aria-label="Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - WORD - zostanie pobrany">Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - WORD (39 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-formularz_rekrutacyjny_podstawowy.pdf"
+                    target="_blank"
+                    aria-label="Formularz rekrutacyjny podstawowy ST Kato - PDF - otworzy się w nowej karcie">Formularz
+                    rekrutacyjny podstawowy ST Kato - PDF (671 KB)</a>, <a
+                    href="docs/STREFAT_KAT-formularz_rekrutacyjny_podstawowy.docx" target="_blank"
+                    aria-label="Formularz rekrutacyjny podstawowy ST Kato - WORD - zostanie pobrany">Formularz
+                    rekrutacyjny podstawowy ST Kato - WORD (42 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/STREFAT_KAT-regulamin_rekrutacji_i_uczestnictwa_w_projekcie.pdf" target="_blank"
+                    aria-label="Regulamin Rekrutacji i uczestnictwa w projekcie ST KATO - PDF - otworzy się w nowej karcie">Regulamin
+                    Rekrutacji ST KATO - PDF (590 KB)</a>, <a
+                    href="docs/STREFAT_KAT-regulamin_rekrutacji_i_uczestnictwa_w_projekcie.docx" target="_blank"
+                    aria-label="Regulamin Rekrutacji i uczestnictwa w projekcie ST KATO - WORD - zostanie pobrany">Regulamin
+                    Rekrutacji ST KATO - WORD (51 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-protokol_rekrutacyjny_podstawowy.pdf"
+                    target="_blank"
+                    aria-label="Protokół rekrutacyjny podstawowy ST Kato - PDF - otworzy się w nowej karcie">Protokół
+                    rekrutacyjny podstawowy ST Kato - PDF (659 KB)</a>, <a
+                    href="docs/STREFAT_KAT-protokol_rekrutacyjny_podstawowy.docx" target="_blank"
+                    aria-label="Protokół rekrutacyjny podstawowy ST Kato - WORD - zostanie pobrany">Protokół
+                    rekrutacyjny podstawowy ST Kato - WORD (42 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-rodo_do_st_kato.pdf" target="_blank"
+                    aria-label="RODO do ST Kato - PDF - otworzy się w nowej karcie">RODO do ST Kato - PDF (725 KB)</a>,
+                <a href="docs/STREFAT_KAT-rodo_do_st_kato.docx" target="_blank"
+                    aria-label="RODO do ST Kato - WORD - zostanie pobrany">RODO do ST Kato - WORD (48 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-suplement_do_formularza_rekrutacyjnego.pdf"
+                    target="_blank"
+                    aria-label="Suplement do formularza rekrutacyjnego ST Kato - PDF - otworzy się w nowej karcie">Suplement
+                    do formularza rekrutacyjnego ST Kato - PDF (973 KB)</a>, <a
+                    href="docs/STREFAT_KAT-suplement_do_formularza_rekrutacyjnego.docx" target="_blank"
+                    aria-label="Suplement do formularza rekrutacyjnego ST Kato - WORD - zostanie pobrany">Suplement do
+                    formularza rekrutacyjnego ST Kato - WORD (2244 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-wizerunek.pdf" target="_blank"
+                    aria-label="Wizerunek ST Kato - PDF - otworzy się w nowej karcie">Wizerunek ST Kato - PDF (642
+                    KB)</a>, <a href="docs/STREFAT_KAT-wizerunek.docx" target="_blank"
+                    aria-label="Wizerunek ST Kato - WORD - zostanie pobrany">Wizerunek ST Kato - WORD (41 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/STREFAT_KAT-wzor_zaswiadczenia_o_zatrudnieniu_lub_edukacji_na_terenie_kato_projekt_st.pdf"
+                    target="_blank"
+                    aria-label="Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - PDF - otworzy się w nowej karcie">Wzór
+                    zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - PDF (570 KB)</a>, <a
+                    href="docs/STREFAT_KAT-wzor_zaswiadczenia_o_zatrudnieniu_lub_edukacji_na_terenie_kato_projekt_st.docx"
+                    target="_blank"
+                    aria-label="Wzór zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - WORD - zostanie pobrany">Wzór
+                    zaświadczenia o zatrudnieniu lub edukacji na terenie Kato projekt ST - WORD (39 KB)</a></div>
 
             <h4>Pozostałe dokumenty</h4>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-hfw_6_2025.pdf" target="_blank" aria-label="Harmonogram czerwiec 2025 - HFW 6 2025 - PDF - otworzy się w nowej karcie">Harmonogram czerwiec 2025 - HFW 6 2025 - PDF (221 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-hfw_6_2025.pdf" target="_blank"
+                    aria-label="Harmonogram czerwiec 2025 - HFW 6 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    czerwiec 2025 - HFW 6 2025 - PDF (221 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.11-10:40-Oryginalna nazwa pliku: Harmonogram_Strefa_Transformacji_w_Katowicach_2.0_HFW_9_2025.pdf -->
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-Harmonogram_strefa_transformacji_w_katowicach_2_0_HFW_9_2025.pdf" target="_blank" aria-label="Harmonogram Strefa Transformacji Katowice wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Strefa Transformacji Katowice wrzesień 2025 - PDF (220 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-HFW_10_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - październik 2025 - PDF (225 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-HFW_11_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - listopad 2025 - PDF</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-harmonogram_form_wsparcia_12_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - grudzień 2025 - PDF</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-harmonogram_form_wsparcia_01_2026.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - styczeń 2026 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - styczeń 2026 - PDF</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/STREFAT_KAT-Harmonogram_strefa_transformacji_w_katowicach_2_0_HFW_9_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Strefa Transformacji Katowice wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Strefa Transformacji Katowice wrzesień 2025 - PDF (220 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-HFW_10_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - październik 2025 - PDF (225 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-HFW_11_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - listopad 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-harmonogram_form_wsparcia_12_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - grudzień 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-harmonogram_form_wsparcia_01_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - styczeń 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - styczeń 2026 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_KAT-harmonogram_form_wsparcia_02_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - luty 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - luty 2026 - PDF</a></div>
         </section>
 
         <section id="strefa-ruda" aria-labelledby="strefa-ruda-heading">
             <h2 id="strefa-ruda-heading">Strefa Transformacji w Rudzie Śląskiej 2.0</h2>
-            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekt skierowany do mieszkańców, pracowników i uczniów miasta Ruda Śląska, mający na celu rozwój społeczności lokalnej.</p>
+            <p>Śląskie Centrum Profilaktyki i Psychoterapii realizuje projekt skierowany do mieszkańców, pracowników i
+                uczniów miasta Ruda Śląska, mający na celu rozwój społeczności lokalnej.</p>
             <h3>Zapraszamy na bezpłatne zajęcia:</h3>
             <ul>
                 <li>Strefa Cyfrowa</li>
@@ -194,7 +302,8 @@
                 <li>Strefa Ekologiczna</li>
                 <li>Międzypokoleniowy Klub Społecznościowy i inne</li>
             </ul>
-            <p><strong>Biuro projektu:</strong> Ruda Śląska, ul. Solidarności 5/9. Zapewniamy poczęstunek i materiały. Obowiązują zapisy.</p>
+            <p><strong>Biuro projektu:</strong> Ruda Śląska, ul. Solidarności 5/9. Zapewniamy poczęstunek i materiały.
+                Obowiązują zapisy.</p>
             <h3>Metadane Projektu</h3>
             <ul>
                 <li><strong>Okres realizacji:</strong> 01.04.2024 – 30.06.2026 r.</li>
@@ -202,41 +311,73 @@
                 <li><strong>Finansowanie:</strong> Wkład z UE: 1 775 844,00 zł | Budżet Państwa: 197 316,00 zł</li>
             </ul>
             <h3>Cel projektu</h3>
-            <p>Głównym celem jest wzmocnienie i akceptacja procesu sprawiedliwej transformacji. Grupę docelową stanowi co najmniej 140 osób z Rudy Śląskiej. Projekt jest dostępny dla osób z niepełnosprawnością.</p>
+            <p>Głównym celem jest wzmocnienie i akceptacja procesu sprawiedliwej transformacji. Grupę docelową stanowi
+                co najmniej 140 osób z Rudy Śląskiej. Projekt jest dostępny dla osób z niepełnosprawnością.</p>
             <div class="accessibility-info">
                 <h3>Dostępność architektoniczna</h3>
                 <p><strong>Biuro projektu (Ruda Śląska, ul. Solidarności 5/9):</strong></p>
-                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Jedno z wejść do budynku posiada podjazd dla osób poruszających się na wózkach inwalidzkich Toalety są dostosowane do potrzeb osób z niepełnosprawnościami. Przed budynkiem znajdują się oznaczone miejsca parkingowe dla osób z niepełnosprawnościami.</p>
+                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Jedno z wejść do budynku posiada
+                    podjazd dla osób poruszających się na wózkach inwalidzkich Toalety są dostosowane do potrzeb osób z
+                    niepełnosprawnościami. Przed budynkiem znajdują się oznaczone miejsca parkingowe dla osób z
+                    niepełnosprawnościami.</p>
             </div>
             <div class="contact-info">
                 <h3>Kontakt w sprawie projektu</h3>
                 <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
                 <ul>
-                    <li>Telefonicznie: <a href="tel:+48791671258" aria-label="Zadzwoń pod numer +48 791 671 258"><strong>+48 791 671 258</strong></a></li>
-                    <li>Mailowo: <a href="mailto:gosia.scpip@gmail.com?subject=Strefa Transformacji w Rudzie Śląskiej 2.0" aria-label="Wyślij email do gosia.scpip@gmail.com"><strong>gosia.scpip@gmail.com</strong></a></li>
+                    <li>Telefonicznie: <a href="tel:+48791671258"
+                            aria-label="Zadzwoń pod numer +48 791 671 258"><strong>+48 791 671 258</strong></a></li>
+                    <li>Mailowo: <a
+                            href="mailto:gosia.scpip@gmail.com?subject=Strefa Transformacji w Rudzie Śląskiej 2.0"
+                            aria-label="Wyślij email do gosia.scpip@gmail.com"><strong>gosia.scpip@gmail.com</strong></a>
+                    </li>
                 </ul>
             </div>
             <h3>Dokumenty rekrutacyjne do projektu</h3>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-ankieta_potrzeb_st.docx" target="_blank" aria-label="Ankieta potrzeb ST - WORD - zostanie pobrana">Ankieta potrzeb ST - WORD (55 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-ankieta_potrzeb_st.docx" target="_blank"
+                    aria-label="Ankieta potrzeb ST - WORD - zostanie pobrana">Ankieta potrzeb ST - WORD (55 KB)</a>
+            </div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: HFW_Strefa_Transformacji_Ruda_Śląska_03_2025.docx -->
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-hfw_strefa_transformacji_ruda_slaska_03_2025.docx" target="_blank" aria-label="HFW Strefa Transformacji Ruda Śląska 03 2025 - WORD - zostanie pobrany">HFW Strefa Transformacji Ruda Śląska 03 2025 - WORD (102 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-hfw_strefa_ruda_06_2025.pdf" target="_blank" aria-label="HFW Strefa Ruda 06 2025 - PDF - otworzy się w nowej karcie">HFW Strefa Ruda 06 2025 - PDF (219 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/STREFAT_RSL-hfw_strefa_transformacji_ruda_slaska_03_2025.docx" target="_blank"
+                    aria-label="HFW Strefa Transformacji Ruda Śląska 03 2025 - WORD - zostanie pobrany">HFW Strefa
+                    Transformacji Ruda Śląska 03 2025 - WORD (102 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-hfw_strefa_ruda_06_2025.pdf" target="_blank"
+                    aria-label="HFW Strefa Ruda 06 2025 - PDF - otworzy się w nowej karcie">HFW Strefa Ruda 06 2025 -
+                    PDF (219 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.11-10:40-Oryginalna nazwa pliku: Harmonogram_Strefa_Transformacji_w_Rudzie_Śląskiej_2.0_HFW_ST_RS_09_2025.pdf -->
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-Harmonogram_strefa_transformacji_w_rudzie_slaskiej_2_0_HFW_ST_RS_09_2025.pdf" target="_blank" aria-label="Harmonogram Strefa Transformacji Ruda Śląska wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Strefa Transformacji Ruda Śląska wrzesień 2025 - PDF (185 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/STREFAT_RSL-Harmonogram_strefa_transformacji_w_rudzie_slaskiej_2_0_HFW_ST_RS_09_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Strefa Transformacji Ruda Śląska wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Strefa Transformacji Ruda Śląska wrzesień 2025 - PDF (185 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Klauzula_RODO_SCPIP_-_Zwrotnica.docx -->
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-klauzula_rodo_scpip_zwrotnica.docx" target="_blank" aria-label="Klauzula RODO SCPIP - Zwrotnica - WORD - zostanie pobrana">Klauzula RODO SCPIP - Zwrotnica - WORD (70 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-klauzula_rodo_scpip_zwrotnica.docx"
+                    target="_blank" aria-label="Klauzula RODO SCPIP - Zwrotnica - WORD - zostanie pobrana">Klauzula RODO
+                    SCPIP - Zwrotnica - WORD (70 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Zgoda_RODO_Zwrotnica.docx -->
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-zgoda_rodo_zwrotnica.docx" target="_blank" aria-label="Zgoda RODO Zwrotnica - WORD - zostanie pobrany">Zgoda RODO Zwrotnica - WORD (56 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-zgoda_rodo_zwrotnica.docx" target="_blank"
+                    aria-label="Zgoda RODO Zwrotnica - WORD - zostanie pobrany">Zgoda RODO Zwrotnica - WORD (56 KB)</a>
+            </div>
 
             <h4>Dodatkowe dokumenty</h4>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-HFW_TRS_10_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - październik 2025 - PDF (227 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-HFW_TRS_11_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - listopad 2025 - PDF (218 KB)</a></div>
-            <!-- NOTE: No new files for STREFAT_RSL found in source directories -->
+            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-HFW_TRS_10_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - październik 2025 - PDF (227 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-HFW_TRS_11_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - listopad 2025 - PDF (218 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/STREFAT_RSL-harmonogram_form_wsparcia_02_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - luty 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - luty 2026 - PDF</a></div>
         </section>
 
         <section id="zwrotnica-katowice" aria-labelledby="zwrotnica-katowice-heading">
             <h2 id="zwrotnica-katowice-heading">ZWROTNICA – integracja na dobrym torze w Katowicach 2.0</h2>
-            <p>Grupę docelową stanowi co najmniej 220 osób (120K, 100M) – zagrożonych ubóstwem lub wykluczeniem społecznym posiadających status osoby bezrobotnej lub biernej zawodowo zamieszkujących, przebywających na terenie Miasta Katowice w okresie 01.09.2024 r. - 31.08.2027 r.</p>
+            <p>Grupę docelową stanowi co najmniej 220 osób (120K, 100M) – zagrożonych ubóstwem lub wykluczeniem
+                społecznym posiadających status osoby bezrobotnej lub biernej zawodowo zamieszkujących, przebywających
+                na terenie Miasta Katowice w okresie 01.09.2024 r. - 31.08.2027 r.</p>
             <p><strong>Biuro projektu:</strong> Katowice, ul. Ligockiej 5.</p>
             <h3>Metadane Projektu</h3>
             <ul>
@@ -248,15 +389,25 @@
                 <li><strong>Wkład własny Beneficjenta:</strong> 180 663,45 złotych.</li>
             </ul>
             <h3>Cel projektu</h3>
-            <p>„ZWROTNICA – integracja na dobrym torze w Katowicach 2.0" to projekt, którego głównym celem jest nabycie, odbudowa i podtrzymanie umiejętności uczestniczenia w życiu społeczności lokalnej i pełnienia ról społecznych w miejscu pracy, zamieszkania, pobytu oraz zdolności do samodzielnego świadczenia pracy na rynku pracy przez Uczestników Projektu. Działania zapobiegają procesom ubóstwa, marginalizacji i wykluczenia społecznego grupy docelowej.</p>
-            <p>Realizacja celu głównego spowoduje zminimalizowanie problemów zdiagnozowanych na etapie planowania wsparcia tj. wysokiego poziomu wykluczenia społecznego oraz zawodowego przede wszystkim osób z niepełnosprawnością, osób w kryzysie bezdomności oraz osób korzystających ze wsparcia instytucji pomocy społecznej. Zgodnie z wymogami SMART, cel będzie mierzony na podstawie bezpośrednich efektów mających wpływ na zmniejszenie deficytów kompetencyjnych UP:</p>
+            <p>„ZWROTNICA – integracja na dobrym torze w Katowicach 2.0" to projekt, którego głównym celem jest nabycie,
+                odbudowa i podtrzymanie umiejętności uczestniczenia w życiu społeczności lokalnej i pełnienia ról
+                społecznych w miejscu pracy, zamieszkania, pobytu oraz zdolności do samodzielnego świadczenia pracy na
+                rynku pracy przez Uczestników Projektu. Działania zapobiegają procesom ubóstwa, marginalizacji i
+                wykluczenia społecznego grupy docelowej.</p>
+            <p>Realizacja celu głównego spowoduje zminimalizowanie problemów zdiagnozowanych na etapie planowania
+                wsparcia tj. wysokiego poziomu wykluczenia społecznego oraz zawodowego przede wszystkim osób z
+                niepełnosprawnością, osób w kryzysie bezdomności oraz osób korzystających ze wsparcia instytucji pomocy
+                społecznej. Zgodnie z wymogami SMART, cel będzie mierzony na podstawie bezpośrednich efektów mających
+                wpływ na zmniejszenie deficytów kompetencyjnych UP:</p>
             <ul>
                 <li>poprawa sytuacji społecznej po IPD,</li>
                 <li>podjęcie zatrudnienia,</li>
                 <li>poszukiwanie pracy,</li>
                 <li>uzyskanie kwalifikacji.</li>
             </ul>
-            <p>Wsparcie otrzyma również co najmniej 16 osób stanowiących kadrę realizatorów świadczących wsparcie merytoryczne dla UP oraz realizujących działania pośrednie mające wpływ na zarządzanie projektem oraz przede wszystkim rekrutację do projektu.</p>
+            <p>Wsparcie otrzyma również co najmniej 16 osób stanowiących kadrę realizatorów świadczących wsparcie
+                merytoryczne dla UP oraz realizujących działania pośrednie mające wpływ na zarządzanie projektem oraz
+                przede wszystkim rekrutację do projektu.</p>
             <h3>Formy wsparcia</h3>
             <p>Cel projektu zostanie zrealizowany poprzez usługi aktywnej integracji o charakterze:</p>
             <ul>
@@ -283,178 +434,383 @@
             <div class="accessibility-info">
                 <h3>Dostępność architektoniczna</h3>
                 <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
-                <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach" usytuowane jest na parterze budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
-                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
+                <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach" usytuowane jest na parterze
+                    budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
+                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum
+                    Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście
+                    główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do
+                    bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z
+                    niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu
+                    przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z
+                    niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń
+                    udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno
+                    rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy,
+                    specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o
+                    wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.
+                </p>
             </div>
             <div class="contact-info">
                 <h3>Kontakt w sprawie projektu</h3>
-                <p>Komunikacja z uczestnikami projektu odbywa się kilkoma kanałami (e-mail, telefon, spotkania osobiste w biurze projektu ul. Ligocka 5, Katowice). Informacje kontaktowe znajdują się na plakacie projektu oraz na stronie internetowej i facebooku: Zwrotnica – integracja na dobrym torze w Katowicach.</p>
+                <p>Komunikacja z uczestnikami projektu odbywa się kilkoma kanałami (e-mail, telefon, spotkania osobiste
+                    w biurze projektu ul. Ligocka 5, Katowice). Informacje kontaktowe znajdują się na plakacie projektu
+                    oraz na stronie internetowej i facebooku: Zwrotnica – integracja na dobrym torze w Katowicach.</p>
                 <ul>
-                    <li>Telefonicznie: <a href="tel:+48537181444" aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
-                    <li>Mailowo: <a href="mailto:staszekscpip@gmail.com?subject=ZWROTNICA – integracja na dobrym torze w Katowicach 2.0" aria-label="Wyślij email do staszekscpip@gmail.com"><strong>staszekscpip@gmail.com</strong></a></li>
+                    <li>Telefonicznie: <a href="tel:+48537181444"
+                            aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
+                    <li>Mailowo: <a
+                            href="mailto:staszekscpip@gmail.com?subject=ZWROTNICA – integracja na dobrym torze w Katowicach 2.0"
+                            aria-label="Wyślij email do staszekscpip@gmail.com"><strong>staszekscpip@gmail.com</strong></a>
+                    </li>
                 </ul>
             </div>
             <h3>Dokumenty rekrutacyjne do projektu</h3>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Regulamin_Rekrutacji_Zwrotnica_dostepny.docx -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Regulamin_Rekrutacji_Zwrotnica_dostepny.docx" target="_blank" aria-label="Projekt Zwrotnica Katowice - Regulamin Rekrutacji - DOCX - zostanie pobrany">Projekt Zwrotnica Katowice - Regulamin Rekrutacji - DOCX (1605 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Regulamin_Rekrutacji_Zwrotnica_dostepny.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Katowice - Regulamin Rekrutacji - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Katowice - Regulamin Rekrutacji - DOCX (1605 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Formularz_Rekrutacyjny_Zwrotnica_dostepny.docx -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Formularz_Rekrutacyjny_Zwrotnica_dostepny.docx" target="_blank" aria-label="Projekt Zwrotnica Katowice - Formularz Rekrutacyjny - DOCX - zostanie pobrany">Projekt Zwrotnica Katowice - Formularz Rekrutacyjny - DOCX (72 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_KTW-Formularz_Rekrutacyjny_Zwrotnica_dostepny.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Katowice - Formularz Rekrutacyjny - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Katowice - Formularz Rekrutacyjny - DOCX (72 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Katalog_Instrumentow_Aktywnej_Integracji_dostepny.docx -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Katalog_Instrumentow_Aktywnej_Integracji_dostepny.docx" target="_blank" aria-label="Projekt Zwrotnica Katowice - Katalog Instrumentów Aktywnej Integracji - DOCX - zostanie pobrany">Projekt Zwrotnica Katowice - Katalog Instrumentów Aktywnej Integracji - DOCX (74 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_KTW-Katalog_Instrumentow_Aktywnej_Integracji_dostepny.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Katowice - Katalog Instrumentów Aktywnej Integracji - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Katowice - Katalog Instrumentów Aktywnej Integracji - DOCX (74 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Kwestionariusz_Kwalifikacji.docx -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Kwestionariusz_Kwalifikacji.docx" target="_blank" aria-label="Projekt Zwrotnica Katowice - Kwestionariusz Kwalifikacji - DOCX - zostanie pobrany">Projekt Zwrotnica Katowice - Kwestionariusz Kwalifikacji - DOCX (76 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Kwestionariusz_Kwalifikacji.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Katowice - Kwestionariusz Kwalifikacji - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Katowice - Kwestionariusz Kwalifikacji - DOCX (76 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Deklaracja_Uczestnictwa_Zwrotnica_dostepna.docx -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Deklaracja_Uczestnictwa_Zwrotnica_dostepna.docx" target="_blank" aria-label="Projekt Zwrotnica Katowice - Deklaracja Uczestnictwa - DOCX - zostanie pobrany">Projekt Zwrotnica Katowice - Deklaracja Uczestnictwa - DOCX (74 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_KTW-Deklaracja_Uczestnictwa_Zwrotnica_dostepna.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Katowice - Deklaracja Uczestnictwa - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Katowice - Deklaracja Uczestnictwa - DOCX (74 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Klauzula_RODO_Zwrotnica_dostepna.docx -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Klauzula_RODO_Zwrotnica_dostepna.docx" target="_blank" aria-label="Projekt Zwrotnica Katowice - Klauzula RODO - DOCX - zostanie pobrany">Projekt Zwrotnica Katowice - Klauzula RODO - DOCX (72 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Klauzula_RODO_Zwrotnica_dostepna.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Katowice - Klauzula RODO - DOCX - zostanie pobrany">Projekt Zwrotnica
+                    Katowice - Klauzula RODO - DOCX (72 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.12-15:11-Oryginalna nazwa pliku: Ankieta_Potrzeb_Zwrotnica_dostepna.docx -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Ankieta_Potrzeb_Zwrotnica_dostepna.docx" target="_blank" aria-label="Projekt Zwrotnica Katowice - Ankieta Potrzeb - DOCX - zostanie pobrany">Projekt Zwrotnica Katowice - Ankieta Potrzeb - DOCX (55 KB)</a></div>
-            
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KTW-Ankieta_Potrzeb_Zwrotnica_dostepna.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Katowice - Ankieta Potrzeb - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Katowice - Ankieta Potrzeb - DOCX (55 KB)</a></div>
+
             <h4>Pozostałe dokumenty</h4>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-harmonogram_lipiec_2025_zwrotnica.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia Lipiec 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia Lipiec 2025 - PDF (217 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-harmonogram_lipiec_2025_zwrotnica.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia Lipiec 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia Lipiec 2025 - PDF (217 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.11-10:40-Oryginalna nazwa pliku: Harmonogram_ZWROTNICA_-_integracja_na_dobrym_torze_w_Katowicach_wrzesień_2025.pdf -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-Harmonogram_integracja_na_dobrym_torze_w_katowicach_wrzesien_2025.pdf" target="_blank" aria-label="Harmonogram integracja na dobrym torze wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram integracja na dobrym torze wrzesień 2025 - PDF (244 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-HFW_10_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - październik 2025 - PDF (221 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-harmonogram_form_wsparcia_12_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - grudzień 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_KAT-Harmonogram_integracja_na_dobrym_torze_w_katowicach_wrzesien_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram integracja na dobrym torze wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    integracja na dobrym torze wrzesień 2025 - PDF (244 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-HFW_10_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - październik 2025 - PDF (221 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-harmonogram_form_wsparcia_12_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - grudzień 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_KAT-harmonogram_form_wsparcia_02_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - luty 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - luty 2026 - PDF</a></div>
         </section>
-        
+
         <section id="zwrotnica-ruda" aria-labelledby="zwrotnica-ruda-heading">
             <h2 id="zwrotnica-ruda-heading">ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej</h2>
-            <p>Projekt skierowany do co najmniej 240 osób zagrożonych ubóstwem lub wykluczeniem społecznym z Rudy Śląskiej.</p>
+            <p>Projekt skierowany do co najmniej 240 osób zagrożonych ubóstwem lub wykluczeniem społecznym z Rudy
+                Śląskiej.</p>
             <p><strong>Biuro projektu:</strong> Ruda Śląska, ul. Solidarności 5.</p>
             <h3>Metadane Projektu</h3>
             <ul>
                 <li><strong>Okres realizacji:</strong> 01.09.2024 - 31.08.2027 r.</li>
                 <li><strong>Wartość projektu:</strong> 3 997 942,01 zł</li>
-                <li><strong>Dofinansowanie:</strong> 3 798 044,90 zł (w tym UE: 3 398 250,70 zł, Budżet Państwa: 399 794,20 zł)</li>
+                <li><strong>Dofinansowanie:</strong> 3 798 044,90 zł (w tym UE: 3 398 250,70 zł, Budżet Państwa: 399
+                    794,20 zł)</li>
             </ul>
             <h3>Cel projektu</h3>
             <p>Nabycie i podtrzymanie umiejętności uczestniczenia w życiu społecznym i zawodowym.</p>
             <div class="accessibility-info">
                 <h3>Dostępność architektoniczna</h3>
                 <p><strong>Biuro projektu (Ruda Śląska, ul. Solidarności 5/9):</strong></p>
-                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Jedno z wejść do budynku posiada podjazd dla osób poruszających się na wózkach inwalidzkich Toalety są dostosowane do potrzeb osób z niepełnosprawnościami. Przed budynkiem znajdują się oznaczone miejsca parkingowe dla osób z niepełnosprawnościami.</p>
+                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Jedno z wejść do budynku posiada
+                    podjazd dla osób poruszających się na wózkach inwalidzkich Toalety są dostosowane do potrzeb osób z
+                    niepełnosprawnościami. Przed budynkiem znajdują się oznaczone miejsca parkingowe dla osób z
+                    niepełnosprawnościami.</p>
             </div>
             <div class="contact-info">
                 <h3>Kontakt w sprawie projektu</h3>
                 <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
                 <ul>
-                    <li>Telefonicznie: <a href="tel:+48574175150" aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
-                    <li>Mailowo: <a href="mailto:staszekscpip@gmail.com ?subject=ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej" aria-label="Wyślij email do staszekscpip@gmail.com "><strong>staszekscpip@gmail.com </strong></a></li>
+                    <li>Telefonicznie: <a href="tel:+48574175150"
+                            aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
+                    <li>Mailowo: <a
+                            href="mailto:staszekscpip@gmail.com ?subject=ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej"
+                            aria-label="Wyślij email do staszekscpip@gmail.com "><strong>staszekscpip@gmail.com
+                            </strong></a></li>
                 </ul>
             </div>
             <h3>Dokumenty rekrutacyjne do projektu</h3>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Regulamin_Rekrutacji_i_Uczestnictwa_w_projekcie.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Regulamin Rekrutacji i Uczestnictwa w projekcie - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Regulamin Rekrutacji i Uczestnictwa w projekcie - DOCX (1603 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Formularz_rekrutacyjny_kandydata_na_uczestnika.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Formularz rekrutacyjny kandydata na uczestnika - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Formularz rekrutacyjny kandydata na uczestnika - DOCX (71 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Katalog_instrumentow_aktywnej_integracji.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Katalog instrumentów aktywnej integracji - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Katalog instrumentów aktywnej integracji - DOCX (75 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Kwestionariusz_Kwalifikacji.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Kwestionariusz Kwalifikacji - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Kwestionariusz Kwalifikacji - DOCX (1595 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Deklaracja_uczestnictwa_w_projekcie.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Deklaracja uczestnictwa w projekcie - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Deklaracja uczestnictwa w projekcie - DOCX (77 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Klauzula_RODO.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Klauzula RODO - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Klauzula RODO - DOCX (1614 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Ankieta_badania_specjalnych_potrzeb.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Ankieta badania specjalnych potrzeb - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Ankieta badania specjalnych potrzeb - DOCX (53 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Ankieta_samooceny_i_motywacji.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Ankieta samooceny i motywacji - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Ankieta samooceny i motywacji - DOCX (78 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Indywidualny_Plan_Działania.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Indywidualny Plan Działania - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Indywidualny Plan Działania - DOCX (89 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-scieżka_uczestnika.docx" target="_blank" aria-label="Projekt Zwrotnica Ruda Śląska - Ścieżka uczestnika - DOCX - zostanie pobrany">Projekt Zwrotnica Ruda Śląska - Ścieżka uczestnika - DOCX (21 KB)</a></div>
-            
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_RSL-Regulamin_Rekrutacji_i_Uczestnictwa_w_projekcie.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Regulamin Rekrutacji i Uczestnictwa w projekcie - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Regulamin Rekrutacji i Uczestnictwa w projekcie - DOCX (1603 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_RSL-Formularz_rekrutacyjny_kandydata_na_uczestnika.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Formularz rekrutacyjny kandydata na uczestnika - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Formularz rekrutacyjny kandydata na uczestnika - DOCX (71 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_RSL-Katalog_instrumentow_aktywnej_integracji.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Katalog instrumentów aktywnej integracji - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Katalog instrumentów aktywnej integracji - DOCX (75 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Kwestionariusz_Kwalifikacji.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Kwestionariusz Kwalifikacji - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Kwestionariusz Kwalifikacji - DOCX (1595 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Deklaracja_uczestnictwa_w_projekcie.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Deklaracja uczestnictwa w projekcie - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Deklaracja uczestnictwa w projekcie - DOCX (77 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Klauzula_RODO.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Klauzula RODO - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Klauzula RODO - DOCX (1614 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Ankieta_badania_specjalnych_potrzeb.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Ankieta badania specjalnych potrzeb - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Ankieta badania specjalnych potrzeb - DOCX (53 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Ankieta_samooceny_i_motywacji.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Ankieta samooceny i motywacji - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Ankieta samooceny i motywacji - DOCX (78 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Indywidualny_Plan_Działania.docx"
+                    target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Indywidualny Plan Działania - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Indywidualny Plan Działania - DOCX (89 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-scieżka_uczestnika.docx" target="_blank"
+                    aria-label="Projekt Zwrotnica Ruda Śląska - Ścieżka uczestnika - DOCX - zostanie pobrany">Projekt
+                    Zwrotnica Ruda Śląska - Ścieżka uczestnika - DOCX (21 KB)</a></div>
+
             <h4>Pozostałe dokumenty</h4>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-HFW_Strefa_Ruda_06_2025.pdf" target="_blank" aria-label="HFW-FESL.07.02-IZ.01-060D czerwiec 2025 - PDF - otworzy się w nowej karcie">HFW-FESL.07.02-IZ.01-060D czerwiec 2025 - PDF (217 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-Harmonogram_strefa_transformacji_w_rudzie_slaskiej_2_0_HFW_ST_RS_09_2025.pdf" target="_blank" aria-label="Harmonogram Zwrotnica Ruda Śląska wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Zwrotnica Ruda Śląska wrzesień 2025 - PDF (185 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-HFW_Strefa_Ruda_06_2025.pdf" target="_blank"
+                    aria-label="HFW-FESL.07.02-IZ.01-060D czerwiec 2025 - PDF - otworzy się w nowej karcie">HFW-FESL.07.02-IZ.01-060D
+                    czerwiec 2025 - PDF (217 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/ZWROTNICA_RSL-Harmonogram_strefa_transformacji_w_rudzie_slaskiej_2_0_HFW_ST_RS_09_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Zwrotnica Ruda Śląska wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Zwrotnica Ruda Śląska wrzesień 2025 - PDF (185 KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.10.24-16:35-Oryginalna nazwa pliku: ZWROTNICA_RSL-HFW_10_2025.pdf -->
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-HFW_10_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - październik 2025 - PDF (216 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-HFW_11_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - listopad 2025 - PDF</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-harmonogram_form_wsparcia_12_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - grudzień 2025 - PDF</a></div>
-            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-harmonogram_form_wsparcia_01_2026.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - styczeń 2026 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - styczeń 2026 - PDF</a></div>
-           
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-HFW_10_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - październik 2025 - PDF (216 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-HFW_11_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - listopad 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-harmonogram_form_wsparcia_12_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - grudzień 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-harmonogram_form_wsparcia_01_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - styczeń 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - styczeń 2026 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/ZWROTNICA_RSL-harmonogram_form_wsparcia_02_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - luty 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - luty 2026 - PDF</a></div>
         </section>
 
         <section id="freedom" aria-labelledby="freedom-heading">
             <h2 id="freedom-heading">freeDOM – mieszkanie treningowe</h2>
-            <p>Projekt skierowany do 42 dorosłych osób z niepełnosprawnością z Katowic, polegający na utworzeniu i prowadzeniu mieszkania treningowego.</p>
+            <p>Projekt skierowany do 42 dorosłych osób z niepełnosprawnością z Katowic, polegający na utworzeniu i
+                prowadzeniu mieszkania treningowego.</p>
             <p><strong>Biuro projektu:</strong> Katowice, ul. Ligockiej 5.</p>
             <h3>Metadane Projektu</h3>
             <ul>
                 <li><strong>Okres realizacji:</strong> 15.11.2024 r. do 14.11.2027 r.</li>
                 <li><strong>Wartość projektu:</strong> 1 658 520,00 zł</li>
-                <li><strong>Dofinansowanie:</strong> 1 575 594,00 zł (w tym UE: 1 409 742,00 zł, Budżet Państwa: 165 852,00 zł)</li>
+                <li><strong>Dofinansowanie:</strong> 1 575 594,00 zł (w tym UE: 1 409 742,00 zł, Budżet Państwa: 165
+                    852,00 zł)</li>
             </ul>
             <h3>Cel projektu</h3>
-            <p>Rozwój usług społecznych świadczonych w społeczności lokalnej poprzez utworzenie nowego mieszkania wspomaganego w formie mieszkania treningowego.</p>
+            <p>Rozwój usług społecznych świadczonych w społeczności lokalnej poprzez utworzenie nowego mieszkania
+                wspomaganego w formie mieszkania treningowego.</p>
             <div class="accessibility-info">
                 <h3>Dostępność architektoniczna</h3>
                 <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
-                <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach" usytuowane jest na parterze budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
-                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy, specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.</p>
+                <p>Biuro projektu „Zwrotnica – integracja na dobrym torze w Katowicach" usytuowane jest na parterze
+                    budynku nr 5 przy ul. Ligockiej w Katowicach.</p>
+                <p>Biuro projektu posiada dwa wejścia:<br>1. Osobne wejście do Stowarzyszenia Śląskie Centrum
+                    Profilaktyki / biura projektu znajduje się z tyłu budynku i prowadzą do niego schody.<br>2. Wejście
+                    główne do bloku od strony ulicy Ligockiej, z parkingu przy bloku nr 5.<br>Przy wejściu głównym do
+                    bloku znajduje się zarówno podjazd dla wózków, jak i schody.<br>Toaleta dla osób z
+                    niepełnosprawnościami znajduje się na parterze, w pomieszczeniach biura projektu.<br>Na parkingu
+                    przy głównym wejściu do budynku znajdują się dwa miejsca parkingowe dla osób z
+                    niepełnosprawnościami.<br>Z psem asystującym można wejść do budynku i wszystkich pomieszczeń
+                    udostępnionych dla uczestników projektu.<br>W biurze projektu, w którym odbywa się zarówno
+                    rekrutacja uczestników, jak i spotkania ze specjalistami takimi jak psycholog, doradca zawodowy,
+                    specjalista ds. reintegracji, pracownik socjalny, specjalistka ds. szkoleń znajdują się korytarze o
+                    wystarczającej szerokości i nie ma progów, co umożliwia swobodne poruszanie się osobom na wózkach.
+                </p>
             </div>
             <div class="contact-info">
                 <h3>Kontakt w sprawie projektu</h3>
                 <p>W sprawach dotyczących projektu prosimy o kontakt (Opiekun Mieszkania Terenowego):</p>
                 <ul>
-                    <li>Telefonicznie - Opiekun Mieszkania Terenowego: <a href="tel:+48794074375" aria-label="Zadzwoń pod numer +48 794 074 375"><strong>+48 794 074 375</strong></a></li>
-                    <li>Mailowo: <a href="mailto:olascpip@gmail.com?subject=freeDOM – mieszkanie treningowe" aria-label="Wyślij email do olascpip@gmail.com"><strong>olascpip@gmail.com</strong></a></li>
+                    <li>Telefonicznie - Opiekun Mieszkania Terenowego: <a href="tel:+48794074375"
+                            aria-label="Zadzwoń pod numer +48 794 074 375"><strong>+48 794 074 375</strong></a></li>
+                    <li>Mailowo: <a href="mailto:olascpip@gmail.com?subject=freeDOM – mieszkanie treningowe"
+                            aria-label="Wyślij email do olascpip@gmail.com"><strong>olascpip@gmail.com</strong></a></li>
                 </ul>
             </div>
             <h3>Dokumenty rekrutacyjne do projektu</h3>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-reguly_dostepnosci_mieszkania_treningowego.pdf" target="_blank" aria-label="Reguły dostępności mieszkania treningowego - PDF - otworzy się w nowej karcie">Reguły dostępności mieszkania treningowego - PDF (36 KB)</a>, <a href="docs/freeDOM_KAT-reguly_dostepnosci_mieszkania_treningowego.docx" target="_blank" aria-label="Reguły dostępności mieszkania treningowego - WORD - zostanie pobrany">Reguły dostępności mieszkania treningowego - WORD (15 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-formularz_rekrutacyjny.pdf" target="_blank" aria-label="freeDOM formularz rekrutacyjny - PDF - otworzy się w nowej karcie">freeDOM formularz rekrutacyjny - PDF (171 KB)</a>, <a href="docs/freeDOM_KAT-formularz_rekrutacyjny.docx" target="_blank" aria-label="freeDOM formularz rekrutacyjny - WORD - zostanie pobrany">freeDOM formularz rekrutacyjny - WORD (71 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-klauzula_rodo_scpip_fd.pdf" target="_blank" aria-label="Klauzula RODO SCPIP - FD - PDF - otworzy się w nowej karcie">Klauzula RODO SCPIP - FD - PDF (248 KB)</a>, <a href="docs/freeDOM_KAT-klauzula_rodo_scpip_fd.docx" target="_blank" aria-label="Klauzula RODO SCPIP - FD - WORD - zostanie pobrany">Klauzula RODO SCPIP - FD - WORD (67 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-zgoda_rodo_freedom.pdf" target="_blank" aria-label="Zgoda RODO freeDOM - PDF - otworzy się w nowej karcie">Zgoda RODO freeDOM - PDF (234 KB)</a>, <a href="docs/freeDOM_KAT-zgoda_rodo_freedom.docx" target="_blank" aria-label="Zgoda RODO freeDOM - WORD - zostanie pobrany">Zgoda RODO freeDOM - WORD (56 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-hfw_freedom_06_2025.pdf" target="_blank" aria-label="HFW freeDOM 06 2025 - PDF - otworzy się w nowej karcie">HFW freeDOM 06 2025 - PDF (233 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-reguly_dostepnosci_mieszkania_treningowego.pdf"
+                    target="_blank"
+                    aria-label="Reguły dostępności mieszkania treningowego - PDF - otworzy się w nowej karcie">Reguły
+                    dostępności mieszkania treningowego - PDF (36 KB)</a>, <a
+                    href="docs/freeDOM_KAT-reguly_dostepnosci_mieszkania_treningowego.docx" target="_blank"
+                    aria-label="Reguły dostępności mieszkania treningowego - WORD - zostanie pobrany">Reguły dostępności
+                    mieszkania treningowego - WORD (15 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-formularz_rekrutacyjny.pdf" target="_blank"
+                    aria-label="freeDOM formularz rekrutacyjny - PDF - otworzy się w nowej karcie">freeDOM formularz
+                    rekrutacyjny - PDF (171 KB)</a>, <a href="docs/freeDOM_KAT-formularz_rekrutacyjny.docx"
+                    target="_blank" aria-label="freeDOM formularz rekrutacyjny - WORD - zostanie pobrany">freeDOM
+                    formularz rekrutacyjny - WORD (71 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-klauzula_rodo_scpip_fd.pdf" target="_blank"
+                    aria-label="Klauzula RODO SCPIP - FD - PDF - otworzy się w nowej karcie">Klauzula RODO SCPIP - FD -
+                    PDF (248 KB)</a>, <a href="docs/freeDOM_KAT-klauzula_rodo_scpip_fd.docx" target="_blank"
+                    aria-label="Klauzula RODO SCPIP - FD - WORD - zostanie pobrany">Klauzula RODO SCPIP - FD - WORD (67
+                    KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-zgoda_rodo_freedom.pdf" target="_blank"
+                    aria-label="Zgoda RODO freeDOM - PDF - otworzy się w nowej karcie">Zgoda RODO freeDOM - PDF (234
+                    KB)</a>, <a href="docs/freeDOM_KAT-zgoda_rodo_freedom.docx" target="_blank"
+                    aria-label="Zgoda RODO freeDOM - WORD - zostanie pobrany">Zgoda RODO freeDOM - WORD (56 KB)</a>
+            </div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-hfw_freedom_06_2025.pdf" target="_blank"
+                    aria-label="HFW freeDOM 06 2025 - PDF - otworzy się w nowej karcie">HFW freeDOM 06 2025 - PDF (233
+                    KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.11-10:40-Oryginalna nazwa pliku: Harmonogram_freeDOM_-_mieszkanie_treningowe_HFW_FD_ 09_2025.pdf -->
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-Harmonogram_mieszkanie_treningowe_HFW_FD_09_2025.pdf" target="_blank" aria-label="Harmonogram freeDOM mieszkanie treningowe wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram freeDOM mieszkanie treningowe wrzesień 2025 - PDF (244 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/freeDOM_KAT-Harmonogram_mieszkanie_treningowe_HFW_FD_09_2025.pdf" target="_blank"
+                    aria-label="Harmonogram freeDOM mieszkanie treningowe wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    freeDOM mieszkanie treningowe wrzesień 2025 - PDF (244 KB)</a></div>
 
             <h4>Dodatkowe dokumenty</h4>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-HFW_Freedom_20_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - październik 2025 - PDF (240 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-HFW_FD_11_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - listopad 2025 - PDF (238 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-harmonogram_form_wsparcia_12_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - grudzień 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-HFW_Freedom_20_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - październik 2025 - PDF (240 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-HFW_FD_11_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - listopad 2025 - PDF (238 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-harmonogram_form_wsparcia_12_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - grudzień 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/freeDOM_KAT-harmonogram_form_wsparcia_02_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - luty 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - luty 2026 - PDF</a></div>
         </section>
 
         <section id="praktykant" aria-labelledby="praktykant-heading">
             <h2 id="praktykant-heading">Praktykant - doświadczenie na wagę złota</h2>
-            <p>Projekt skierowany do co najmniej 67 osób 55+, zagrożonych ubóstwem lub wykluczeniem społecznym z Katowic.</p>
+            <p>Projekt skierowany do co najmniej 67 osób 55+, zagrożonych ubóstwem lub wykluczeniem społecznym z
+                Katowic.</p>
             <h3>Uczestnik projektu może wziąć udział w:</h3>
             <ul>
                 <li>Warsztatach umiejętności społecznych, spotkaniach terapeutycznych</li>
                 <li>Konsultacjach ze specjalistami, doradztwie zawodowym</li>
                 <li>Stażach zawodowych, szkoleniach zawodowych</li>
             </ul>
-            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligockiej 5. Partnerem projektu jest Powiatowy Urząd Pracy w Katowicach.</p>
+            <p><strong>Biuro projektu:</strong> Katowice, ul. Ligockiej 5. Partnerem projektu jest Powiatowy Urząd Pracy
+                w Katowicach.</p>
             <h3>Metadane Projektu</h3>
             <ul>
                 <li><strong>Okres realizacji:</strong> 1.10.2024 do 30.09.2026 r.</li>
                 <li><strong>Całkowita wartość projektu:</strong> 1 094 198,22 zł</li>
-                <li><strong>Dofinansowanie z UE:</strong> 974 019,46 zł | <strong>Dofinansowanie z Budżetu Państwa:</strong> 115 178,76 zł</li>
+                <li><strong>Dofinansowanie z UE:</strong> 974 019,46 zł | <strong>Dofinansowanie z Budżetu
+                        Państwa:</strong> 115 178,76 zł</li>
             </ul>
             <h3>Cel projektu</h3>
-            <p>Nabycie i podtrzymanie umiejętności uczestniczenia w życiu społecznym i zawodowym przez osoby w wieku 55+.</p>
+            <p>Nabycie i podtrzymanie umiejętności uczestniczenia w życiu społecznym i zawodowym przez osoby w wieku
+                55+.</p>
             <div class="accessibility-info">
                 <h3>Dostępność architektoniczna</h3>
                 <p><strong>Biuro projektu (Katowice, ul. Ligocka 5):</strong></p>
-                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Jedno z wejść do budynku posiada podjazd dla osób poruszających się na wózkach inwalidzkich Toalety są dostosowane do potrzeb osób z niepełnosprawnościami. Przed budynkiem znajdują się oznaczone miejsca parkingowe dla osób z niepełnosprawnościami.</p>
+                <p>Budynek jest dostępny dla osób z niepełnosprawnością ruchową. Jedno z wejść do budynku posiada
+                    podjazd dla osób poruszających się na wózkach inwalidzkich Toalety są dostosowane do potrzeb osób z
+                    niepełnosprawnościami. Przed budynkiem znajdują się oznaczone miejsca parkingowe dla osób z
+                    niepełnosprawnościami.</p>
             </div>
             <div class="contact-info">
                 <h3>Kontakt w sprawie projektu</h3>
                 <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
                 <ul>
-                    <li>Telefonicznie: <a href="tel:+48326789012" aria-label="Zadzwoń pod numer 32 678 90 12"><strong>32 678 90 12</strong></a></li>
-                    <li>Mailowo: <a href="mailto:praktykant@scpip.pl?subject=Praktykant - doświadczenie na wagę złota" aria-label="Wyślij email do praktykant@scpip.pl"><strong>praktykant@scpip.pl</strong></a></li>
+                    <li>Telefonicznie: <a href="tel:+48326789012" aria-label="Zadzwoń pod numer 32 678 90 12"><strong>32
+                                678 90 12</strong></a></li>
+                    <li>Mailowo: <a href="mailto:praktykant@scpip.pl?subject=Praktykant - doświadczenie na wagę złota"
+                            aria-label="Wyślij email do praktykant@scpip.pl"><strong>praktykant@scpip.pl</strong></a>
+                    </li>
                 </ul>
             </div>
             <h3>Dokumenty rekrutacyjne do projektu</h3>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-formularz_rekrutacyjny_kandydata_na_uczestnika.pdf" target="_blank" aria-label="PRAKTYKANT Zał. 1 - kompletny formularz rekrutacyjny kandydata na uczestnika - PDF - otworzy się w nowej karcie">PRAKTYKANT Zał. 1 - kompletny formularz rekrutacyjny kandydata na uczestnika - PDF (161 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-regulamin_rekrutacji_i_uczestnictwa_w_projekcie.pdf" target="_blank" aria-label="PRAKTYKANT Regulamin Rekrutacji i Uczestnictwa w projekcie - PDF - otworzy się w nowej karcie">PRAKTYKANT Regulamin Rekrutacji i Uczestnictwa w projekcie - PDF (379 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-klauzula_rodo_scpip_praktykant.pdf" target="_blank" aria-label="Klauzula RODO SCPIP - Praktykant - PDF - otworzy się w nowej karcie">Klauzula RODO SCPIP - Praktykant - PDF (302 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-katalog_instrumentow_aktywnej_integracji_uzupelniony.pdf" target="_blank" aria-label="PRAKTYKANT Zał. 3 - Katalog instrumentów aktywnej integracji uzupełniony - PDF - otworzy się w nowej karcie">PRAKTYKANT Zał. 3 - Katalog instrumentów aktywnej integracji uzupełniony - PDF (640 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-deklaracja_uczestnictwa_w_projekcie.pdf" target="_blank" aria-label="PRAKTYKANT Deklaracja uczestnictwa w projekcie - PDF - otworzy się w nowej karcie">PRAKTYKANT Deklaracja uczestnictwa w projekcie - PDF (155 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-zgoda_rodo_praktykant.pdf" target="_blank" aria-label="Zgoda RODO Praktykant - PDF - otworzy się w nowej karcie">Zgoda RODO Praktykant - PDF (237 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-czerwiec_2025.pdf" target="_blank" aria-label="Czerwiec 2025 - PDF - otworzy się w nowej karcie">Czerwiec 2025 - PDF (218 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-harmonogram_lipiec_2025.pdf" target="_blank" aria-label="Harmonogram Lipiec 2025 - PDF - otworzy się w nowej karcie">Lipiec 2025 - PDF (220 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/Praktykant_KAT-formularz_rekrutacyjny_kandydata_na_uczestnika.pdf" target="_blank"
+                    aria-label="PRAKTYKANT Zał. 1 - kompletny formularz rekrutacyjny kandydata na uczestnika - PDF - otworzy się w nowej karcie">PRAKTYKANT
+                    Zał. 1 - kompletny formularz rekrutacyjny kandydata na uczestnika - PDF (161 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/Praktykant_KAT-regulamin_rekrutacji_i_uczestnictwa_w_projekcie.pdf" target="_blank"
+                    aria-label="PRAKTYKANT Regulamin Rekrutacji i Uczestnictwa w projekcie - PDF - otworzy się w nowej karcie">PRAKTYKANT
+                    Regulamin Rekrutacji i Uczestnictwa w projekcie - PDF (379 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-klauzula_rodo_scpip_praktykant.pdf"
+                    target="_blank"
+                    aria-label="Klauzula RODO SCPIP - Praktykant - PDF - otworzy się w nowej karcie">Klauzula RODO SCPIP
+                    - Praktykant - PDF (302 KB)</a></div>
+            <div class="document-link-wrapper"><a
+                    href="docs/Praktykant_KAT-katalog_instrumentow_aktywnej_integracji_uzupelniony.pdf" target="_blank"
+                    aria-label="PRAKTYKANT Zał. 3 - Katalog instrumentów aktywnej integracji uzupełniony - PDF - otworzy się w nowej karcie">PRAKTYKANT
+                    Zał. 3 - Katalog instrumentów aktywnej integracji uzupełniony - PDF (640 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-deklaracja_uczestnictwa_w_projekcie.pdf"
+                    target="_blank"
+                    aria-label="PRAKTYKANT Deklaracja uczestnictwa w projekcie - PDF - otworzy się w nowej karcie">PRAKTYKANT
+                    Deklaracja uczestnictwa w projekcie - PDF (155 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-zgoda_rodo_praktykant.pdf" target="_blank"
+                    aria-label="Zgoda RODO Praktykant - PDF - otworzy się w nowej karcie">Zgoda RODO Praktykant - PDF
+                    (237 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-czerwiec_2025.pdf" target="_blank"
+                    aria-label="Czerwiec 2025 - PDF - otworzy się w nowej karcie">Czerwiec 2025 - PDF (218 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-harmonogram_lipiec_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Lipiec 2025 - PDF - otworzy się w nowej karcie">Lipiec 2025 - PDF (220
+                    KB)</a></div>
             <!-- OSTATNIA AKTUALIZACJA:2025.09.11-10:40-Oryginalna nazwa pliku: Harmonogram_Praktykant_wrzesień_2025.pdf -->
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-Harmonogram_wrzesien_2025.pdf" target="_blank" aria-label="Harmonogram Praktykant wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Praktykant wrzesień 2025 - PDF (218 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-Harmonogram_wrzesien_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Praktykant wrzesień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Praktykant wrzesień 2025 - PDF (218 KB)</a></div>
 
             <h4>Dodatkowe dokumenty</h4>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-HFW_10_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - październik 2025 - PDF (224 KB)</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-HFW_11_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - listopad 2025 - PDF</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-harmonogram_form_wsparcia_12_2025.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - grudzień 2025 - PDF</a></div>
-            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-harmonogram_form_wsparcia_01_2026.pdf" target="_blank" aria-label="Harmonogram Form Wsparcia - styczeń 2026 - PDF - otworzy się w nowej karcie">Harmonogram Form Wsparcia - styczeń 2026 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-HFW_10_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - październik 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - październik 2025 - PDF (224 KB)</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-HFW_11_2025.pdf" target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - listopad 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - listopad 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-harmonogram_form_wsparcia_12_2025.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - grudzień 2025 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - grudzień 2025 - PDF</a></div>
+            <div class="document-link-wrapper"><a href="docs/Praktykant_KAT-harmonogram_form_wsparcia_01_2026.pdf"
+                    target="_blank"
+                    aria-label="Harmonogram Form Wsparcia - styczeń 2026 - PDF - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - styczeń 2026 - PDF</a></div>
         </section>
 
     </main>
@@ -478,4 +834,3 @@
 </body>
 
 </html>
-
