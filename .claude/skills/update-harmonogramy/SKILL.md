@@ -68,6 +68,17 @@ Wylistuj zawartosc folderu `ZZZ_PLIKI_DO_DODANIA/RRRR.MM-pliki/`.
 
 Sprawdz KAZDY plik pod katem ponizszych regul walidacji. Plik jest poprawny TYLKO jesli spelnia WSZYSTKIE reguly.
 
+#### Weryfikacja zawartosci PDF (OBOWIAZKOWA)
+
+**ZAWSZE czytaj pierwsza strone kazdego pliku PDF** przed walidacja nazwy. Ludzie popelniaja bledy w nazwach plikow, a zawartosc PDF jest zrodlem prawdy.
+
+Szukaj na pierwszej stronie:
+- **Tytul projektu** (np. "Strefa Transformacji w Katowicach 2.0") - pozwala przypisac plik do wlasciwego projektu
+- **Nazwa harmonogramu / miesiac** (np. "MARZEC 2026") - pozwala zweryfikowac miesiac
+- **Nr projektu** (np. "FESL.10.24-IZ.01-03E0/23-003") - dodatkowe potwierdzenie
+
+Jesli zawartosc PDF jest sprzeczna z nazwa pliku, zawartosc PDF ma priorytet. Na przyklad: plik o nazwie `STREFA_KAT_RSL-...` ale w PDF jest "Strefa Transformacji w Katowicach 2.0" -> to plik dla STREFAT_KAT.
+
 #### Reguly walidacji nazwy pliku
 
 | # | Regula | Przyklad bledu | Poprawna wersja |
