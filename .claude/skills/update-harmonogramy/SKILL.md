@@ -185,13 +185,13 @@ Czy to jest zamierzone?
 
 Dla kazdego projektu dodaj nowy link w odpowiedniej sekcji HTML. Nowe linki dodawaj **przed zamknieciem sekcji `</section>`**, po ostatnim istniejacym linku harmonogramu.
 
-#### Wzor linku HTML
+#### Wzor linku HTML (zgodny z WCAG 2.1)
 
 ```html
             <div class="document-link-wrapper"><a href="docs/PREFIKS-harmonogram_form_wsparcia_MM_RRRR.pdf"
                     target="_blank"
-                    aria-label="Harmonogram Form Wsparcia - NAZWA_MIESIACA RRRR - PDF - otworzy sie w nowej karcie">Harmonogram
-                    Form Wsparcia - NAZWA_MIESIACA RRRR - PDF</a></div>
+                    aria-label="Harmonogram Form Wsparcia - NAZWA_MIESIACA RRRR - PDF (ROZMIAR KB) - otworzy się w nowej karcie">Harmonogram
+                    Form Wsparcia - NAZWA_MIESIACA RRRR - PDF (ROZMIAR KB)</a></div>
 ```
 
 Zamien:
@@ -199,6 +199,21 @@ Zamien:
 - `MM_RRRR` na miesiac i rok (np. `03_2026`)
 - `NAZWA_MIESIACA` na polska nazwe miesiaca (np. `marzec`)
 - `RRRR` na rok (np. `2026`)
+- `ROZMIAR` na rozmiar pliku w KB (zaokraglony w gore)
+
+#### Wymogi WCAG 2.1 dla linkow do plikow
+
+Kazdy link do pliku do pobrania MUSI zawierac:
+
+1. **Rozmiar pliku** - w tekście widocznym i w `aria-label`, format: `(XXX KB)`
+   - Pobierz rozmiar: `stat -c%s plik.pdf` i przelicz na KB: `(bajty + 1023) / 1024`
+2. **Format pliku** - widoczny w tekscie (np. `- PDF`, `- WORD`)
+3. **aria-label** - pelny opis: tytul + format + rozmiar + informacja o otwarciu
+   - Dla PDF: `"... - PDF (XXX KB) - otworzy się w nowej karcie"`
+   - Dla DOCX: `"... - WORD (XXX KB) - zostanie pobrany"`
+4. **target="_blank"** - dla plikow PDF (otwieraja sie w nowej karcie)
+
+**NIGDY nie dodawaj linku bez rozmiaru pliku!** Sprawdz rozmiar poleceniem `stat` po skopiowaniu do `docs/`.
 
 #### Lokalizacja w HTML
 
