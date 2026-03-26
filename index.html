@@ -11,23 +11,25 @@
 <body data-theme="normal">
 
     <div class="panel-toggles">
-        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Nawigacja: Otwórz panel nawigacji"
+        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji"
             aria-controls="nav-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
             </svg>
+            <span>Nawigacja</span>
         </button>
-        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Dostępność: Otwórz panel dostępności"
+        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności"
             aria-controls="a11y-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-accessibility-icon lucide-accessibility">
+                class="lucide lucide-accessibility-icon lucide-accessibility" aria-hidden="true">
                 <circle cx="16" cy="4" r="1" />
                 <path d="m18 19 1-7-6 1" />
                 <path d="m5 8 3-3 5.5 3-2.36 3.5" />
                 <path d="M4.24 14.5a5 5 0 0 0 6.88 6" />
                 <path d="M13.76 17.5a5 5 0 0 0-6.88-6" />
             </svg>
+            <span>Dostępność</span>
         </button>
     </div>
 
@@ -104,16 +106,11 @@
 
     <header>
         <div class="container">
-            <div class="logos">
-                <a href="index.html" aria-label="Strona główna"><img src="media/images/kolory-pion-slaskie-rgb.png"
-                        alt="Logo Funduszy Europejskich dla Śląskiego"></a>
-                <a href="index.html" aria-label="Strona główna"><img
-                        src="media/images/kolory-pion-rzeczpospolita-polska-rgb.png"
-                        alt="Logo Rzeczpospolitej Polskiej"></a>
-                <a href="index.html" aria-label="Strona główna"><img
-                        src="media/images/kolory-pion-unia-europejska-rgb.png" alt="Logo Unii Europejskiej"></a>
-                <a href="index.html" aria-label="Strona główna"><img
-                        src="media/images/kolory-pion-wojewodztwo-slaskie.png" alt="Herb Województwa Śląskiego"></a>
+            <div class="logos" role="img" aria-label="Logotypy: Fundusze Europejskie dla Śląskiego, Rzeczpospolita Polska, Unia Europejska, Województwo Śląskie">
+                <img src="media/images/kolory-pion-slaskie-rgb.png" alt="" aria-hidden="true">
+                <img src="media/images/kolory-pion-rzeczpospolita-polska-rgb.png" alt="" aria-hidden="true">
+                <img src="media/images/kolory-pion-unia-europejska-rgb.png" alt="" aria-hidden="true">
+                <img src="media/images/kolory-pion-wojewodztwo-slaskie.png" alt="" aria-hidden="true">
             </div>
             <div class="centered-logo">
                 <a href="index.html" aria-label="Strona główna Śląskiego Centrum Profilaktyki i Psychoterapii"><img
@@ -121,7 +118,7 @@
                         alt="Logo Śląskiego Centrum Profilaktyki i Psychoterapii"></a>
             </div>
             <h1>Projekty Śląskiego Centrum Profilaktyki i Psychoterapii</h1>
-            <h3>#FunduszeUE</h3>
+            <h2 class="subtitle">#FunduszeUE</h2>
         </div>
     </header>
 
@@ -459,7 +456,7 @@
                     w biurze projektu ul. Ligocka 5, Katowice). Informacje kontaktowe znajdują się na plakacie projektu
                     oraz na stronie internetowej i facebooku: Zwrotnica – integracja na dobrym torze w Katowicach.</p>
                 <ul>
-                    <li>Telefonicznie: <a href="tel:+48537181444"
+                    <li>Telefonicznie: <a href="tel:+48792377809"
                             aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
                     <li>Mailowo: <a
                             href="mailto:staszekscpip@gmail.com?subject=ZWROTNICA – integracja na dobrym torze w Katowicach 2.0"
@@ -558,12 +555,11 @@
                 <h3>Kontakt w sprawie projektu</h3>
                 <p>W sprawach dotyczących projektu prosimy o kontakt:</p>
                 <ul>
-                    <li>Telefonicznie: <a href="tel:+48574175150"
+                    <li>Telefonicznie: <a href="tel:+48792377809"
                             aria-label="Zadzwoń pod numer +48 792 377 809"><strong>+48 792 377 809</strong></a></li>
                     <li>Mailowo: <a
-                            href="mailto:staszekscpip@gmail.com ?subject=ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej"
-                            aria-label="Wyślij email do staszekscpip@gmail.com "><strong>staszekscpip@gmail.com
-                            </strong></a></li>
+                            href="mailto:staszekscpip@gmail.com?subject=ZWROTNICA – integracja na dobrym torze w Rudzie Śląskiej"
+                            aria-label="Wyślij email do staszekscpip@gmail.com"><strong>staszekscpip@gmail.com</strong></a></li>
                 </ul>
             </div>
             <h3>Dokumenty rekrutacyjne do projektu</h3>

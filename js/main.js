@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('speechSynthesis dostępny:', typeof speechSynthesis !== 'undefined');
     
     initPanels();
-    initFullContentNavigation();
     initKeyboardInstructions();
     initWidgetFunctionality();
     initSmoothScrolling();
@@ -42,28 +41,64 @@ document.addEventListener('DOMContentLoaded', function () {
     function openPanel(panel, firstFocusable, toggleBtn) {
         panel.hidden = false;
         toggleBtn.setAttribute('aria-expanded', 'true');
+        trapFocus(panel);
         setTimeout(() => firstFocusable?.focus(), 50);
     }
 
     function closePanel(panel, toggleBtn) {
+        releaseFocusTrap(panel);
         panel.hidden = true;
         toggleBtn?.setAttribute('aria-expanded', 'false');
         toggleBtn?.focus();
     }
 
+    function trapFocus(panel) {
+        const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+        function handleTabKey(e) {
+            if (e.key !== 'Tab') return;
+            const focusable = Array.from(panel.querySelectorAll(focusableSelector));
+            if (focusable.length === 0) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
+        panel._focusTrapHandler = handleTabKey;
+        panel.addEventListener('keydown', handleTabKey);
+    }
+
+    function releaseFocusTrap(panel) {
+        if (panel._focusTrapHandler) {
+            panel.removeEventListener('keydown', panel._focusTrapHandler);
+            delete panel._focusTrapHandler;
+        }
+    }
+
     // --- NAWIGACJA I KLAWIATURA ---
-    function initFullContentNavigation() {
-        const elements = document.querySelectorAll('h1, h2, h3, h4, p, ul, li, .document-link-wrapper, img');
+    function enableReadingTabindex() {
+        const elements = document.querySelectorAll('main h1, main h2, main h3, main h4, main p, main ul, main li, main .document-link-wrapper, main img');
         elements.forEach(el => {
-            if (!el.closest('nav') && !el.closest('.side-panel') && !el.closest('.modal-overlay')) {
+            if (!el.closest('.side-panel') && !el.closest('.modal-overlay')) {
                 const isInteractive = el.querySelector('a, button');
                 const isImageInLink = el.tagName === 'IMG' && el.closest('a');
                 if (!isInteractive && !isImageInLink) {
                     el.setAttribute('tabindex', '0');
+                    el.dataset.readingTabindex = 'true';
                 }
             }
         });
-        document.querySelectorAll('a, button').forEach(el => el.setAttribute('tabindex', '0'));
+    }
+
+    function disableReadingTabindex() {
+        document.querySelectorAll('[data-reading-tabindex="true"]').forEach(el => {
+            el.removeAttribute('tabindex');
+            delete el.dataset.readingTabindex;
+        });
     }
 
     function initKeyboardInstructions() {
@@ -211,13 +246,13 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('Tryb czytania:', state.readingMode ? 'WŁĄCZONY' : 'WYŁĄCZONY');
 
             if (state.readingMode) {
-                // Test funkcjonalności + dodanie event listenera dla focus
+                enableReadingTabindex();
                 speak("Tryb czytania włączony. Nawiguj klawiszem Tab, aby słyszeć treść elementów.");
                 document.addEventListener('focus', handleFocusReading, true);
             } else {
-                // Wyłącz czytanie i usuń event listener
                 speechSynthesis.cancel();
                 document.removeEventListener('focus', handleFocusReading, true);
+                disableReadingTabindex();
                 speak("Tryb czytania wyłączony.");
             }
         });
