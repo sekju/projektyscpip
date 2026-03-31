@@ -24,6 +24,55 @@
   - Dla istniejących plików w `docs/` (np. ZWROTNICA_KTW-...), dostosuj do wzoru jeśli potrzeba (np. KTW → KAT).
   - Przechowuj oryginalne nazwy w komentarzach HTML.
 
+## Zasady aria-label (WCAG 2.1)
+
+Każdy link do dokumentu musi mieć atrybut `aria-label` z pełnym, przyjaznym opisem dla czytników ekranu. Tekst widoczny na stronie pozostaje skrócony — `aria-label` nadpisuje go w czytnikach.
+
+### Wzorce aria-label
+
+**Pliki PDF** (otwierają podgląd w nowej karcie):
+```
+aria-label="[Pełna nazwa dokumentu] - format PDF, [rozmiar] kilobajtów - otworzy się w nowej karcie"
+```
+
+**Pliki DOCX/DOC** (pobierają się na dysk):
+```
+aria-label="[Pełna nazwa dokumentu] - format Word DOCX, [rozmiar] kilobajtów - plik zostanie pobrany, do otwarcia w programie Microsoft Word lub LibreOffice"
+```
+
+### Zasady rozwijania skrótów w aria-label
+
+W `aria-label` **nie wolno** używać skrótów — czytnik ekranu odczyta je dosłownie. Rozwijaj:
+
+| Skrót w tekście widocznym | Pełna forma w aria-label |
+|---------------------------|--------------------------|
+| ST Kato / ST KATO | Strefa Transformacji Katowice |
+| HFW | Harmonogram Form Wsparcia |
+| FD | freeDOM |
+| Zał. | Załącznik |
+| WORD | format Word DOCX lub DOC (zależnie od rozszerzenia) |
+| KB | kilobajtów |
+| MB | megabajtów |
+
+### Zasady rozmiaru pliku
+
+- Do 999 KB → podawaj w kilobajtach, np. `218 kilobajtów`
+- Od 1000 KB → przelicz na megabajty z jednym miejscem po przecinku, np. `1,6 megabajta`
+
+### Przykłady
+
+```html
+<!-- PDF -->
+<a href="docs/STREFAT_KAT-hfw_6_2025.pdf" target="_blank"
+   aria-label="Harmonogram Form Wsparcia - czerwiec 2025 - format PDF, 221 kilobajtów - otworzy się w nowej karcie">
+   Harmonogram czerwiec 2025 - HFW 6 2025 - PDF (221 KB)</a>
+
+<!-- DOCX -->
+<a href="docs/Praktykant_KAT-formularz_rekrutacyjny_kandydata_na_uczestnika.docx" target="_blank"
+   aria-label="PRAKTYKANT Załącznik 1 - kompletny formularz rekrutacyjny kandydata na uczestnika - format Word DOCX, 71 kilobajtów - plik zostanie pobrany, do otwarcia w programie Microsoft Word lub LibreOffice">
+   PRAKTYKANT Zał. 1 - kompletny formularz rekrutacyjny kandydata na uczestnika - DOCX (71 KB)</a>
+```
+
 ## Komentarze w HTML (index.html)
 - Nad każdym linkiem do dokumentu (`<a href="...">`) dodaj komentarz HTML:
   ```
@@ -47,4 +96,4 @@
 4. Zaktualizuj `lista_plikow.txt` po zmianach (użyj `dir` w cmd).
 5. Dla nowych plików z `ZZZ_PLIKI_DO_DODANIA/`, usuń z Git (gitignore już istnieje).
 
-Ten plik służy jako przewodnik dla przyszłych zmian. Ostatnia aktualizacja tego pliku: 2025.09.11-10:28.
+Ten plik służy jako przewodnik dla przyszłych zmian. Ostatnia aktualizacja tego pliku: 2026.03.31.
