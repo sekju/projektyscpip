@@ -191,8 +191,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 textToRead = img.alt;
                 console.log('FOCUS: Alt text obrazu w linku:', textToRead);
             } else {
-                textToRead = element.textContent.trim();
-                console.log('FOCUS: Tekst linka:', textToRead);
+                textToRead = element.getAttribute('aria-label') || element.textContent.trim();
+                console.log('FOCUS: Tekst linka (aria-label lub textContent):', textToRead);
             }
         } else if (element.tagName === 'BUTTON') {
             textToRead = element.textContent.trim() || element.getAttribute('aria-label');
