@@ -7,7 +7,7 @@
 
 ## Nazewnictwo Plików
 - **Wzór nazwy pliku**: `NAZWA_PROJEKTU_SKROTMIEJSCOWOŚCI-Tytul_dokumentu_bez_polskich_znakow.ext`
-  - **NAZWA_PROJEKTU**: Krótka nazwa projektu w UPPERCASE (np. freeDOM, Praktykant, STREFAT_KAT, STREFAT_RSL, ZWROTNICA_KAT, ZWROTNICA_RSL).
+  - **NAZWA_PROJEKTU**: Krótka nazwa projektu w UPPERCASE (np. freeDOM, Praktykant, STREFAT_KAT, STREFAT_RSL, ZWROTNICA_KAT, ZWROTNICA_RSL, DDD_KAT).
   - **SKROTMIEJSCOWOŚCI**: Skrót miasta (KAT dla Katowice, RSL dla Ruda Śląska).
   - **Tytul_dokumentu_bez_polskich_znakow**: Tytuł bez polskich znaków (ą->a, ć->c, ę->e, ł->l, ń->n, ó->o, ś->s, ź->z, ż->z), bez spacji (użyj _ lub -), w lowercase.
   - **ext**: Rozszerzenie pliku (np. .pdf, .docx).
@@ -96,4 +96,4 @@ W `aria-label` **nie wolno** używać skrótów — czytnik ekranu odczyta je do
 4. Zaktualizuj `lista_plikow.txt` po zmianach (użyj `dir` w cmd).
 5. Dla nowych plików z `ZZZ_PLIKI_DO_DODANIA/`, usuń z Git (gitignore już istnieje).
 
-Ten plik służy jako przewodnik dla przyszłych zmian. Ostatnia aktualizacja tego pliku: 2026.03.31.
+Ten plik służy jako przewodnik dla przyszłych zmian. Ostatnia aktualizacja tego pliku: 2026.07.01.
