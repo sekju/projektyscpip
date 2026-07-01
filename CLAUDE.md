@@ -1,6 +1,6 @@
 # projektyscpip.pl
 
-Statyczna strona HTML dla Slaskiego Centrum Profilaktyki i Psychoterapii (SCPIP) prezentujaca 6 projektow unijnych.
+Statyczna strona HTML dla Slaskiego Centrum Profilaktyki i Psychoterapii (SCPIP) prezentujaca 7 projektow unijnych.
 
 ## Struktura
 
@@ -19,6 +19,7 @@ Statyczna strona HTML dla Slaskiego Centrum Profilaktyki i Psychoterapii (SCPIP)
 | ZWROTNICA Ruda Sl. | `ZWROTNICA_RSL` | `#zwrotnica-ruda` |
 | freeDOM | `freeDOM_KAT` | `#freedom` |
 | Praktykant | `Praktykant_KAT` | `#praktykant` |
+| Droga do domu Katowice | `DDD_KAT` | `#droga-do-domu` |
 
 ## Nazewnictwo plikow
 
