@@ -42,30 +42,69 @@ wstępne, podsekcje `<h3>`, blok „Metadane Projektu” jako `<ul>`.
 
 ### Struktura treści sekcji
 
-- `<h2 id="droga-do-domu-heading">Droga do domu. Kompleksowe wsparcie osób w
-  kryzysie bezdomności</h2>`
-- Akapit wstępny: cel projektu (poprawa sytuacji osób w kryzysie bezdomności,
-  dotkniętych wykluczeniem z dostępu do mieszkań lub zagrożonych bezdomnością)
-  + zdanie o zindywidualizowanym wsparciu na różnych etapach kryzysu
-  (profilaktyka, interwencja, stabilizacja, reintegracja).
-- `<h3>Główne zadania projektu</h3>` — `<ul>` z 5 pozycjami z treści
-  źródłowej, z zagnieżdżonymi `<ul>` przy zadaniu 1 (usługi profilaktyczne/
-  interwencyjno-aktywizujące) i zadaniu 2 (punkt informacyjno-konsultacyjny),
-  zgodnie z podpunktami podanymi przez klienta.
-- `<h3>Grupa docelowa</h3>` — akapit: min. 150 osób w kryzysie bezdomności lub
-  zagrożonych bezdomnością (kobiety i mężczyźni) oraz 12 osób kadry usług
-  społecznych, teren Katowic.
-- `<h3>Metadane Projektu</h3>` — `<ul>`:
-  - Okres realizacji: 01.04.2026 – 30.06.2029
-  - Miejsce realizacji: Katowice
-  - Partner: EPARTNER Kursy Językowe spółka z ograniczoną odpowiedzialnością
-  - Wartość projektu: 5 059 954,00 zł
-  - Dofinansowanie: 4 806 956,30 zł
-- `<h3>Cel i rezultaty projektu</h3>` — akapit o efektach: zwiększenie
-  dostępu do usług społecznych, poprawa funkcjonowania społecznego, wzmocnienie
-  samodzielności, ograniczenie skali bezdomności, rozwój usług zgodnych z ideą
-  deinstytucjonalizacji; dopasowanie do potrzeb kobiet i różnorodnych ścieżek
-  wychodzenia z kryzysu.
+**Zasada nadrzędna: cały tekst dostarczony przez klienta jest przenoszony
+słowo w słowo, w oryginalnej kolejności i z oryginalną interpunkcją.** Nie
+parafrazujemy, nie skracamy, nie łączymy zdań w streszczenia. Jedyne dodane
+elementy to znaczniki strukturalne (`<h2>`, `<h3>Metadane Projektu</h3>`,
+podział na `<p>`/`<ul>`) potrzebne do osadzenia treści we wzorcu strony —
+same słowa klienta się nie zmieniają.
+
+Dokładne odwzorowanie tekstu źródłowego na HTML:
+
+```html
+<h2 id="droga-do-domu-heading">Droga do domu. Kompleksowe wsparcie osób w kryzysie bezdomności</h2>
+
+<p>„Droga do domu. Kompleksowe wsparcie osób w kryzysie bezdomności” to projekt, którego głównym celem jest poprawa sytuacji osób w kryzysie bezdomności, dotkniętych wykluczeniem z dostępu do mieszkań lub zagrożonych bezdomnością poprzez rozwój i zwiększenie dostępności usług społecznych świadczonych w środowisku lokalnym.</p>
+
+<p>Działania projektu ukierunkowane są na zapewnienie kompleksowego, zindywidualizowanego wsparcia odpowiadającego na różne etapy kryzysu bezdomności – od profilaktyki i interwencji, po stabilizację i reintegrację społeczną.</p>
+
+<h3>Cel projektu zostanie zrealizowany poprzez główne zadania projektowe:</h3>
+<ul>
+    <li>Usługi o charakterze profilaktycznym oraz interwencyjno-aktywizującym, w tym:
+        <ul>
+            <li>wsparcie pracownika socjalnego,</li>
+            <li>działania streetworkerów,</li>
+            <li>wsparcie asystenta osoby w kryzysie bezdomności;</li>
+        </ul>
+    </li>
+    <li>Funkcjonowanie punktu informacyjno-konsultacyjnego, obejmujące:
+        <ul>
+            <li>wsparcie doradców pierwszego kontaktu,</li>
+            <li>poradnictwo specjalistyczne,</li>
+            <li>działania grup samopomocowych,</li>
+            <li>mobilne punkty pomocy przedmedycznej,</li>
+            <li>działania wspierające integrację ze społecznością lokalną;</li>
+        </ul>
+    </li>
+    <li>Utworzenie i funkcjonowanie mieszkań z usługami dla kobiet w kryzysie bezdomności lub zagrożonych bezdomnością (funkcja interwencyjna);</li>
+    <li>Funkcjonowanie mieszkań ze wsparciem w modelu „Housing First – Najpierw Mieszkanie”, umożliwiających stabilizację życiową i proces usamodzielniania;</li>
+    <li>Wzmocnienie kompetencji kadry, poprzez szkolenia (m.in. z dialogu motywacyjnego) oraz superwizję.</li>
+</ul>
+
+<p>Grupę docelową stanowi co najmniej 150 osób w kryzysie bezdomności lub zagrożonych bezdomnością (w tym kobiety i mężczyźni) oraz 12 osób kadry świadczącej usługi społeczne, zamieszkujących lub przebywających na terenie Katowic.</p>
+
+<p>Realizacja projektu przyczyni się do: zwiększenia dostępu do usług społecznych, poprawy funkcjonowania społecznego uczestników, wzmocnienia samodzielności i poczucia sprawczości, ograniczenia skali zjawiska bezdomności, rozwoju usług zgodnych z ideą deinstytucjonalizacji.</p>
+
+<p>Projekt odpowiada na realne potrzeby osób w kryzysie bezdomności, uwzględniając również specyficzną sytuację kobiet oraz różnorodność ścieżek wychodzenia z kryzysu.</p>
+
+<p>Projekt realizowany jest w okresie 01.04.2026 – 30.06.2029 na terenie miasta Katowice.</p>
+
+<p>Projekt realizowany w partnerstwie z EPARTNER Kursy Językowe spółka z ograniczoną odpowiedzialnością.</p>
+
+<h3>Metadane Projektu</h3>
+<ul>
+    <li><strong>Okres realizacji:</strong> 01.04.2026 – 30.06.2029</li>
+    <li><strong>Miejsce realizacji:</strong> Katowice</li>
+    <li><strong>Partner:</strong> EPARTNER Kursy Językowe spółka z ograniczoną odpowiedzialnością</li>
+    <li><strong>Wartość projektu:</strong> 5 059 954,00 zł</li>
+    <li><strong>Dofinansowanie:</strong> 4 806 956,30 zł</li>
+</ul>
+```
+
+Uwaga: „Metadane Projektu” to dodatkowe, skanowalne podsumowanie faktów już
+obecnych w tekście powyżej (okres, partner, wartość, dofinansowanie) — spójne
+z konwencją pozostałych 6 sekcji na stronie. Nie zastępuje pełnego akapitu,
+tylko go uzupełnia.
 
 Brak sekcji `accessibility-info`, `contact-info` i „Dokumenty rekrutacyjne” —
 zostaną dodane, gdy dane będą dostępne.
