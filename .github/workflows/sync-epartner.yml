@@ -1,0 +1,59 @@
+name: Sync epartner24.pl
+
+# Required repository settings:
+# - Variable EPARTNER_REPOSITORY, for example owner/epartner24.pl
+# - Secret EPARTNER_REPO_TOKEN with write access to the epartner repository
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "docs/DDD_KAT*"
+      - "media/epartner-*"
+      - "scripts/export-epartner.ps1"
+      - "scripts/check-epartner-export.ps1"
+      - ".github/workflows/sync-epartner.yml"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Export and push epartner site
+    runs-on: ubuntu-latest
+    if: ${{ vars.EPARTNER_REPOSITORY != '' }}
+
+    steps:
+      - name: Checkout SCPIP source
+        uses: actions/checkout@v4
+        with:
+          path: scpip
+
+      - name: Checkout epartner target
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.EPARTNER_REPOSITORY }}
+          token: ${{ secrets.EPARTNER_REPO_TOKEN }}
+          path: epartner
+
+      - name: Export epartner site
+        shell: pwsh
+        working-directory: scpip
+        run: |
+          ./scripts/export-epartner.ps1
+          ./scripts/check-epartner-export.ps1
+
+      - name: Commit and push if changed
+        shell: bash
+        working-directory: epartner
+        run: |
+          if [ -z "$(git status --short)" ]; then
+            echo "No epartner changes to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore: sync Droga do domu from SCPIP"
+          git push
