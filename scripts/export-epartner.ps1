@@ -179,14 +179,13 @@ Set-Content -LiteralPath (Join-Path $ApexTarget 'index.html') -Encoding UTF8 -Va
 
 $WidgetMarkup = @'
     <div class="panel-toggles">
-        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji"
+        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji" title="Nawigacja"
             aria-controls="nav-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
             </svg>
-            <span>Nawigacja</span>
         </button>
-        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności"
+        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności" title="Dostępność"
             aria-controls="a11y-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -197,7 +196,6 @@ $WidgetMarkup = @'
                 <path d="M4.24 14.5a5 5 0 0 0 6.88 6" />
                 <path d="M13.76 17.5a5 5 0 0 0-6.88-6" />
             </svg>
-            <span>Dostępność</span>
         </button>
     </div>
 
@@ -282,6 +280,13 @@ $Styles = @'
   --surface-muted: #f4f8f6;
   --border: #c9d8d2;
   --focus: #ffbf47;
+}
+
+body[data-theme="normal"] {
+  --primary-color: var(--brand);
+  --focus-outline: var(--brand-dark);
+  --focus-bg: var(--brand-dark);
+  --focus-text: #ffffff;
 }
 
 * {
@@ -485,6 +490,29 @@ body[data-theme="high-contrast"] .documents a {
   border-color: #ffff00;
 }
 
+.panel-toggle-btn {
+  width: 68px;
+  height: 68px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--brand);
+}
+
+.panel-toggle-btn svg {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+}
+
+.panel-toggle-btn:hover {
+  background: var(--brand-dark);
+}
+
+.panel-toggle-btn span {
+  display: none;
+}
+
 @media (max-width: 760px) {
   body {
     font-size: 17px;
@@ -630,17 +658,14 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
         </section>
 
         <section id="a11y-status" aria-labelledby="a11y-status-heading">
-            <h2 id="a11y-status-heading">2. Status zgodności</h2>
-            <p>Strona internetowa jest <strong>częściowo zgodna</strong> z wytycznymi WCAG 2.2 na poziomie AA. Status wynika z samooceny technicznej wykonanej na lokalnie wygenerowanej wersji strony oraz z faktu, że po publikacji produkcyjnej należy jeszcze potwierdzić wynik narzędziami automatycznymi i testem manualnym w publicznym adresie.</p>
-            <h3>Zakres wykonanej samooceny dostępności</h3>
+            <h2 id="a11y-status-heading">2. Zakres wykonanej samooceny dostępności</h2>
+            <p>Deklarację przygotowano na podstawie samooceny technicznej strony oraz przeglądu elementów istotnych dla dostępności cyfrowej.</p>
             <ul>
                 <li>Sprawdzono strukturę nagłówków, język strony, mechanizm pomijania bloków i widoczność nawigacji klawiaturą.</li>
                 <li>Sprawdzono obecność alternatyw tekstowych dla elementów graficznych oraz opisowe teksty linków.</li>
                 <li>Sprawdzono kontrast podstawowej palety kolorów i tryb wysokiego kontrastu.</li>
                 <li>Sprawdzono obecność panelu dostępności i możliwość zmiany rozmiaru tekstu oraz trybu kontrastu.</li>
             </ul>
-            <h3>Ograniczenia oceny</h3>
-            <p>Na dzień sporządzenia deklaracji nie wykonano niezależnego zewnętrznego audytu dostępności opublikowanej wersji produkcyjnej. Deklaracja nie zawiera wyniku procentowego ani stwierdzenia o pełnej zgodności, ponieważ takie dane wymagają pełnego audytu produkcyjnego.</p>
         </section>
 
         <section id="a11y-metodologia" aria-labelledby="a11y-metodologia-heading">
