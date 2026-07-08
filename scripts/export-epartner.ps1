@@ -280,7 +280,6 @@ $($Items -join "`r`n")
 "@
 }
 
-$GeneratedAt = Get-Date -Format 'yyyy-MM-dd HH:mm:ss zzz'
 $Page = @"
 <!DOCTYPE html>
 <html lang="pl">
@@ -326,7 +325,6 @@ $DocumentLinks
                 <strong>EPARTNER Kursy Jezykowe spolka z ograniczona odpowiedzialnoscia</strong><br>
                 epartner24.pl
             </address>
-            <p>Ostatnia aktualizacja eksportu: $GeneratedAt</p>
         </div>
     </footer>
     <script src="js/main.js"></script>
