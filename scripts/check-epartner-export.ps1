@@ -1,14 +1,29 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 
 $Root = Resolve-Path (Join-Path $PSScriptRoot '..')
-$Target = Resolve-Path (Join-Path $Root '..\epartner')
-$Index = Join-Path $Target 'index.html'
+$ApexTarget = Resolve-Path (Join-Path $Root '..\epartner')
+$ProjectsTarget = Resolve-Path (Join-Path $Root '..\projekty-epartner')
+$ApexIndex = Join-Path $ApexTarget 'index.html'
+$ProjectsIndex = Join-Path $ProjectsTarget 'index.html'
 
-if (-not (Test-Path -LiteralPath $Index)) {
-    throw 'Missing epartner index.html'
+if (-not (Test-Path -LiteralPath $ApexIndex)) {
+    throw 'Missing apex epartner index.html'
 }
 
-$Html = Get-Content -LiteralPath $Index -Raw -Encoding UTF8
+$ApexHtml = Get-Content -LiteralPath $ApexIndex -Raw -Encoding UTF8
+if ($ApexHtml -notmatch 'epartner-logo.png') {
+    throw 'Missing apex logo placeholder'
+}
+
+if ((Get-Content -LiteralPath (Join-Path $ApexTarget 'CNAME') -Raw -Encoding UTF8).Trim() -ne 'epartner24.pl') {
+    throw 'Invalid apex CNAME'
+}
+
+if (-not (Test-Path -LiteralPath $ProjectsIndex)) {
+    throw 'Missing projects epartner index.html'
+}
+
+$Html = Get-Content -LiteralPath $ProjectsIndex -Raw -Encoding UTF8
 if ($Html -notmatch 'droga-do-domu') {
     throw 'Missing Droga do domu section'
 }
@@ -21,16 +36,50 @@ if ($Html -notmatch 'epartner') {
     throw 'Missing epartner branding'
 }
 
-$CnamePath = Join-Path $Target 'CNAME'
+$CnamePath = Join-Path $ProjectsTarget 'CNAME'
 if (-not (Test-Path -LiteralPath $CnamePath)) {
     throw 'Missing CNAME'
 }
 
-if ((Get-Content -LiteralPath $CnamePath -Raw -Encoding UTF8).Trim() -ne 'epartner24.pl') {
-    throw 'Invalid CNAME'
+if ((Get-Content -LiteralPath $CnamePath -Raw -Encoding UTF8).Trim() -ne 'projekty.epartner24.pl') {
+    throw 'Invalid projects CNAME'
 }
 
-$DocsPath = Join-Path $Target 'docs'
+if ($Html -notmatch 'kolory-pion-unia-europejska-rgb.png') {
+    throw 'Missing EU logo bar'
+}
+
+if ($Html -notmatch 'a11y-panel-toggle') {
+    throw 'Missing accessibility widget'
+}
+
+if ($Html -match 'Ä|Ă|Ĺ|Â') {
+    throw 'Detected mojibake in projects index.html'
+}
+
+if ($Html -notmatch 'KRS 0000615769' -or $Html -notmatch 'NIP 6462942490' -or $Html -notmatch 'REGON 364321720') {
+    throw 'Missing epartner registration data'
+}
+
+$DeclarationPath = Join-Path $ProjectsTarget 'pages\deklaracja-dostepnosci.html'
+if (-not (Test-Path -LiteralPath $DeclarationPath)) {
+    throw 'Missing accessibility declaration page'
+}
+
+$DeclarationHtml = Get-Content -LiteralPath $DeclarationPath -Raw -Encoding UTF8
+if ($DeclarationHtml -notmatch 'Deklaracja dostępności') {
+    throw 'Invalid accessibility declaration page'
+}
+
+if ($DeclarationHtml -match 'Ä|Ă|Ĺ|Â') {
+    throw 'Detected mojibake in accessibility declaration page'
+}
+
+if ($DeclarationHtml -match 'w pełni zgodna|Nie stwierdzono krytycznych') {
+    throw 'Accessibility declaration contains unverified audit claims'
+}
+
+$DocsPath = Join-Path $ProjectsTarget 'docs'
 if (Test-Path -LiteralPath $DocsPath) {
     $UnexpectedDocs = Get-ChildItem -LiteralPath $DocsPath -File |
         Where-Object { $_.Name -notlike 'DDD_KAT*' }
