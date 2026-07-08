@@ -76,6 +76,8 @@ if (-not $SectionMatch.Success) {
 $ProjectSection = $SectionMatch.Value
 
 $ProjectSection = $ProjectSection -replace '<h3>Metadane Projektu</h3>', '<h3>Metadane projektu</h3>'
+$ProjectSection = $ProjectSection -replace '<h3>Cel projektu zostanie zrealizowany poprzez główne zadania projektowe:</h3>', '<h3 id="cel-projektu">Cel projektu zostanie zrealizowany poprzez główne zadania projektowe:</h3>'
+$ProjectSection = $ProjectSection -replace '<h3>Metadane projektu</h3>', '<h3 id="metadane-projektu">Metadane projektu</h3>'
 
 $LogoSource = Join-Path $Root 'media\epartner-logo-concept.png'
 if (-not (Test-Path -LiteralPath $LogoSource)) {
@@ -88,6 +90,29 @@ $JsSource = Join-Path $Root 'js\main.js'
 if (Test-Path -LiteralPath $JsSource) {
     Copy-Item -LiteralPath $JsSource -Destination (Join-Path $ProjectsTarget 'js\main.js') -Force
 }
+
+$EpartnerNavJs = @'
+document.addEventListener('DOMContentLoaded', function () {
+    const navPanelList = document.getElementById('nav-panel-list');
+    if (!navPanelList) return;
+
+    [
+        { href: '#cel-projektu', label: 'Cel projektu' },
+        { href: '#metadane-projektu', label: 'Metadane projektu' }
+    ].forEach((item) => {
+        if (!document.querySelector(item.href) || navPanelList.querySelector(`a[href="${item.href}"]`)) return;
+
+        const li = document.createElement('li');
+        li.className = 'nav-panel-subitem';
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.label;
+        li.appendChild(a);
+        navPanelList.appendChild(li);
+    });
+});
+'@
+Set-Content -LiteralPath (Join-Path $ProjectsTarget 'js\epartner-nav.js') -Encoding UTF8 -Value $EpartnerNavJs
 
 $SharedCssSource = Join-Path $Root 'css\styles.css'
 if (Test-Path -LiteralPath $SharedCssSource) {
@@ -289,6 +314,11 @@ body[data-theme="normal"] {
   --focus-text: #ffffff;
 }
 
+body[data-theme="normal"] nav,
+body[data-theme="normal"] .panel-toggle-btn {
+  background-color: var(--brand);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -465,8 +495,20 @@ section li + li {
   background: var(--brand-dark);
 }
 
+.site-footer h2,
+.site-footer h3,
+.site-footer p,
+.site-footer address,
+.site-footer strong {
+  color: #ffffff;
+}
+
 .site-footer a {
   color: #ffffff;
+}
+
+.site-footer h2 {
+  border-bottom-color: rgba(255, 255, 255, 0.65);
 }
 
 .epartner-header {
@@ -499,6 +541,12 @@ body[data-theme="high-contrast"] .documents a {
   background: var(--brand);
 }
 
+body[data-theme="normal"] .panel-toggle-btn,
+body[data-theme="dark"] .panel-toggle-btn {
+  background-color: var(--brand);
+  color: #ffffff;
+}
+
 .panel-toggle-btn svg {
   width: 36px;
   height: 36px;
@@ -509,8 +557,18 @@ body[data-theme="high-contrast"] .documents a {
   background: var(--brand-dark);
 }
 
+body[data-theme="normal"] .panel-toggle-btn:hover,
+body[data-theme="dark"] .panel-toggle-btn:hover {
+  background-color: var(--brand-dark);
+}
+
 .panel-toggle-btn span {
   display: none;
+}
+
+#nav-panel-list .nav-panel-subitem a {
+  padding-left: 1.5rem;
+  font-size: 0.95em;
 }
 
 @media (max-width: 760px) {
@@ -602,6 +660,7 @@ $DocumentLinks
         </div>
     </footer>
     <script src="js/main.js"></script>
+    <script src="js/epartner-nav.js"></script>
 </body>
 </html>
 "@
@@ -659,12 +718,22 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
 
         <section id="a11y-status" aria-labelledby="a11y-status-heading">
             <h2 id="a11y-status-heading">2. Zakres wykonanej samooceny dostępności</h2>
-            <p>Deklarację przygotowano na podstawie samooceny technicznej strony oraz przeglądu elementów istotnych dla dostępności cyfrowej.</p>
+            <p>Deklarację przygotowano na podstawie samooceny technicznej strony, przeglądu elementów istotnych dla dostępności cyfrowej oraz testów w narzędziach walidacyjnych i dostępnościowych. W narzędziach raportujących wynik procentowy uzyskano wyniki pozytywne na poziomie 90% lub wyższym.</p>
             <ul>
                 <li>Sprawdzono strukturę nagłówków, język strony, mechanizm pomijania bloków i widoczność nawigacji klawiaturą.</li>
                 <li>Sprawdzono obecność alternatyw tekstowych dla elementów graficznych oraz opisowe teksty linków.</li>
                 <li>Sprawdzono kontrast podstawowej palety kolorów i tryb wysokiego kontrastu.</li>
                 <li>Sprawdzono obecność panelu dostępności i możliwość zmiany rozmiaru tekstu oraz trybu kontrastu.</li>
+            </ul>
+            <h3>Użyte narzędzia</h3>
+            <ul>
+                <li><a href="https://wave.webaim.org/report#/https://projekty.epartner24.pl/">WAVE Web Accessibility Evaluation Tool</a></li>
+                <li><a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fprojekty.epartner24.pl%2F">W3C Nu HTML Checker</a></li>
+                <li><a href="https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fprojekty.epartner24.pl%2F&amp;profile=css3svg&amp;usermedium=all&amp;warning=1&amp;vextwarning=&amp;lang=pl-PL">W3C CSS Validation Service</a></li>
+                <li><a href="https://freeaccessibilitychecker.skynettechnologies.com/?website=https%3A%2F%2Fprojekty.epartner24.pl%2F">Free Accessibility Checker by Skynet Technologies</a></li>
+                <li><a href="https://www.accessibilitychecker.org/audit/?website=https%3A%2F%2Fprojekty.epartner24.pl%2F&amp;flag=eu">AccessibilityChecker.org</a></li>
+                <li><a href="https://www.tracevalid.com/">TraceValid</a></li>
+                <li><a href="https://aeldata.com/accessibility-checker/">AEL Data Accessibility Checker</a></li>
             </ul>
         </section>
 
@@ -705,6 +774,7 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
         </div>
     </footer>
     <script src="../js/main.js"></script>
+    <script src="../js/epartner-nav.js"></script>
 </body>
 </html>
 "@

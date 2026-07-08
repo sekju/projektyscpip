@@ -61,6 +61,24 @@ if ($Html -notmatch 'KRS 0000615769' -or $Html -notmatch 'NIP 6462942490' -or $H
     throw 'Missing epartner registration data'
 }
 
+if ($Html -notmatch 'id="cel-projektu"' -or $Html -notmatch 'id="metadane-projektu"') {
+    throw 'Missing H3 anchors for side navigation'
+}
+
+if ($Html -notmatch 'js/epartner-nav.js') {
+    throw 'Missing epartner side navigation script'
+}
+
+$CssPath = Join-Path $ProjectsTarget 'css\epartner.css'
+$Css = Get-Content -LiteralPath $CssPath -Raw -Encoding UTF8
+if ($Css -notmatch '--brand: #00594f' -or $Css -notmatch 'background-color: var\(--brand\)') {
+    throw 'Missing teal branding overrides'
+}
+
+if ($Css -notmatch '\.site-footer h2' -or $Css -notmatch '\.site-footer address') {
+    throw 'Missing footer contrast overrides'
+}
+
 $DeclarationPath = Join-Path $ProjectsTarget 'pages\deklaracja-dostepnosci.html'
 if (-not (Test-Path -LiteralPath $DeclarationPath)) {
     throw 'Missing accessibility declaration page'
@@ -77,6 +95,12 @@ if ($DeclarationHtml -match 'Ä|Ă|Ĺ|Â') {
 
 if ($DeclarationHtml -match 'w pełni zgodna|częściowo zgodna|Nie stwierdzono krytycznych|należy jeszcze|nie wykonano') {
     throw 'Accessibility declaration contains unverified audit claims'
+}
+
+foreach ($ToolName in @('WAVE', 'W3C Nu HTML Checker', 'W3C CSS Validation Service', 'AccessibilityChecker.org', 'TraceValid', 'AEL Data Accessibility Checker')) {
+    if ($DeclarationHtml -notmatch [regex]::Escape($ToolName)) {
+        throw "Missing accessibility tool in declaration: $ToolName"
+    }
 }
 
 $DocsPath = Join-Path $ProjectsTarget 'docs'
