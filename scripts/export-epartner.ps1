@@ -20,6 +20,22 @@ $Readme = @'
 Statyczna strona projektu "Droga do domu" dla domeny epartner24.pl.
 
 Zawartosc jest generowana z repo projektyscpip przez `scripts/export-epartner.ps1`.
+
+## Publikacja
+
+Repo powinno dzialac jako osobny projekt GitHub Pages z domena `epartner24.pl`.
+
+Po utworzeniu repo GitHub:
+
+```powershell
+git remote add origin https://github.com/sekju/epartner24.pl.git
+git push -u origin main
+```
+
+W repo `projektyscpip` automatyczna synchronizacja wymaga:
+
+- sekretu `EPARTNER_REPO_TOKEN` z prawem zapisu do tego repo,
+- zmiennej `EPARTNER_REPOSITORY` ustawionej na `sekju/epartner24.pl`.
 '@
 Set-Content -LiteralPath (Join-Path $Target 'README.md') -Encoding UTF8 -Value $Readme
 
