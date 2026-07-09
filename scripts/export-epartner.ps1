@@ -654,6 +654,7 @@ body[data-theme="dark"] .panel-toggle-btn:hover {
 }
 '@
 Set-Content -LiteralPath (Join-Path $ProjectsTarget 'css\epartner.css') -Encoding UTF8 -Value $Styles
+Set-Content -LiteralPath (Join-Path $ProjectsTarget 'css\epartner-theme.css') -Encoding UTF8 -Value $Styles
 
 $DocumentLinks = ''
 if ($DddDocs) {
@@ -681,7 +682,7 @@ $Page = @"
     <title>Droga do domu - projekty.epartner24.pl</title>
     <meta name="description" content="Informacje o projekcie Droga do domu realizowanym w partnerstwie z EPARTNER.">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/epartner.css">
+    <link rel="stylesheet" href="css/epartner-theme.css">
 </head>
 <body data-theme="normal">
 $WidgetMarkup
@@ -741,7 +742,7 @@ $DeclarationPage = @"
     <title>Deklaracja dostępności - projekty.epartner24.pl</title>
     <meta name="description" content="Deklaracja dostępności strony projekty.epartner24.pl.">
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/epartner.css">
+    <link rel="stylesheet" href="../css/epartner-theme.css">
 </head>
 <body data-theme="normal">
 $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')

@@ -69,7 +69,11 @@ if ($Html -notmatch 'js/epartner-nav.js') {
     throw 'Missing epartner side navigation script'
 }
 
-$CssPath = Join-Path $ProjectsTarget 'css\epartner.css'
+if ($Html -notmatch 'css/epartner-theme.css') {
+    throw 'Missing versioned epartner stylesheet link'
+}
+
+$CssPath = Join-Path $ProjectsTarget 'css\epartner-theme.css'
 $Css = Get-Content -LiteralPath $CssPath -Raw -Encoding UTF8
 if ($Css -notmatch '--brand: #00594f' -or $Css -notmatch 'background-color: var\(--brand\)') {
     throw 'Missing teal branding overrides'
