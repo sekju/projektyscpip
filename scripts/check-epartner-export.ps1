@@ -75,6 +75,16 @@ if ($Css -notmatch '--brand: #00594f' -or $Css -notmatch 'background-color: var\
     throw 'Missing teal branding overrides'
 }
 
+foreach ($Theme in @('normal', 'high-contrast', 'monochrome', 'dark')) {
+    if ($Css -notmatch "body\[data-theme=`"$Theme`"\] nav a:hover") {
+        throw "Missing nav hover style for theme: $Theme"
+    }
+
+    if ($Css -notmatch "body\[data-theme=`"$Theme`"\].*\.panel-toggle-btn") {
+        throw "Missing panel toggle style for theme: $Theme"
+    }
+}
+
 if ($Css -notmatch '\.site-footer h2' -or $Css -notmatch '\.site-footer address') {
     throw 'Missing footer contrast overrides'
 }
