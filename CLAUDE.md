@@ -31,6 +31,15 @@ Szczegoly: `docs/nazewnictwo_dokumentow.md`
 
 Uzyj skilla `/update-harmonogramy RRRR.MM.DD` - kopiuje pliki z `ZZZ_PLIKI_DO_DODANIA/`, poprawia nazwy, aktualizuje HTML.
 
-## Hosting
+## Hosting i deployment
 
-GitHub Pages, domena: projektyscpip.pl (plik CNAME)
+- **Platforma**: GitHub Pages (repo `sekju/projektyscpip`)
+- **Galaz produkcyjna**: `main` — GitHub Pages deployuje ze zrodla `Deploy from a branch`, galaz `main`, folder `/(root)`. **Wszystkie zmiany, ktore maja trafic na produkcje, musza byc na `main`.**
+- **Domena produkcyjna**: `projekty.scpip.pl` (subdomena scpip.pl) — zapisana w pliku `CNAME`. Uwaga: `projektyscpip.pl` (bez kropki) NIE istnieje.
+- **DNS**: rekord CNAME `projekty.scpip.pl` -> `sekju.github.io` (bez proxy). To poprawna konfiguracja dla subdomeny.
+
+### Praca z galeziami
+
+- Galaz domyslna repo = `main`. Nie myl z `zalecenia_20250718` (stara galaz, nie idzie na produkcje).
+- Galezie `codex/*` to prace z aplikacji Codex; po zakonczeniu integruj do `main` (merge), zeby zmiany trafily na produkcje.
+- Po dodaniu harmonogramow/tresci: commit -> integracja do `main` -> push origin main -> GitHub Pages sam zbuduje i wdrozy.
