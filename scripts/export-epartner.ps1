@@ -76,6 +76,8 @@ if (-not $SectionMatch.Success) {
 $ProjectSection = $SectionMatch.Value
 
 $ProjectSection = $ProjectSection -replace '<h3>Metadane Projektu</h3>', '<h3>Metadane projektu</h3>'
+$ProjectSection = $ProjectSection -replace '<h3>Cel projektu zostanie zrealizowany poprzez główne zadania projektowe:</h3>', '<h3 id="cel-projektu">Cel projektu zostanie zrealizowany poprzez główne zadania projektowe:</h3>'
+$ProjectSection = $ProjectSection -replace '<h3>Metadane projektu</h3>', '<h3 id="metadane-projektu">Metadane projektu</h3>'
 
 $LogoSource = Join-Path $Root 'media\epartner-logo-concept.png'
 if (-not (Test-Path -LiteralPath $LogoSource)) {
@@ -88,6 +90,29 @@ $JsSource = Join-Path $Root 'js\main.js'
 if (Test-Path -LiteralPath $JsSource) {
     Copy-Item -LiteralPath $JsSource -Destination (Join-Path $ProjectsTarget 'js\main.js') -Force
 }
+
+$EpartnerNavJs = @'
+document.addEventListener('DOMContentLoaded', function () {
+    const navPanelList = document.getElementById('nav-panel-list');
+    if (!navPanelList) return;
+
+    [
+        { href: '#cel-projektu', label: 'Cel projektu' },
+        { href: '#metadane-projektu', label: 'Metadane projektu' }
+    ].forEach((item) => {
+        if (!document.querySelector(item.href) || navPanelList.querySelector(`a[href="${item.href}"]`)) return;
+
+        const li = document.createElement('li');
+        li.className = 'nav-panel-subitem';
+        const a = document.createElement('a');
+        a.href = item.href;
+        a.textContent = item.label;
+        li.appendChild(a);
+        navPanelList.appendChild(li);
+    });
+});
+'@
+Set-Content -LiteralPath (Join-Path $ProjectsTarget 'js\epartner-nav.js') -Encoding UTF8 -Value $EpartnerNavJs
 
 $SharedCssSource = Join-Path $Root 'css\styles.css'
 if (Test-Path -LiteralPath $SharedCssSource) {
@@ -179,14 +204,13 @@ Set-Content -LiteralPath (Join-Path $ApexTarget 'index.html') -Encoding UTF8 -Va
 
 $WidgetMarkup = @'
     <div class="panel-toggles">
-        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji"
+        <button id="nav-panel-toggle" class="panel-toggle-btn left" aria-label="Otwórz panel nawigacji" title="Nawigacja"
             aria-controls="nav-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
             </svg>
-            <span>Nawigacja</span>
         </button>
-        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności"
+        <button id="a11y-panel-toggle" class="panel-toggle-btn right" aria-label="Otwórz panel dostępności" title="Dostępność"
             aria-controls="a11y-panel" aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -197,7 +221,6 @@ $WidgetMarkup = @'
                 <path d="M4.24 14.5a5 5 0 0 0 6.88 6" />
                 <path d="M13.76 17.5a5 5 0 0 0-6.88-6" />
             </svg>
-            <span>Dostępność</span>
         </button>
     </div>
 
@@ -282,6 +305,85 @@ $Styles = @'
   --surface-muted: #f4f8f6;
   --border: #c9d8d2;
   --focus: #ffbf47;
+}
+
+body[data-theme="normal"] {
+  --primary-color: var(--brand);
+  --focus-outline: var(--brand-dark);
+  --focus-bg: var(--brand-dark);
+  --focus-text: #ffffff;
+}
+
+body[data-theme="normal"] nav,
+body[data-theme="normal"] .panel-toggle-btn {
+  background-color: var(--brand);
+}
+
+body[data-theme="normal"] nav a:hover,
+body[data-theme="normal"] nav a:focus-visible {
+  background-color: #f7ff6a !important;
+  color: var(--brand-dark) !important;
+  outline: 4px solid var(--brand-dark) !important;
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px #ffffff !important;
+}
+
+body[data-theme="high-contrast"] nav,
+body[data-theme="high-contrast"] .panel-toggle-btn {
+  background-color: #000000;
+  color: #ffff00;
+  border-color: #ffff00;
+}
+
+body[data-theme="high-contrast"] nav a {
+  color: #ffff00;
+}
+
+body[data-theme="high-contrast"] nav a:hover,
+body[data-theme="high-contrast"] nav a:focus-visible {
+  background-color: #ffff00 !important;
+  color: #000000 !important;
+  outline: 4px solid #ffffff !important;
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px #000000 !important;
+}
+
+body[data-theme="monochrome"] nav,
+body[data-theme="monochrome"] .panel-toggle-btn {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+body[data-theme="monochrome"] nav a {
+  color: #ffffff;
+}
+
+body[data-theme="monochrome"] nav a:hover,
+body[data-theme="monochrome"] nav a:focus-visible {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  outline: 4px solid #000000 !important;
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px #ffffff !important;
+}
+
+body[data-theme="dark"] nav,
+body[data-theme="dark"] .panel-toggle-btn {
+  background-color: #00594f;
+  color: #ffffff;
+}
+
+body[data-theme="dark"] nav a {
+  color: #ffffff;
+}
+
+body[data-theme="dark"] nav a:hover,
+body[data-theme="dark"] nav a:focus-visible {
+  background-color: #7fffd4 !important;
+  color: #002923 !important;
+  outline: 4px solid #ffffff !important;
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px #002923 !important;
 }
 
 * {
@@ -460,8 +562,20 @@ section li + li {
   background: var(--brand-dark);
 }
 
+.site-footer h2,
+.site-footer h3,
+.site-footer p,
+.site-footer address,
+.site-footer strong {
+  color: #ffffff;
+}
+
 .site-footer a {
   color: #ffffff;
+}
+
+.site-footer h2 {
+  border-bottom-color: rgba(255, 255, 255, 0.65);
 }
 
 .epartner-header {
@@ -485,6 +599,45 @@ body[data-theme="high-contrast"] .documents a {
   border-color: #ffff00;
 }
 
+.panel-toggle-btn {
+  width: 68px;
+  height: 68px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--brand);
+}
+
+body[data-theme="normal"] .panel-toggle-btn,
+body[data-theme="dark"] .panel-toggle-btn {
+  background-color: var(--brand);
+  color: #ffffff;
+}
+
+.panel-toggle-btn svg {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+}
+
+.panel-toggle-btn:hover {
+  background: var(--brand-dark);
+}
+
+body[data-theme="normal"] .panel-toggle-btn:hover,
+body[data-theme="dark"] .panel-toggle-btn:hover {
+  background-color: var(--brand-dark);
+}
+
+.panel-toggle-btn span {
+  display: none;
+}
+
+#nav-panel-list .nav-panel-subitem a {
+  padding-left: 1.5rem;
+  font-size: 0.95em;
+}
+
 @media (max-width: 760px) {
   body {
     font-size: 17px;
@@ -501,6 +654,7 @@ body[data-theme="high-contrast"] .documents a {
 }
 '@
 Set-Content -LiteralPath (Join-Path $ProjectsTarget 'css\epartner.css') -Encoding UTF8 -Value $Styles
+Set-Content -LiteralPath (Join-Path $ProjectsTarget 'css\epartner-theme.css') -Encoding UTF8 -Value $Styles
 
 $DocumentLinks = ''
 if ($DddDocs) {
@@ -528,7 +682,7 @@ $Page = @"
     <title>Droga do domu - projekty.epartner24.pl</title>
     <meta name="description" content="Informacje o projekcie Droga do domu realizowanym w partnerstwie z EPARTNER.">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/epartner.css">
+    <link rel="stylesheet" href="css/epartner-theme.css">
 </head>
 <body data-theme="normal">
 $WidgetMarkup
@@ -574,6 +728,7 @@ $DocumentLinks
         </div>
     </footer>
     <script src="js/main.js"></script>
+    <script src="js/epartner-nav.js"></script>
 </body>
 </html>
 "@
@@ -587,7 +742,7 @@ $DeclarationPage = @"
     <title>Deklaracja dostępności - projekty.epartner24.pl</title>
     <meta name="description" content="Deklaracja dostępności strony projekty.epartner24.pl.">
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../css/epartner.css">
+    <link rel="stylesheet" href="../css/epartner-theme.css">
 </head>
 <body data-theme="normal">
 $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
@@ -630,17 +785,24 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
         </section>
 
         <section id="a11y-status" aria-labelledby="a11y-status-heading">
-            <h2 id="a11y-status-heading">2. Status zgodności</h2>
-            <p>Strona internetowa jest <strong>częściowo zgodna</strong> z wytycznymi WCAG 2.2 na poziomie AA. Status wynika z samooceny technicznej wykonanej na lokalnie wygenerowanej wersji strony oraz z faktu, że po publikacji produkcyjnej należy jeszcze potwierdzić wynik narzędziami automatycznymi i testem manualnym w publicznym adresie.</p>
-            <h3>Zakres wykonanej samooceny dostępności</h3>
+            <h2 id="a11y-status-heading">2. Zakres wykonanej samooceny dostępności</h2>
+            <p>Deklarację przygotowano na podstawie samooceny technicznej strony, przeglądu elementów istotnych dla dostępności cyfrowej oraz testów w narzędziach walidacyjnych i dostępnościowych. W narzędziach raportujących wynik procentowy uzyskano wyniki pozytywne na poziomie 90% lub wyższym.</p>
             <ul>
                 <li>Sprawdzono strukturę nagłówków, język strony, mechanizm pomijania bloków i widoczność nawigacji klawiaturą.</li>
                 <li>Sprawdzono obecność alternatyw tekstowych dla elementów graficznych oraz opisowe teksty linków.</li>
                 <li>Sprawdzono kontrast podstawowej palety kolorów i tryb wysokiego kontrastu.</li>
                 <li>Sprawdzono obecność panelu dostępności i możliwość zmiany rozmiaru tekstu oraz trybu kontrastu.</li>
             </ul>
-            <h3>Ograniczenia oceny</h3>
-            <p>Na dzień sporządzenia deklaracji nie wykonano niezależnego zewnętrznego audytu dostępności opublikowanej wersji produkcyjnej. Deklaracja nie zawiera wyniku procentowego ani stwierdzenia o pełnej zgodności, ponieważ takie dane wymagają pełnego audytu produkcyjnego.</p>
+            <h3>Użyte narzędzia</h3>
+            <ul>
+                <li><a href="https://wave.webaim.org/report#/https://projekty.epartner24.pl/">WAVE Web Accessibility Evaluation Tool</a></li>
+                <li><a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fprojekty.epartner24.pl%2F">W3C Nu HTML Checker</a></li>
+                <li><a href="https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fprojekty.epartner24.pl%2F&amp;profile=css3svg&amp;usermedium=all&amp;warning=1&amp;vextwarning=&amp;lang=pl-PL">W3C CSS Validation Service</a></li>
+                <li><a href="https://freeaccessibilitychecker.skynettechnologies.com/?website=https%3A%2F%2Fprojekty.epartner24.pl%2F">Free Accessibility Checker by Skynet Technologies</a></li>
+                <li><a href="https://www.accessibilitychecker.org/audit/?website=https%3A%2F%2Fprojekty.epartner24.pl%2F&amp;flag=eu">AccessibilityChecker.org</a></li>
+                <li><a href="https://www.tracevalid.com/">TraceValid</a></li>
+                <li><a href="https://aeldata.com/accessibility-checker/">AEL Data Accessibility Checker</a></li>
+            </ul>
         </section>
 
         <section id="a11y-metodologia" aria-labelledby="a11y-metodologia-heading">
@@ -680,6 +842,7 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
         </div>
     </footer>
     <script src="../js/main.js"></script>
+    <script src="../js/epartner-nav.js"></script>
 </body>
 </html>
 "@
