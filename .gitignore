@@ -1,0 +1,7 @@
+# Sekrety lokalne - NIGDY nie commitowac (repo jest publiczne)
+.env
+.env.*
+!.env.example
+
+# Katalogi robocze narzedzi
+.claude/worktrees/

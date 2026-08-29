@@ -1,8 +1,16 @@
 name: Sync epartner24.pl
 
 # Required repository settings:
-# - Variable EPARTNER_REPOSITORY, for example owner/epartner24.pl
-# - Secret EPARTNER_REPO_TOKEN with write access to the epartner repository
+# - Variable EPARTNER_REPOSITORY, for example sekju/epartner24.pl
+#   (strona apex - minimalna strona startowa domeny)
+# - Variable EPARTNER_PROJECTS_REPOSITORY, for example sekju/projekty.epartner24.pl
+#   (strona projektu "Droga do domu" - tu trafiaja dokumenty DDD_KAT)
+# - Secret EPARTNER_REPO_TOKEN with write access to BOTH repositories
+#
+# Uwaga: export-epartner.ps1 generuje DWIE strony obok repo zrodlowego -
+# ..\epartner (apex) oraz ..\projekty-epartner (projekty). Oba katalogi musza
+# byc checkoutami repozytoriow docelowych, inaczej strona projektow nie jest
+# nigdzie publikowana.
 
 on:
   push:
@@ -21,7 +29,7 @@ jobs:
   sync:
     name: Export and push epartner site
     runs-on: ubuntu-latest
-    if: ${{ vars.EPARTNER_REPOSITORY != '' }}
+    if: ${{ vars.EPARTNER_REPOSITORY != '' && vars.EPARTNER_PROJECTS_REPOSITORY != '' }}
 
     steps:
       - name: Checkout SCPIP source
@@ -29,12 +37,19 @@ jobs:
         with:
           path: scpip
 
-      - name: Checkout epartner target
+      - name: Checkout epartner apex target
         uses: actions/checkout@v4
         with:
           repository: ${{ vars.EPARTNER_REPOSITORY }}
           token: ${{ secrets.EPARTNER_REPO_TOKEN }}
           path: epartner
+
+      - name: Checkout epartner projects target
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.EPARTNER_PROJECTS_REPOSITORY }}
+          token: ${{ secrets.EPARTNER_REPO_TOKEN }}
+          path: projekty-epartner
 
       - name: Export epartner site
         shell: pwsh
@@ -43,12 +58,27 @@ jobs:
           ./scripts/export-epartner.ps1
           ./scripts/check-epartner-export.ps1
 
-      - name: Commit and push if changed
+      - name: Commit and push apex site if changed
         shell: bash
         working-directory: epartner
         run: |
           if [ -z "$(git status --short)" ]; then
-            echo "No epartner changes to publish."
+            echo "No epartner apex changes to publish."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "chore: sync apex page from SCPIP"
+          git push
+
+      - name: Commit and push projects site if changed
+        shell: bash
+        working-directory: projekty-epartner
+        run: |
+          if [ -z "$(git status --short)" ]; then
+            echo "No epartner projects changes to publish."
             exit 0
           fi
 
