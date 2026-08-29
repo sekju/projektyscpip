@@ -79,6 +79,15 @@ $ProjectSection = $ProjectSection -replace '<h3>Metadane Projektu</h3>', '<h3>Me
 $ProjectSection = $ProjectSection -replace '<h3>Cel projektu zostanie zrealizowany poprzez główne zadania projektowe:</h3>', '<h3 id="cel-projektu">Cel projektu zostanie zrealizowany poprzez główne zadania projektowe:</h3>'
 $ProjectSection = $ProjectSection -replace '<h3>Metadane projektu</h3>', '<h3 id="metadane-projektu">Metadane projektu</h3>'
 
+# Blok dokumentow przenosimy z sekcji do osobnego <aside>, zeby zachowac
+# opisowe teksty linkow (nazwa - format - rozmiar) z index.html.
+$ProjectDocumentsMarkup = ''
+$DocsBlockMatch = [regex]::Match($ProjectSection, '(?s)\s*<h3>Dokumenty rekrutacyjne do projektu</h3>.*?(?=\s*</section>)')
+if ($DocsBlockMatch.Success) {
+    $ProjectDocumentsMarkup = $DocsBlockMatch.Value.TrimEnd()
+    $ProjectSection = $ProjectSection.Remove($DocsBlockMatch.Index, $DocsBlockMatch.Length)
+}
+
 $LogoSource = Join-Path $Root 'media\epartner-logo-concept.png'
 if (-not (Test-Path -LiteralPath $LogoSource)) {
     throw 'Missing media/epartner-logo-concept.png'
@@ -657,18 +666,10 @@ Set-Content -LiteralPath (Join-Path $ProjectsTarget 'css\epartner.css') -Encodin
 Set-Content -LiteralPath (Join-Path $ProjectsTarget 'css\epartner-theme.css') -Encoding UTF8 -Value $Styles
 
 $DocumentLinks = ''
-if ($DddDocs) {
-    $Items = foreach ($Doc in ($DddDocs | Sort-Object Name)) {
-        $SafeName = [System.Net.WebUtility]::HtmlEncode($Doc.Name)
-        "        <li><a href=""docs/$SafeName"">$SafeName</a></li>"
-    }
-
+if ($ProjectDocumentsMarkup) {
     $DocumentLinks = @"
         <aside class="documents" aria-labelledby="documents-heading">
-            <h2 id="documents-heading">Dokumenty do pobrania</h2>
-            <ul>
-$($Items -join "`r`n")
-            </ul>
+            <h2 id="documents-heading">Dokumenty do pobrania</h2>$ProjectDocumentsMarkup
         </aside>
 "@
 }

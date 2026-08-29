@@ -117,6 +117,10 @@ foreach ($ToolName in @('WAVE', 'W3C Nu HTML Checker', 'W3C CSS Validation Servi
     }
 }
 
+if ($Html -match '>\s*DDD_KAT-[^<]*\.(pdf|docx)\s*<') {
+    throw 'Document links must use descriptive labels (name - format - size), not raw file names'
+}
+
 $DocsPath = Join-Path $ProjectsTarget 'docs'
 if (Test-Path -LiteralPath $DocsPath) {
     $UnexpectedDocs = Get-ChildItem -LiteralPath $DocsPath -File |
