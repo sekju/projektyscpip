@@ -782,19 +782,15 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
             <p><strong>Adres siedziby:</strong> Kościuszki 12 / 11, 43-100 Tychy, Polska</p>
             <p><strong>Adres strony objętej deklaracją:</strong> <a href="https://projekty.epartner24.pl/">https://projekty.epartner24.pl/</a></p>
             <p><strong>Data publikacji strony:</strong> <time datetime="2026-07-08">08.07.2026</time></p>
-            <p><strong>Data ostatniej istotnej aktualizacji:</strong> <time datetime="2026-07-08">08.07.2026</time></p>
+            <p><strong>Data ostatniej istotnej aktualizacji:</strong> <time datetime="2026-09-19">19.09.2026</time></p>
         </section>
 
         <section id="a11y-status" aria-labelledby="a11y-status-heading">
-            <h2 id="a11y-status-heading">2. Zakres wykonanej samooceny dostępności</h2>
-            <p>Deklarację przygotowano na podstawie samooceny technicznej strony, przeglądu elementów istotnych dla dostępności cyfrowej oraz testów w narzędziach walidacyjnych i dostępnościowych. W narzędziach raportujących wynik procentowy uzyskano wyniki pozytywne na poziomie 90% lub wyższym.</p>
-            <ul>
-                <li>Sprawdzono strukturę nagłówków, język strony, mechanizm pomijania bloków i widoczność nawigacji klawiaturą.</li>
-                <li>Sprawdzono obecność alternatyw tekstowych dla elementów graficznych oraz opisowe teksty linków.</li>
-                <li>Sprawdzono kontrast podstawowej palety kolorów i tryb wysokiego kontrastu.</li>
-                <li>Sprawdzono obecność panelu dostępności i możliwość zmiany rozmiaru tekstu oraz trybu kontrastu.</li>
-            </ul>
-            <h3>Użyte narzędzia</h3>
+            <h2 id="a11y-status-heading">2. Informacja o dostępności</h2>
+            <p>Strona udostępnia panel dostępności, zmianę rozmiaru tekstu i trybów wyświetlania oraz nawigację klawiaturą. Obecność tych funkcji nie stanowi potwierdzenia zgodności całej strony z WCAG.</p>
+            <p>W tej deklaracji nie określono poziomu zgodności strony z WCAG ani wyników procentowych audytu dostępności.</p>
+            <h3>Narzędzia do sprawdzania dostępności</h3>
+            <p>Poniższe odnośniki umożliwiają niezależną weryfikację strony. Nie są raportem z przeprowadzonego audytu.</p>
             <ul>
                 <li><a href="https://wave.webaim.org/report#/https://projekty.epartner24.pl/">WAVE Web Accessibility Evaluation Tool</a></li>
                 <li><a href="https://validator.w3.org/nu/?doc=https%3A%2F%2Fprojekty.epartner24.pl%2F">W3C Nu HTML Checker</a></li>
@@ -808,7 +804,7 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
 
         <section id="a11y-metodologia" aria-labelledby="a11y-metodologia-heading">
             <h2 id="a11y-metodologia-heading">3. Metoda oceny dostępności</h2>
-            <p>Deklarację sporządzono na podstawie samooceny technicznej strony, testów klawiaturą, kontroli semantyki HTML, kontroli kontrastu podstawowych kolorów oraz przeglądu elementów wymaganych dla zgodności z WCAG 2.2 AA.</p>
+            <p>Opis obejmuje funkcje dostępne na stronie. Weryfikacja techniczna z 19 września 2026 obejmowała odnośniki, zasoby strony oraz podstawowe działanie paneli. Nie jest to pełny audyt dostępności ani ocena zgodności z WCAG.</p>
         </section>
 
         <section id="a11y-ulatwienia" aria-labelledby="a11y-ulatwienia-heading">

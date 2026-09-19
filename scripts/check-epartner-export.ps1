@@ -107,7 +107,7 @@ if ($DeclarationHtml -match 'Ä|Ă|Ĺ|Â') {
     throw 'Detected mojibake in accessibility declaration page'
 }
 
-if ($DeclarationHtml -match 'w pełni zgodna|częściowo zgodna|Nie stwierdzono krytycznych|należy jeszcze|nie wykonano') {
+if ($DeclarationHtml -match 'w pełni zgodna|częściowo zgodna|Nie stwierdzono krytycznych|należy jeszcze|nie wykonano|90%|uzyskano wyniki pozytywne') {
     throw 'Accessibility declaration contains unverified audit claims'
 }
 
