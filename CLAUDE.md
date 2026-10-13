@@ -1,45 +1,14 @@
-# projektyscpip.pl
+# Instrukcje Claude dla projektu SCPIP
 
-Statyczna strona HTML dla Slaskiego Centrum Profilaktyki i Psychoterapii (SCPIP) prezentujaca 7 projektow unijnych.
+Obowiązujące zasady projektu są w [AGENTS.md](AGENTS.md). Przeczytaj go w całości przed zmianami, a następnie [HANDOFF-SCPIP-EPARTNER.md](HANDOFF-SCPIP-EPARTNER.md) i `CODEX.md`, jeśli istnieje. Nie utrzymuj tutaj odrębnej, rozbieżnej kopii procedury.
 
-## Struktura
+Najważniejsze reguły:
 
-- `index.html` - glowna strona (wszystkie projekty w jednym pliku)
-- `docs/` - pliki PDF/DOCX do pobrania
-- `ZZZ_PLIKI_DO_DODANIA/` - folder staging z nowymi plikami (w .gitignore)
-- `css/`, `js/`, `media/` - zasoby frontendowe
-
-## Projekty i prefiksy plikow
-
-| Projekt | Prefiks | Sekcja HTML |
-|---------|---------|-------------|
-| Strefa Transformacji Katowice | `STREFAT_KAT` | `#strefa-katowice` |
-| Strefa Transformacji Ruda Sl. | `STREFAT_RSL` | `#strefa-ruda` |
-| ZWROTNICA Katowice | `ZWROTNICA_KAT` | `#zwrotnica-katowice` |
-| ZWROTNICA Ruda Sl. | `ZWROTNICA_RSL` | `#zwrotnica-ruda` |
-| freeDOM | `freeDOM_KAT` | `#freedom` |
-| Praktykant | `Praktykant_KAT` | `#praktykant` |
-| Droga do domu Katowice | `DDD_KAT` | `#droga-do-domu` |
-
-## Nazewnictwo plikow
-
-Format: `PREFIKS-tytul_bez_polskich_znakow.pdf`
-Harmonogramy: `PREFIKS-harmonogram_form_wsparcia_MM_RRRR.pdf`
-Szczegoly: `docs/nazewnictwo_dokumentow.md`
-
-## Comiesiezna aktualizacja harmonogramow
-
-Uzyj skilla `/update-harmonogramy RRRR.MM.DD` - kopiuje pliki z `ZZZ_PLIKI_DO_DODANIA/`, poprawia nazwy, aktualizuje HTML.
-
-## Hosting i deployment
-
-- **Platforma**: GitHub Pages (repo `sekju/projektyscpip`)
-- **Galaz produkcyjna**: `main` — GitHub Pages deployuje ze zrodla `Deploy from a branch`, galaz `main`, folder `/(root)`. **Wszystkie zmiany, ktore maja trafic na produkcje, musza byc na `main`.**
-- **Domena produkcyjna**: `projekty.scpip.pl` (subdomena scpip.pl) — zapisana w pliku `CNAME`. Uwaga: `projektyscpip.pl` (bez kropki) NIE istnieje.
-- **DNS**: rekord CNAME `projekty.scpip.pl` -> `sekju.github.io` (bez proxy). To poprawna konfiguracja dla subdomeny.
-
-### Praca z galeziami
-
-- Galaz domyslna repo = `main`. Nie myl z `zalecenia_20250718` (stara galaz, nie idzie na produkcje).
-- Galezie `codex/*` to prace z aplikacji Codex; po zakonczeniu integruj do `main` (merge), zeby zmiany trafily na produkcje.
-- Po dodaniu harmonogramow/tresci: commit -> integracja do `main` -> push origin main -> GitHub Pages sam zbuduje i wdrozy.
+- Produkcja SCPIP: `https://projekty.scpip.pl/`, repo `sekju/projektyscpip`, gałąź `main`, Pages z katalogu głównego. Gałąź `zalecenia_20250718` jest historyczna; prace `codex/*` integruj do `main`.
+- Każda aktualizacja DDD wymaga w tym samym zadaniu aktualizacji, publikacji i kontroli `https://projekty.epartner24.pl/` (chyba że użytkownik zażądał pracy lokalnej).
+- Źródło: sekcja `#droga-do-domu` w SCPIP i `docs/DDD_KAT*`. Strony epartner są generowane przez `scripts/export-epartner.ps1`; poprawki wykonuj w źródle/eksporterze.
+- Eksporter nadpisuje i usuwa pliki w sąsiednich repozytoriach. Przed uruchomieniem sprawdź ścieżki i zabezpiecz lokalną pracę zgodnie z AGENTS.md.
+- Uruchom eksport i `scripts/check-epartner-export.ps1`. Commit/push SCPIP na `main` uruchamia automatyczną synchronizację obu repozytoriów epartner; sprawdź zakończenie workflow, Pages i nowe pliki na produkcji.
+- Nie uznawaj samego push SCPIP za zakończenie aktualizacji DDD. Nie uruchamiaj równolegle lokalnej publikacji i automatycznej synchronizacji.
+- Zachowuj polskie znaki, standard opisów dokumentów i UTF-8 z BOM skryptów PowerShell. Nie deklaruj niepotwierdzonych wyników audytu WCAG.
+- Przestrzegaj zasad delegowania, ochrony cudzych zmian i handoffu z AGENTS.md.
