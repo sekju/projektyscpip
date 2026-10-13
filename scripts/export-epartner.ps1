@@ -782,7 +782,7 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
             <p><strong>Adres siedziby:</strong> Kościuszki 12 / 11, 43-100 Tychy, Polska</p>
             <p><strong>Adres strony objętej deklaracją:</strong> <a href="https://projekty.epartner24.pl/">https://projekty.epartner24.pl/</a></p>
             <p><strong>Data publikacji strony:</strong> <time datetime="2026-07-08">08.07.2026</time></p>
-            <p><strong>Data ostatniej istotnej aktualizacji:</strong> <time datetime="2026-09-19">19.09.2026</time></p>
+            <p><strong>Data ostatniej istotnej aktualizacji:</strong> <time datetime="2026-10-13">13.10.2026</time></p>
         </section>
 
         <section id="a11y-status" aria-labelledby="a11y-status-heading">
@@ -815,6 +815,12 @@ $($WidgetMarkup -replace 'href="#main-content"', 'href="#main-content"')
                 <li>Obsługa nawigacji klawiaturą.</li>
                 <li>Logiczna struktura nagłówków i sekcji.</li>
             </ul>
+        </section>
+
+        <section id="a11y-biuro-projektu" aria-labelledby="a11y-biuro-projektu-heading">
+            <h2 id="a11y-biuro-projektu-heading">Dostępność architektoniczna biura projektu</h2>
+            <p>Opis dostępności architektonicznej biura projektu Droga do domu wymaga aktualizacji po zmianie lokalizacji. Przed wizytą prosimy o kontakt w sprawie warunków dostępu i potrzebnego wsparcia.</p>
+            <p><a href="../index.html#droga-do-domu">Adres biura i kontakt w sprawie projektu Droga do domu</a></p>
         </section>
 
         <section id="a11y-kontakt" aria-labelledby="a11y-kontakt-heading">
