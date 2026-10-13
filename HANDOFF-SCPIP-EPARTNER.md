@@ -1,3 +1,45 @@
+# Aktualizacja końcowa: 2026-10-13 — harmonogramy i adres biura
+
+Ta sekcja zastępuje wcześniejszy stan poniżej; starsze informacje o backupach pozostają ważne.
+
+## Wykonane zadanie i decyzje
+
+- Źródło: `docs/UPLOAD`, 5 PDF na październik 2026. Pierwsze strony odczytano i wyrenderowano. Dodano DDD, freeDOM, Praktykant oraz Zwrotnica Katowice/Ruda. Nie dostarczono obu Stref Transformacji. Zachowano oryginały i wcześniejsze harmonogramy.
+- freeDOM, Praktykant i Zwrotnica Katowice mają oznaczenie WYDRUK TESTOWY; użytkownik zlecił aktualizację tymi plikami. Zgłoszono to w raporcie i wiadomości do klienta.
+- Dodano DDD: 792 377 809, 791 671 258, drogadodomu.katowice@gmail.com, klikalne tel/mailto.
+- Zgodnie z poleceniem „wszędzie” adres SCPIP i biura w HTML zmieniono na ul. Mikołowska 20, 40-067 Katowice, również wcześniejszą siedzibę Mikołowska 21. Zadano opcjonalne doprecyzowanie tego rozróżnienia; do publikacji nie otrzymano odpowiedzi. Siedziba EPARTNER w Tychach i biura Rudy Śląskiej pozostają odrębne.
+- Stare opisy cech Ligockiej i Mikołowskiej 21 zastąpiono informacją o oczekiwaniu na potwierdzenie dostępności nowego lokalu. Nie przypisano nowemu biuru windy/podjazdu/toalety ani zgodności WCAG. DDD dostało opis i kontakt w źródle; deklaracja epartner dostała odsyłacz do nich w eksporterze.
+- Zaktualizowano także stopkę i adres w publicznym `pages/deklaracja-dostepnosci-old.html`, aby nie publikować starego adresu.
+
+## Git i produkcja
+
+- SCPIP `main`: commit treści `65269b78cde2fe9ebc18b51aa0820e73999cf3cb`; niniejszy handoff stanowi kolejny commit dokumentacyjny (odczytaj aktualny HEAD).
+- SCPIP Pages `38381299933` — success dla tego SHA.
+- Sync epartner `38381300599` — success; job i kroki wykonane, nie pominięte. Obie zmienne repo i nazwa sekretu potwierdzone bez ujawniania wartości sekretu.
+- Projekty epartner `main = origin/main = c4f65d58a9e08c27f07fbbfc34acdc7ab3814401`; Pages `38381324306` — success.
+- Apex `main = origin/main = 1609aae104bcc9fad9e3f0d6ada7c2fef6cfb411`; eksport bez zmian treści, brak nowego commita oczekiwany.
+- Produkcja obu stron: HTTP 200, nowe telefony, e-mail, Mikołowska 20, aktualna informacja dostępności; 5 nowych PDF z SCPIP i DDD z epartner pobrane i porównane SHA-256 z lokalnymi plikami — zgodne.
+
+## Weryfikacja i stan lokalny
+
+- Eksport i check przeszły. Sprawdzono wszystkie linki docs w obu indexach, rozmiary/formaty/aria-label nowych harmonogramów, SHA-256 wszystkich DDD oraz brak Ligockiej/Mikołowskiej 21 w indexach.
+- Edge headless: desktop 1280 i mobile 390, działanie paneli nawigacji/dostępności, zwiększanie tekstu, Escape, brak błędów JS i poziomego przepełnienia. Zrzuty mobilne przejrzane. To kontrola podstawowa, nie pełny audyt WCAG.
+- Diff sprawdzono z `core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol`, ponieważ źródłowy index ma CRLF; bez błędów. PowerShell exporter zachował UTF-8 BOM.
+- Oba targety po eksporcie porównano z wynikiem workflow (normalizacja BOM/EOL); zgodne. Zabezpieczono wygenerowaną pracę i wykonano fast-forward lokalnych targetów. Są czyste.
+- Nowe backupy: apex stash `add7940fe98b62b4b8db0c0802e541932df259f2`; projekty stash `3f60b35cfdf11229de7c932de31d8dcc21a1455f` i `11e74fa5a655af231cf43d6aa406b8466c4eea0c`. Pierwszy stash projektów zapisał kopię, lecz nie usunął chronionych katalogów `.agents/`, `tests/`; osobny stash tracked umożliwił fast-forward. Nie stosować starych stashów automatycznie.
+- Zachowano cudze `.agents/`, `fixes/`, `docs/rozliczenie-2026-04-09.md` i staging `docs/UPLOAD/`. `tmp/pdfs/` zawiera zrzuty QA i `address-documents.json` z inwentaryzacją. Nie dodawać tych ścieżek zbiorczo do Git.
+- Brak działających serwerów i procesów zadania. Sandbox ma błąd inicjalizacji; używano zatwierdzonych poleceń poza nim. Agent Luna wykonał wyłącznie odczyt lokalizacji i opisów dostępności.
+
+## Do uzupełnienia przez zleceniodawcę / pierwsze następne zadanie
+
+Pozyskać potwierdzony opis Mikołowskiej 20: wejście i dojście, kondygnacja/numer lokalu, schody/progi, podjazd/platforma/winda, szerokości przejść, toaleta, miejsca parkingowe, pies asystujący, pomoc na miejscu, godziny i kontakt. Uzupełnić sekcje dostępności Strefy Katowice, Zwrotnicy Katowice, freeDOM, Praktykanta, DDD oraz deklaracje SCPIP i epartner.
+
+W dokumentach do pobrania pozostaje Ligocka: klauzule RODO freeDOM (PDF/DOCX) i Praktykant (DOCX); regulamin i wizerunek Strefy Katowice (PDF/DOCX); klauzula i zgoda RODO pod Strefą Ruda (DOCX); klauzula i regulamin Zwrotnicy Katowice (DOCX); klauzula Zwrotnicy Ruda (DOCX, dodatkowy PDF bez linku). Pozyskać zatwierdzone aktualne wersje; historycznych harmonogramów nie przerabiać. Nie edytowano formalnych PDF/DOCX ani ich archiwów.
+
+Nie importować ponownie październikowych PDF, nie naprawiać DNS, nie powtarzać publikacji już wdrożonej treści i nie przywracać stashów. Przy kolejnej zmianie DDD ponownie publikować i weryfikować obie strony.
+
+---
+
 # Handoff: aktualizacje SCPIP i DDD / epartner
 
 Data: 2026-10-13. Ten dokument jest stanem przekazania, nie dowodem przyszłego stanu produkcji.
